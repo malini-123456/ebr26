@@ -1,5 +1,7 @@
-import { AppSidebar } from "@/components/app-sidebar";
+import AppSidebar from "@/components/app-sidebar";
+import KBar from "@/components/kbar";
 import Modeswitcher from "@/components/navbar";
+import SearchInput from "@/components/search-input";
 import {
   SidebarInset,
   SidebarProvider,
@@ -9,23 +11,33 @@ import {
   SignedIn,
   UserButton,
 } from "@clerk/nextjs";
+import { cookies } from 'next/headers';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ 
+  children
+ }: { 
+  children: React.ReactNode;
+ }) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" /> 
-          <div className="justify-end-safe flex w-full p-3 gap-3">
-            <Modeswitcher/>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>  
-        </div>
-        {children}
-      </SidebarInset>
-    </SidebarProvider>
+    <KBar>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <div className="justify-end-safe flex w-full p-3 gap-3">
+              <SearchInput />
+              <Modeswitcher />
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+          </div>
+          {children}
+        </SidebarInset>
+      </SidebarProvider>
+    </KBar>
   )
 }

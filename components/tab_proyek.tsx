@@ -4,8 +4,8 @@ import data from "../app/dashboard/data.json";
 
 export function TabsLine() {
   return (
-    <Tabs defaultValue="project" className="">
-      <TabsList variant="line">
+    <Tabs defaultValue="project">
+      <TabsList variant="line" className="flex flex-row justify-center">
         <TabsTrigger value="project">Project</TabsTrigger>
         <TabsTrigger value="analytics">Insitu</TabsTrigger>
         <TabsTrigger value="reports">Eksitu</TabsTrigger>
