@@ -4,7 +4,7 @@ export const invData: Inventory[] = [
   {     
     ruangan: "Kemoning",
     nama_alat: "Thermometer",
-    merek: "Animec111222",
+    merek: "A11222",
     tipe: "AM-2S",
     no_seri: "10330656",
     tanggal_kalibrasi: undefined,

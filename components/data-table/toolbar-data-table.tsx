@@ -1,6 +1,5 @@
 "use client"
 
-import * as React from "react"
 import { Table } from "@tanstack/react-table"
 import { Input } from "@/components/ui/input"
 import {
@@ -11,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Columns } from "lucide-react"
+import React from "react"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -21,16 +21,14 @@ export function DataTableToolbar<TData>({
   table,
   placeholder = "Search...",
 }: DataTableToolbarProps<TData>) {
-  const globalFilter = table.getState().globalFilter ?? ""
-
   return (
+
     <div className="flex items-center justify-between py-4">
-      {/* 🔎 Global Search */}
       <Input
         placeholder={placeholder}
-        value={globalFilter}
-        onChange={(event) =>
-          table.setGlobalFilter(event.target.value)
+        value={(table.getState().globalFilter as string) ?? ""}
+        onChange={(e) =>
+          table.setGlobalFilter(e.target.value)
         }
         className="max-w-sm"
       />

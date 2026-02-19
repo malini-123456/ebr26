@@ -21,7 +21,6 @@ export function Datatable<TData> ({
   data,
   columns,
 }: DataTableProps<TData>) {
-  
   const [globalFilter, setGlobalFilter] = React.useState("")
 
   const table = useReactTable({
@@ -33,6 +32,7 @@ export function Datatable<TData> ({
     getCoreRowModel: getCoreRowModel(),
     onGlobalFilterChange: setGlobalFilter,
     getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn: "includesString",
   })
 
 
