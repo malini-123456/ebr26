@@ -49,7 +49,6 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   Drawer,
   DrawerClose,
@@ -60,14 +59,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -96,191 +87,19 @@ import { ChevronDown, ChevronLeftIcon, ChevronRight, ChevronsLeftIcon, ChevronsR
 import { DataTablePagination } from "./ui/datatble-pagination"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
+import { useUser } from "@clerk/nextjs"
 
 
-export const schema = z.object({
-  id: z.number(),
-  header: z.string(),
-  type: z.string(),
-  status: z.string(),
-  target: z.string(),
-  limit: z.string(),
-  reviewer: z.string(),
-})
-
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
-  {
-    id: "actions",
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-            size="icon"
-          >
-            <DotSquare />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-  {
-    accessorKey: "header",
-    header: "Header",
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />
-    },
-    enableHiding: false,
-  },
-  {
-    accessorKey: "type",
-    header: "Section Type",
-    cell: ({ row }) => (
-      <div className="w-32">
-        <Badge variant="outline" className="text-muted-foreground px-1.5">
-          {row.original.type}
-        </Badge>
-      </div>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
-        {row.original.status === "Done" ? (
-          <CircleCheck className="fill-green-500 dark:fill-green-400" />
-        ) : (
-          <Loader />
-        )}
-        {row.original.status}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: "target",
-    header: () => <div className="w-full text-right">Target</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-target`} className="sr-only">
-          Target
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent text-right shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.target}
-          id={`${row.original.id}-target`}
-        />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "limit",
-    header: () => <div className="w-full text-right">Limit</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
-          Limit
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent text-right shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.limit}
-          id={`${row.original.id}-limit`}
-        />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "reviewer",
-    header: "Reviewer",
-    cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== "Assign reviewer"
-
-      if (isAssigned) {
-        return row.original.reviewer
-      }
-
-      return (
-        <>
-          <Label htmlFor={`${row.original.id}-reviewer`} className="sr-only">
-            Reviewer
-          </Label>
-          <Select>
-            <SelectTrigger
-              className="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
-              size="sm"
-              id={`${row.original.id}-reviewer`}
-            >
-              <SelectValue placeholder="Assign reviewer" />
-            </SelectTrigger>
-            <SelectContent align="end">
-              <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
-              <SelectItem value="Jamik Tashpulatov">
-                Jamik Tashpulatov
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </>
-      )
-    },
-  },
-]
-
-function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
-  const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: row.original.id,
-  })
-
-  return (
-    <TableRow
-      data-state={row.getIsSelected() && "selected"}
-      data-dragging={isDragging}
-      ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition: transition,
-      }}
-    >
-      {row.getVisibleCells().map((cell) => (
-        <TableCell key={cell.id}>
-          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </TableCell>
-      ))}
-    </TableRow>
-  )
-}
-
-export function DataTable({
-   data: initialData,
+export function DataTable<Tdata>({
+  data: initialData,
+  columns,
+  reportTitle,
+  companyName,
 }: {
-  data: z.infer<typeof schema>[]
+  data: Tdata []
+  columns: ColumnDef<Tdata>[]
+  reportTitle: string
+  companyName: string
 }) {
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
@@ -299,6 +118,8 @@ export function DataTable({
     () => data?.map(({ id }) => id) || [],
     [data]
   )
+
+  const { user } = useUser()
 
   const table = useReactTable({
     data,
@@ -336,7 +157,98 @@ export function DataTable({
     }
   }
   
-  
+  function exportTableToPDF() {
+    const doc = new jsPDF({
+      orientation: "landscape",
+      unit: "pt",
+      format: "a4",
+    })
+
+    const pageWidth = doc.internal.pageSize.getWidth()
+    const title = reportTitle ?? "Report"
+    const exportedBy = user?.fullName ?? user?.primaryEmailAddress?.emailAddress ?? "Unknown User"    
+    // -------- TITLE --------
+    doc.setFontSize(18)
+    doc.text(title, pageWidth / 2, 40, { align: "center" })
+
+    doc.setFontSize(10)
+    doc.text(exportedBy, pageWidth / 2, 20, { align: "center"})
+
+    doc.setFontSize(10)
+    doc.text(
+      `Exported on ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
+      pageWidth / 2,
+      40,
+      { align: "center" }
+    )
+
+    // -------- TABLE DATA --------
+    const visibleColumns = table
+      .getAllLeafColumns()
+      .filter(
+        (col) => col.getIsVisible() && col.id !== "actions"
+      )
+
+    const headers = visibleColumns.map((col) =>
+      typeof col.columnDef.header === "string"
+        ? col.columnDef.header
+        : col.id
+    )
+
+    const rows = table.getFilteredRowModel().rows.map((row) =>
+      visibleColumns.map((col) => {
+        const value = row.getValue(col.id)
+
+        // Clean objects / JSX
+        if (typeof value === "object") {
+          return JSON.stringify(value)
+        }
+
+        return value ?? ""
+      })
+    )
+
+    autoTable(doc, {
+      startY: 80,
+      head: [headers],
+      body: rows,
+      theme: "striped",
+      styles: {
+        fontSize: 9,
+        cellPadding: 6,
+      },
+      headStyles: {
+        fillColor: [30, 41, 59], // dark slate
+        textColor: 255,
+        fontStyle: "bold",
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245],
+      },
+      margin: { left: 40, right: 40 },
+      didDrawPage: function (data) {
+        const pageCount = doc.getNumberOfPages()
+        const pageSize = doc.internal.pageSize
+        const pageHeight = pageSize.getHeight()
+
+        doc.setFontSize(9)
+        doc.text(
+          `Page ${doc.getCurrentPageInfo().pageNumber} of ${pageCount}`,
+          pageWidth - 40,
+          pageHeight - 10,
+          { align: "right" }
+        )
+      },
+    })
+
+    // -------- FILE NAME --------
+    const fileName = `laporan-${new Date()
+      .toISOString()
+      .split("T")[0]}.pdf`
+
+    doc.save(fileName)
+  }
+
   return (
     <div>
       <div className="flex flex-row py-4">
@@ -347,7 +259,7 @@ export function DataTable({
           />
         </div>
         <div className="basis-2/3 flex justify-end">
-          <Button>
+          <Button onClick={exportTableToPDF}>
               Export PDF
           </Button>
         </div>
