@@ -1,23 +1,21 @@
 'use client';
-
-import { DataTableToolbar } from '@/components/data-table/toolbar-data-table';
 import { DataTable } from '@/components/ui/table/data-table';
+import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar';
 
 import { useDataTable } from '@/hooks/use-data-table';
 
-import { ColumnDef } from '@tanstack/react-table';
 import { useSearchParams } from 'next/navigation';
+import { Ipm } from './components/type';
+import { ipmColumns } from './components/column';
 
-interface ProductTableParams<TData, TValue> {
-  data: TData[];
+interface IpmTableProps {
+  data: Ipm[];
   totalItems: number;
-  columns: ColumnDef<TData, TValue>[];
 }
-export function ProductTable<TData, TValue>({
+export function IpmTable({
   data,
   totalItems,
-  columns
-}: ProductTableParams<TData, TValue>) {
+}: IpmTableProps) {
   
   const searchParams = useSearchParams();
 
@@ -27,17 +25,18 @@ export function ProductTable<TData, TValue>({
 
   const { table } = useDataTable({
     data, // product data
-    columns, // product columns
-    pageCount: pageCount,
+    columns: ipmColumns, // product columns
+    pageCount,
     shallow: false, //Setting to false triggers a network request with the updated querystring.
     debounceMs: 500
   });
 
   return (
-    <DataTable table={table}>
-      <DataTableToolbar
-        table={table}
-      />
+    <DataTable table={table}>      
+      <div className='grid grid-cols-4 justify-center gap-2'>
+        <DataTableToolbar table={table}></DataTableToolbar>
+      </div>
     </DataTable>
   );
 }
+

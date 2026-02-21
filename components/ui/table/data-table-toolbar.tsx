@@ -24,6 +24,22 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
+  const globalFilter = table.getState().globalFilter as string | undefined;
+  const [search, setSearch] = React.useState(globalFilter ?? '');
+
+  // Sync local state if table state changes
+  React.useEffect(() => {
+    setSearch(globalFilter ?? '');
+  }, [globalFilter]);
+
+  // Debounce global filter updates
+  React.useEffect(() => {
+    const id = setTimeout(() => {
+      table.setGlobalFilter(search || undefined);
+    }, 300);
+    return () => clearTimeout(id);
+  }, [search, table]);
+
   const columns = React.useMemo(
     () => table.getAllColumns().filter((column) => column.getCanFilter()),
     [table]
@@ -31,6 +47,8 @@ export function DataTableToolbar<TData>({
 
   const onReset = React.useCallback(() => {
     table.resetColumnFilters();
+    table.setGlobalFilter(undefined);
+    setSearch('');
   }, [table]);
 
   return (
@@ -44,6 +62,23 @@ export function DataTableToolbar<TData>({
       {...props}
     >
       <div className='flex flex-1 flex-wrap items-center gap-2'>
+        <div className="relative">
+          <Input
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="h-8 w-48 md:w-72 border-2"
+          />
+          {search && (
+            <button
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              onClick={() => setSearch('')}
+            >
+              <CrossIcon size={14} />
+            </button>
+          )}
+        </div>
+
         {columns.map((column) => (
           <DataTableToolbarFilter key={column.id} column={column} />
         ))}
@@ -64,6 +99,19 @@ export function DataTableToolbar<TData>({
         {children}
         <DataTableViewOptions table={table} />
       </div>
+      {/* <DataTableFacetedFilter
+        column={table.getColumn("kondisi")}
+        title='Kondisi'
+        options={[
+          {
+            label: "Baik", value: "baik"
+          },
+          {
+            label: "Rusak", value: "rusak"
+          },
+        ]}
+        multiple
+      /> */}
     </div>
   );
 }
@@ -119,14 +167,25 @@ function DataTableToolbarFilter<TData>({
           );
 
         case 'date':
+
+          // return (
+          //   <DataTableDateFilter
+          //     column={column}
+          //     title={columnMeta.label ?? column.id}
+          //     multiple={false}
+          //   />
+          // );
+
         case 'dateRange':
+
           return (
             <DataTableDateFilter
               column={column}
               title={columnMeta.label ?? column.id}
-              multiple={columnMeta.variant === 'dateRange'}
+              multiple
             />
           );
+
 
         case 'select':
         case 'multiSelect':
