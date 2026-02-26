@@ -12,17 +12,27 @@ import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Ipm } from './type';
+import { IpmRow } from './sequence';
 
 interface CellActionProps {
-  data: Ipm;
+  data: IpmRow;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const onConfirm = async () => {};
+  const onConfirm = async () => {
+    try {
+      setLoading(true);
+      // await axios.delete(`/api/products/${data.id}`);
+      router.refresh();
+      setOpen(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>

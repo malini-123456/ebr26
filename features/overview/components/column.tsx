@@ -1,9 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Ipm } from "./type";
 import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header";
 import { CellAction } from "./cell-action";
+import { IpmRow } from "./sequence";
 
 
 const toTimestamp = (value: Date | number | string ) => {
@@ -13,75 +13,97 @@ const toTimestamp = (value: Date | number | string ) => {
   return Number.isNaN(d.getTime()) ? undefined : d.getTime();
 
 }
-export const ipmColumns: ColumnDef<Ipm>[] = [
+export const ipmColumns: ColumnDef<IpmRow>[] = [
   {
       accessorKey: 'id_ipm',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="IPM ID"/>,
-      cell: ({ getValue }) => <span className="font-mono">{getValue<string>()}</span>,
+      header: ({ column }) => <DataTableColumnHeader column={column} title="No"/>,
+      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
       enableSorting: true,
       enableHiding: false,
     },
     {
-      accessorKey: 'id_alat',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Alat ID" />,
-      cell: ({ getValue }) => <span className="font-mono">{getValue<string>()}</span>,
+      accessorKey: 'nama_alat',
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Alat" />,
+      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
       enableSorting: true,
-      enableHiding: false,
     },
-    {
-      accessorKey: 'createdAt',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="created At" />,
-      accessorFn: (row) => toTimestamp(row.createdAt),
-      cell: ({ getValue }) => {
 
-        const ts = getValue<number | undefined>();
-        return ts ? new Date(ts).toLocaleDateString() : '—';
-      },
-      enableColumnFilter: true,
-      meta: {
-        variant: 'date',      // will render single-date picker
-      },
-      filterFn: (row, _columnId, filterValue) => {
-        const rowTs = row.getValue<number | undefined>('createdAt');
-        const pickTs = typeof filterValue === 'number' ? filterValue : undefined;
-        if (!rowTs || !pickTs) return false;
+    {
+      accessorKey: 'merek',
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Merek" />,
+      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+      enableSorting: true,
+    },
 
-        // Compare by day (00:00..23:59) in local time
-        const start = new Date(pickTs);
-        start.setHours(0, 0, 0, 0);
-        const end = new Date(pickTs);
-        end.setHours(23, 59, 59, 999);
-        return rowTs >= start.getTime() && rowTs <= end.getTime();
-      },
+  {
+    accessorKey: "tipe",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Tipe" />
+    ),
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    enableSorting: true,
+  },
+  {
+    accessorKey: "no_seri",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="No. Seri" />
+    ),
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    enableSorting: true,
+  },
+  {
+    accessorKey: "ruangan",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Ruangan" />
+    ),
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    enableSorting: true,
+  },
+
+  {
+    accessorKey: 'createdAt',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="created At" />,
+    accessorFn: (row) => toTimestamp(row.createdAt),
+    cell: ({ getValue }) => {
+
+      const ts = getValue<number | undefined>();
+      return ts ? new Date(ts).toLocaleDateString() : '—';
     },
-    {
-      accessorKey: 'hasil',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Hasil" />,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
+    enableColumnFilter: true,
+    meta: {
+      variant: 'date',      // will render single-date picker
     },
-    {
-      accessorKey: 'teknisi',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Teknisi" />,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
+    filterFn: (row, _columnId, filterValue) => {
+      const rowTs = row.getValue<number | undefined>('createdAt');
+      const pickTs = typeof filterValue === 'number' ? filterValue : undefined;
+      if (!rowTs || !pickTs) return false;
+
+      // Compare by day (00:00..23:59) in local time
+      const start = new Date(pickTs);
+      start.setHours(0, 0, 0, 0);
+      const end = new Date(pickTs);
+      end.setHours(23, 59, 59, 999);
+      return rowTs >= start.getTime() && rowTs <= end.getTime();
     },
-    {
-      accessorKey: 'setting',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Setting" />,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
-    },
-    {
-      accessorKey: 'terukur',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Terukur" />,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
-    }, 
-    {
-      id: 'action',
-      cell: ({ row }) => <CellAction data={row.original}/>,
-      enableSorting: false,
-      enableHiding: false,
-    } 
+  },
+  {
+    accessorKey: 'hasil',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Hasil" />,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'teknisi',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Teknisi" />,
+    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+    enableSorting: true,
+  },
+  {
+    id: 'action',
+    header: () => <span className="sr-only">Action</span>,
+    cell: ({ row }) => <CellAction data={row.original} />,
+    enableSorting: false,
+    enableHiding: false,
+
+  } 
 ]

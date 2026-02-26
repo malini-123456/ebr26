@@ -1,6 +1,6 @@
 export type Ipm = {
   id_ipm: number;
-  id_alat: number;
+  AlatId: number;
   createdAt: string | number | Date;
   hasil: string;
   teknisi: string;

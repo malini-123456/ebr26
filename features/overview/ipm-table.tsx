@@ -5,11 +5,11 @@ import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar';
 import { useDataTable } from '@/hooks/use-data-table';
 
 import { useSearchParams } from 'next/navigation';
-import { Ipm } from './components/type';
 import { ipmColumns } from './components/column';
+import { IpmRow } from './components/sequence';
 
 interface IpmTableProps {
-  data: Ipm[];
+  data: IpmRow[];
   totalItems: number;
 }
 export function IpmTable({

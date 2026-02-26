@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 features/inv/components/cell-action.tsx
+
+/lib/generated/prisma
+
+.env
