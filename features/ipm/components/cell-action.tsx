@@ -12,7 +12,7 @@ import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Ipm } from '../../../lib/definitions/tipe-ipm';
-import { IpmRow } from '../../overview/components/sequence';
+import { IpmRow } from './sequence';
 
 interface CellActionProps {
   data: IpmRow;
