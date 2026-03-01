@@ -15,19 +15,6 @@ import ModalIpm from "@/features/ipm/modal";
 export default async function Page() {
   const user = await currentUser();
 
-  // 1) Build a quick lookup for alat by id
-  const alatMap = new Map(AlatData.map(a => [a.id_alat, a]));
-
-  // 2) Flatten IPM + Alat into IpmRow[]
-  const rows: IpmRow[] = IpmData.map((i) => ({
-    ...i,
-    nama_alat: alatMap.get(i.AlatId)?.nama_alat ?? "—",
-    merek: alatMap.get(i.AlatId)?.merek ?? "—",
-    tipe: alatMap.get(i.AlatId)?.tipe ?? "—",
-    no_seri: alatMap.get(i.AlatId)?.no_seri ?? "—",
-    ruangan: alatMap.get(i.AlatId)?.ruangan ?? "—",
-  }));
-
   return (
     <PageContainer
       scrollable={false}

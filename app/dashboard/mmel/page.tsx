@@ -1,8 +1,5 @@
 import PageContainer from "@/components/layout/page-container";
 import { buttonVariants } from "@/components/ui/button";
-import { ProductTable } from "@/features/inv";
-import { OrdersTable } from "@/features/orders/orderstable";
-import { orders } from "@/features/overview/ipm.schema";
 import { cn } from "@/lib/utils";
 import { IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
