@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Alat } from "./components/type";
+import { Alat } from "../../lib/definitions/tipe-alat";
 import { useDataTable } from "@/hooks/use-data-table";
 import { alatColumns } from "./components/column";
 import { DataTable } from "@/components/ui/table/data-table";

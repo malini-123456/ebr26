@@ -75,20 +75,26 @@ export const navItems: NavItem[] = [
   //   isActive: false,
   //   items: []
   // },
+  // {
+  //   title: 'Pemeliharaan',
+  //   url:'#',
+  //   icon:'laptop',
+  //   items: [
+  //     {
+  //       title: '2025',
+  //       url:'/dashboard/appsheet',
+  //     },
+  //     {
+  //       title:'2026',
+  //       url:'/dashboard/ipm',
+  //     }
+  //   ]
+  // },
   {
     title: 'Pemeliharaan',
-    url:'#',
+    url:'/dashboard/ipm',
     icon:'laptop',
-    items: [
-      {
-        title: '2025',
-        url:'/dashboard/ipm/2025',
-      },
-      {
-        title:'2026',
-        url:'/dashboard/ipm/2026',
-      }
-    ]
+    items: []
   },
   {
     title:'MMEL',

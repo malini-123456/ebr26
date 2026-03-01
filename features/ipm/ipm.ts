@@ -1,4 +1,4 @@
-import { Ipm } from "./components/type";
+import { Ipm } from "../../lib/definitions/tipe-ipm";
 
 export const IpmData: Ipm[] = [
 

@@ -14,7 +14,7 @@ export default function Page () {
     pageTitle="Inventaris"
     pageHeaderAction={
       <Link
-      href='#'
+      href='./inventaris/create'
       className={cn(buttonVariants(), 'text-xs md:text-sm')}
       >
         <IconPlus className="mr-0.5 h-4 w-4" /> Tambah Alat

@@ -1,4 +1,4 @@
-import { Ipm } from "@/features/overview/components/type";
+import { Ipm } from "@/lib/definitions/tipe-ipm";
 
 type PieSlice = { name: string; value: number };
 

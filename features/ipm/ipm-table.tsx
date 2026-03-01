@@ -5,7 +5,7 @@ import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar';
 import { useDataTable } from '@/hooks/use-data-table';
 
 import { useSearchParams } from 'next/navigation';
-import { ipmColumns } from './components/column';
+import { ipmColumns } from './components/column-page';
 import { IpmRow } from './components/sequence';
 
 interface IpmTableProps {

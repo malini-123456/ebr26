@@ -1,4 +1,4 @@
-import { Alat } from "./components/type";
+import { Alat } from "../../lib/definitions/tipe-alat";
 
 export const AlatData: Alat[] = [
 

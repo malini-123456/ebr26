@@ -1,12 +1,12 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { DataTable } from "@/components/ui/table/data-table";
-import { Alat } from "@/features/alat/components/type";
+import { Alat } from "@/lib/definitions/tipe-alat";
 import { useDataTable } from "@/hooks/use-data-table";
 import { X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import * as React from "react";
-import { modalipmColumns } from "./column";
+import { modalipmColumns } from "./column-modal";
 
 interface ModalTableProps {
   data: Alat[];
@@ -52,7 +52,7 @@ export default function ModalTable({ data, totalItems }: ModalTableProps) {
   };
 
   return (
-    <DataTable table={table}>
+    <DataTable table={table} className="-mx-4 h-full w-full">
       {/* Search row */}
       <div className="flex items-center gap-2">
         <div className="relative">

@@ -1,7 +1,7 @@
 "use client";
 
 import { getHasilDistribution } from "@/utils/hasil-dist";
-import { IpmData } from "./ipm";
+import { IpmData } from "../ipm/ipm";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";

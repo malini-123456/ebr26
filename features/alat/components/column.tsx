@@ -3,8 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header";
 import { CellAction } from "./cell-action";
-import { Alat } from "./type";
+import { Alat } from "../../../lib/definitions/tipe-alat";
 import Image from "next/image";
+import Link from "next/link";
 
 
 const toTimestamp = (value: Date | number | string ) => {
@@ -18,7 +19,7 @@ export const alatColumns: ColumnDef<Alat>[] = [
 
     {
       accessorKey: 'id_alat',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="ID" />,
+      header: ({ column }) => <DataTableColumnHeader column={column} title="No" />,
       cell: ({ getValue }) => <span className="font-mono">{getValue<string>()}</span>,
       enableSorting: true,
     },
@@ -41,8 +42,12 @@ export const alatColumns: ColumnDef<Alat>[] = [
     {
       accessorKey: 'nama_alat',
       header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Alat" />,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
+      cell: ({ row }) => (<Link
+        href={`./inventaris/${row.original.id_alat}`}>
+        <span className="font-medium text-emerald-500">
+          {row.original.nama_alat}
+        </span>
+      </Link>) 
     },
     {
       accessorKey: 'merek',

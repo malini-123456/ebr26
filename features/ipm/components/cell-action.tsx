@@ -11,8 +11,8 @@ import {
 import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Ipm } from './type';
-import { IpmRow } from './sequence';
+import { Ipm } from '../../../lib/definitions/tipe-ipm';
+import { IpmRow } from '../../overview/components/sequence';
 
 interface CellActionProps {
   data: IpmRow;
