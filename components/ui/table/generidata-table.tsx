@@ -16,7 +16,6 @@ import { DataTable } from '@/components/ui/table/data-table';
 import { DataTableDateFilter } from '@/components/ui/table/data-table-date-filter';
 import { Button } from '@/components/ui/button';
 import { createDateFilterFn } from '@/utils/createDateFIlterFn';
-import { exportTableToPDF } from '@/utils/exportToPdf';
 import { Input } from '../input';
 
 type DateFilterConfig<TData> = {
@@ -91,31 +90,6 @@ export function GenericDataTable<TData>({
   });
 
 
-  const handleExport = (scope: 'selected' | 'filtered' | 'all') => {
-    exportTableToPDF(table, {
-      rows: scope,
-      onlyVisibleColumns: true,
-      title: 'Export',
-      subtitle:
-        scope === 'selected'
-          ? `${table.getFilteredSelectedRowModel().rows.length} selected row(s)`
-          : scope === 'filtered'
-            ? `${table.getFilteredRowModel().rows.length} filtered row(s)`
-            : `${table.getRowModel().rows.length} total row(s)`,
-      orientation: 'landscape', // looks nicer for many columns
-      fileName: `orders-${scope}.pdf`,
-      // Example of optional column-specific formatting
-      cellFormatters: {
-        total: (v) =>
-          typeof v === 'number' ? `$${v.toFixed(2)}` : String(v ?? ''),
-        createdAt: (v) => {
-          const ts = typeof v === 'number' ? v : Number(v);
-          return Number.isFinite(ts) ? new Date(ts).toLocaleDateString() : String(v ?? '');
-        },
-      },
-    });
-  };
-
   const defaultActionBar = (
     <div className="sticky bottom-2 left-0 right-0 mx-2 rounded-md border bg-background p-2 shadow">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -125,7 +99,7 @@ export function GenericDataTable<TData>({
           <Button
             size="sm"
             variant="secondary"
-            onClick={() => handleExport('selected')}
+            onClick={() => ('selected')}
             disabled={table.getFilteredSelectedRowModel().rows.length === 0}
             title="Export selected rows to PDF"
           >
@@ -134,7 +108,7 @@ export function GenericDataTable<TData>({
           <Button
             size="sm"
             variant="outline"
-            onClick={() => handleExport('filtered')}
+            onClick={() => ('filtered')}
             title="Export filtered rows to PDF"
           >
             Export PDF (Filtered)
@@ -142,7 +116,7 @@ export function GenericDataTable<TData>({
           <Button
             size="sm"
             variant="default"
-            onClick={() => handleExport('all')}
+            onClick={() => ('all')}
             title="Export all rows to PDF"
           >
             Export PDF (All)
