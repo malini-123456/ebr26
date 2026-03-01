@@ -1,6 +1,5 @@
 "use client"
 
-import { FormFileUpload } from "@/components/forms/form-file-upload";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
