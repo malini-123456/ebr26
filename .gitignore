@@ -44,3 +44,5 @@ features/inv/components/cell-action.tsx
 /lib/generated/prisma
 
 .env
+#database
+/prisma.app.db

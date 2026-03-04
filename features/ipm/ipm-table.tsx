@@ -6,10 +6,10 @@ import { useDataTable } from '@/hooks/use-data-table';
 
 import { useSearchParams } from 'next/navigation';
 import { ipmColumns } from './components/column-page';
-import { IpmRow } from './components/sequence';
+import { AlatWithIpm } from '@/lib/definitions/tipe-ipm';
 
 interface IpmTableProps {
-  data: IpmRow[];
+  data: AlatWithIpm[];
   totalItems: number;
 }
 export function IpmTable({

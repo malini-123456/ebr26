@@ -3,26 +3,18 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header";
 import { CellAction } from "./cell-action";
-import { IpmRow } from "./sequence";
+import { AlatWithIpm } from "@/lib/definitions/tipe-ipm";
 
-
-const toTimestamp = (value: Date | number | string ) => {
-  if (value instanceof Date) return value.getTime();
-  const n = typeof value === 'string' ? Date.parse(value) : value;
-  const d = new Date(n);
-  return Number.isNaN(d.getTime()) ? undefined : d.getTime();
-
-}
-export const ipmColumns: ColumnDef<IpmRow>[] = [
+export const ipmColumns: ColumnDef<AlatWithIpm>[] = [
   {
-      accessorKey: 'id_ipm',
+      accessorKey: 'id',
       header: ({ column }) => <DataTableColumnHeader column={column} title="No"/>,
       cell: ({ getValue }) => <span>{getValue<string>()}</span>,
       enableSorting: true,
       enableHiding: false,
     },
     {
-      accessorKey: 'nama_alat',
+      accessorKey: 'nama',
       header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Alat" />,
       cell: ({ getValue }) => <span>{getValue<string>()}</span>,
       enableSorting: true,
@@ -59,31 +51,15 @@ export const ipmColumns: ColumnDef<IpmRow>[] = [
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
     enableSorting: true,
   },
-
   {
-    accessorKey: 'createdAt',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="created At" />,
-    accessorFn: (row) => toTimestamp(row.createdAt),
+    accessorFn: (row) => row.ipm?.[0]?.createdAt,
+    id: "createdAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Created At" />
+    ),
     cell: ({ getValue }) => {
-
-      const ts = getValue<number | undefined>();
-      return ts ? new Date(ts).toLocaleDateString() : '—';
-    },
-    enableColumnFilter: true,
-    meta: {
-      variant: 'date',      // will render single-date picker
-    },
-    filterFn: (row, _columnId, filterValue) => {
-      const rowTs = row.getValue<number | undefined>('createdAt');
-      const pickTs = typeof filterValue === 'number' ? filterValue : undefined;
-      if (!rowTs || !pickTs) return false;
-
-      // Compare by day (00:00..23:59) in local time
-      const start = new Date(pickTs);
-      start.setHours(0, 0, 0, 0);
-      const end = new Date(pickTs);
-      end.setHours(23, 59, 59, 999);
-      return rowTs >= start.getTime() && rowTs <= end.getTime();
+      const date = getValue<Date | undefined>();
+      return date ? date.toLocaleDateString() : "—";
     },
   },
   {
@@ -101,7 +77,10 @@ export const ipmColumns: ColumnDef<IpmRow>[] = [
   {
     id: 'action',
     header: () => <span className="sr-only">Action</span>,
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => {
+      const alat = row.original
+      return <CellAction data={alat} />
+    },
     enableSorting: false,
     enableHiding: false,
 

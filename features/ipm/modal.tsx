@@ -13,9 +13,7 @@ export default function ModalIpm () {
             <Button><IconPlus/>Add Ipm</Button>
           </DialogTrigger>
           <DialogContent className="no-scrollbar mx-4 h-screen w-full">
-            <ModalTable
-            data={AlatData}
-            totalItems={AlatData.length}/>
+            
           </DialogContent>
         </form>
       </Dialog>

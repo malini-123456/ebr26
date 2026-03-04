@@ -30,11 +30,11 @@ export function AlatTable ({
       debounceMs: 500
     });
 
+  console.log(table.getRowModel().rows)
+
     return (
       <DataTable table={table}>
-        <div className="grid grid-cols-4 justify-center gap-2">
-          <DataTableToolbar table={table}></DataTableToolbar>
-        </div>
+        <DataTableToolbar table={table}></DataTableToolbar>
       </DataTable>
     )
 }

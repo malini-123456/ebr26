@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String  @id @default(cuid())
+  clerkId   String  @unique
+  firstName String?
+  lastName  String?
+
+  teknisi Teknisi?
+  ipm     Ipm[]
+
+  createdAt DateTime @default(now())
+}
+
+model Teknisi {
+  id     Int    @id @default(autoincrement())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  ipm Ipm[]
+
+  createdAt DateTime @default(now())
+}
+
+model Ruangan {
+  id          Int    @id @default(autoincrement())
+  namaRuangan String
+
+  alat Alat[]
+  ipm  Ipm[]
+
+  createdAt DateTime @default(now())
+}
+
+model Alat {
+  id         Int       @id @default(autoincrement())
+  nama       String
+  merek      String
+  tipe       String
+  noSeri     String
+  tahun      Int
+  kalibrasi  DateTime?
+  keterangan String?
+
+  ruanganId Int
+  ruangan   Ruangan @relation(fields: [ruanganId], references: [id])
+
+  ipm Ipm[]
+
+  createdAt DateTime @default(now())
+}
+
+model Ipm {
+  id Int @id @default(autoincrement())
+
+  alatId Int
+  alat   Alat @relation(fields: [alatId], references: [id])
+
+  ruanganId Int
+  ruangan   Ruangan @relation(fields: [ruanganId], references: [id])
+
+  teknisiId Int
+  teknisi   Teknisi @relation(fields: [teknisiId], references: [id])
+
+  hasil       String
+  settingAlat String
+  terukur     String
+
+  createdAt DateTime @default(now())
+
+  users User[]
+}

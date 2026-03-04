@@ -11,11 +11,10 @@ import {
 import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Ipm } from '../../../lib/definitions/tipe-ipm';
-import { IpmRow } from './sequence';
+import { AlatWithIpm} from '../../../lib/definitions/tipe-ipm';
 
 interface CellActionProps {
-  data: IpmRow;
+  data: AlatWithIpm;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -53,7 +52,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/ipm/2026/${data.id_ipm}`)}
+            onClick={() => router.push(`/dashboard/ipm/2026/${data.id}`)}
           >
             <IconEdit className='mr-2 h-4 w-4' /> Update
           </DropdownMenuItem>
