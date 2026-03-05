@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { IconPlus } from "@tabler/icons-react";
 import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
-import ContributorsOverviewTable from "@/components/contributors-overview-table";
 
 export default async function Page() {
 
@@ -21,6 +20,8 @@ export default async function Page() {
     <div className="">
       <PageContainer
         scrollable={false}
+        pageTitle={'Inventaris Alat'}
+        pageDescription={`Anda memiliki ${totalItems} alat`}
         pageHeaderAction={
           <Link
             href="./inventaris/create"

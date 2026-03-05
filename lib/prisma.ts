@@ -11,14 +11,6 @@ console.log('DATABASE_URL =', process.env.DATABASE_URL);
 
 export { prisma };
 
-export async function getAlat(id: number) {
-  await new Promise((resolve) => setTimeout(resolve, 1500));
-
-  return prisma.alat.findUnique({
-    where: { id },
-  });
-}
-
 export async function deleteAlat(id: number) {
   await new Promise((resolve) => setTimeout(resolve, 1500));
 

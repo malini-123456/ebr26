@@ -4,15 +4,15 @@ import { AlatData } from "@/features/alat/alat";
 import type { Alat } from "@/lib/definitions/tipe-alat";
 
 type PageProps = {
-  params: Promise<{ ipmId: string }>; 
+  params: Promise<{ ipmId: string }>;
 };
 
 export default async function IpmPage({ params }: PageProps) {
-  
+
   const { ipmId } = await params;
 
   const getAlatById = async (id: string): Promise<Alat> => {
-    const alat = AlatData.find((alat) => alat.id_alat === parseInt(id));
+    const alat = AlatData.find((alat) => alat.id === parseInt(id));
     if (!alat) {
       throw new Error(`Alat dengan id ${id} tidak ditemukan`);
 
@@ -25,9 +25,9 @@ export default async function IpmPage({ params }: PageProps) {
 
   return (
     <PageContainer
-    pageTitle={`Detail Alat`}>
+      pageTitle={`Detail Alat`}>
       <Card>
-        <CardHeader>Detail Alat {alat.nama_alat}</CardHeader>
+        <CardHeader>Detail Alat {alat.nama}</CardHeader>
       </Card>
     </PageContainer>
   );

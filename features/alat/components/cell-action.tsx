@@ -10,19 +10,32 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { Alat } from '../../../lib/definitions/tipe-alat';
+import { toast } from 'sonner';
+import { deleteAlat } from '@/app/action/action';
 
 interface CellActionProps {
   data: Alat;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const [loading] = useState(false);
+  const [isPending, startTransition] = useTransition()
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const onConfirm = async () => {};
+  const onConfirm = () => {
+    startTransition(async () => {
+      try {
+        await deleteAlat(data.id)
+        setOpen(false)
+        router.refresh()
+        toast.success('Item deleted successfully')
+      } catch (error) {
+        toast.error('Failed to delete item')
+      }
+    })
+  }
 
   return (
     <>
@@ -30,7 +43,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
-        loading={loading}
+        loading={isPending}
       />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
@@ -43,7 +56,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/ipm/2026/${data.id_alat}`)}
+            onClick={() => router.push(`/dashboard/inventaris/${data.id}/edit`)}
           >
             <IconEdit className='mr-2 h-4 w-4' /> Update
           </DropdownMenuItem>

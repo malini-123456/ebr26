@@ -1,7 +1,9 @@
 import PageContainer from "@/components/layout/page-container";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import AlatCard from "@/features/alat/components/alat-card";
+import { cn } from "@/lib/utils";
 import { Edit2Icon } from "lucide-react";
+import Link from "next/link";
 
 export default async function InvPage({
   params,
@@ -20,9 +22,12 @@ export default async function InvPage({
   return (
     <PageContainer
       pageHeaderAction={
-        <Button className="bg-amber-300" variant="outline">
-          <Edit2Icon /> Edit
-        </Button>
+        <Link
+          href={`/dashboard/inventaris/${id}/edit`}
+          className={cn(buttonVariants(), 'text-xs md:text-sm')}
+        >
+          <Edit2Icon />Edit
+        </Link>
       }
     >
       <AlatCard id={id} />

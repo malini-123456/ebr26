@@ -8,6 +8,7 @@ import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
 import ModalIpm from "@/features/ipm/modal";
 import { FloatingAdd } from "@/components/floating-ipmbutton";
 import { UnauthorizedToast } from "@/features/overview/unauth";
+import { ChartPieDonutText } from "@/features/overview/pie-charts";
 
 export default async function Page() {
   const user = await currentUser();
@@ -32,6 +33,7 @@ export default async function Page() {
       >
       </Suspense>
       <UnauthorizedToast />
+      <ChartPieDonutText />
     </PageContainer >
   );
 }

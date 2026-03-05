@@ -8,13 +8,6 @@ import Link from "next/link";
 
 
 export const alatColumns: ColumnDef<Alat>[] = [
-
-  {
-    accessorKey: 'id',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="No" />,
-    cell: ({ getValue }) => <span className="font-mono">{getValue<string>()}</span>,
-    enableSorting: true,
-  },
   // {
   //   accessorKey: 'foto_alat',
   //   header: 'image',
@@ -91,10 +84,10 @@ export const alatColumns: ColumnDef<Alat>[] = [
     cell: ({ getValue }) => <span>{getValue<string>()}</span>,
     enableSorting: true,
   },
-  // {
-  //   id: 'action',
-  //   cell: ({ row }) => <CellAction data={row.original}/>,
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // } 
+  {
+    id: 'action',
+    cell: ({ row }) => <CellAction data={row.original} />,
+    enableSorting: false,
+    enableHiding: false,
+  }
 ]

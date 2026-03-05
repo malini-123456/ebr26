@@ -1,8 +1,5 @@
 import PageContainer from "@/components/layout/page-container";
 import { currentUser } from "@clerk/nextjs/server";
-import { IpmTable } from "@/features/ipm/ipm-table";
-import { IpmData } from "@/features/ipm/ipm";        // existing IPM array
-import { AlatData } from "@/features/alat/alat";      // <- make sure you have this
 import Link from "next/link";
 import { IconPlus } from "@tabler/icons-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -35,7 +32,7 @@ export default async function Page() {
           href="./ipm/create"
           className={cn(buttonVariants(), 'text-xs md:text-sm')}
         >
-          <IconPlus /><h1>Ipm</h1>
+          <IconPlus />Ipm
         </Link>
       }
     >
