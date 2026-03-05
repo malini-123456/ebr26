@@ -42,12 +42,27 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
+    title: 'Super Admin',
+    url: '/dashboard/admin',
+    icon: 'user2',
+    isActive: false,
+    items: []
+  },
+  {
     title: 'Inventaris',
     url: '/dashboard/inventaris',
     icon: 'workspace',
     isActive: false,
     items: []
   },
+  {
+    title: 'Ruangan',
+    url: '/dashboard/ruangan',
+    icon: 'media',
+    isActive: false,
+    items: []
+  },
+
   // {
   //   title: 'Teams',
   //   url: '/dashboard/workspaces/team',
@@ -92,15 +107,15 @@ export const navItems: NavItem[] = [
   // },
   {
     title: 'Pemeliharaan',
-    url:'/dashboard/ipm',
-    icon:'laptop',
+    url: '/dashboard/ipm',
+    icon: 'laptop',
     items: []
   },
   {
-    title:'MMEL',
-    url:'/dashboard/mmel',
-    icon:'workspace',
-    items:[]
+    title: 'MMEL',
+    url: '/dashboard/mmel',
+    icon: 'workspace',
+    items: []
   }
   // {
   //   title: 'Account',

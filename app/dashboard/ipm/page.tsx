@@ -31,16 +31,21 @@ export default async function Page() {
     <PageContainer
       scrollable={false}
       pageHeaderAction={
-        <ModalIpm/>
+        <Link
+          href="./ipm/create"
+          className={cn(buttonVariants(), 'text-xs md:text-sm')}
+        >
+          <IconPlus /><h1>Ipm</h1>
+        </Link>
       }
     >
-    <Suspense
-      fallback={
-        <DataTableSkeleton columnCount={5} rowCount={6} filterCount={2} />
-      }
-    >
-      {/* <ModalIpm/> */}
-    </Suspense>
+      <Suspense
+        fallback={
+          <DataTableSkeleton columnCount={5} rowCount={6} filterCount={2} />
+        }
+      >
+        {/* <ModalIpm/> */}
+      </Suspense>
     </PageContainer >
   );
 }

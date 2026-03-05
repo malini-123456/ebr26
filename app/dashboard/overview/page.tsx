@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
 import ModalIpm from "@/features/ipm/modal";
+import { FloatingAdd } from "@/components/floating-ipmbutton";
+import { UnauthorizedToast } from "@/features/overview/unauth";
 
 export default async function Page() {
   const user = await currentUser();
@@ -16,19 +18,20 @@ export default async function Page() {
       pageTitle={<div>Hi {user?.firstName}, welcome back 👋🏻</div>}
       pageHeaderAction={
         <Link
-        href="#"
+          href="#"
           className={cn(buttonVariants(), 'text-xs md:text-sm')}
         >
-          <ModalIpm/>
+          <ModalIpm />
         </Link >
       }
     >
-    <Suspense
-      fallback={
-        <DataTableSkeleton columnCount={5} rowCount={6} filterCount={2} />
-      }
-    >
-    </Suspense>
+      <Suspense
+        fallback={
+          <DataTableSkeleton columnCount={5} rowCount={6} filterCount={2} />
+        }
+      >
+      </Suspense>
+      <UnauthorizedToast />
     </PageContainer >
   );
 }

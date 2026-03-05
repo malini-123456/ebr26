@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 export async function createAlat(formData: FormData) {
   const nama = formData.get("nama") as string;
@@ -19,15 +20,89 @@ export async function createAlat(formData: FormData) {
       merek,
       tipe,
       noSeri,
-      ruanganId, // ✅ use foreign key
-      tahun,     // ✅ must be number
+      ruanganId,
+      tahun,
       kalibrasi: kalibrasiValue
         ? new Date(kalibrasiValue)
-        : null,  // ✅ DateTime must be Date or null
+        : null,
       keterangan: keterangan || null,
     },
   });
 
   revalidatePath("/dashboard/inventaris");
   redirect("/dashboard/inventaris")
+}
+
+// export async function createipm(formData: FormData) {
+//   const { userId } = await auth();
+
+//   if (!userId) {
+//     throw new Error("Unauthorized");
+//   }
+
+//   const user = await prisma.user.findUnique({
+//     where: { clerkId: userId },
+//     include: { teknisi: true },
+//   });
+
+//   if (!user || !user.teknisi) {
+//     throw new Error("Teknisi profile not found");
+//   }
+
+//   const alatIdRaw = formData.get("inventaris");
+//   if (!alatIdRaw) throw new Error("Alat is required");
+
+//   const alatId = Number(alatIdRaw);
+//   const hasil = formData.get("hasil") as string;
+//   const settingAlatValue = formData.get("settingAlat");
+//   const terukurValue = formData.get("terukur");
+
+//   const settingAlat =
+//     typeof settingAlatValue === "string" && settingAlatValue !== ""
+//       ? settingAlatValue
+//       : null;
+
+//   const terukur =
+//     typeof terukurValue === "string" && terukurValue !== ""
+//       ? terukurValue
+//       : null;
+
+//   await prisma.ipm.create({
+//     data: {
+//       alatId,
+//       teknisiId: user.teknisi.id,
+//       hasil,
+//       settingAlat,
+//       terukur,
+//     },
+//   });
+
+//   revalidatePath("/dashboard/ipm");
+//   redirect("/dashboard/ipm");
+// }
+
+export async function createipm(formData: FormData) {
+  console.log("FORM DATA:", Object.fromEntries(formData));
+
+  const { userId } = await auth();
+  console.log("Clerk userId:", userId);
+
+  if (!userId) throw new Error("Unauthorized");
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: userId },
+    include: { teknisi: true },
+  });
+
+  console.log("DB User:", user);
+
+  if (!user) throw new Error("User not found in DB");
+  if (!user.teknisi) throw new Error("Teknisi not found");
+
+  const hasil = formData.get("hasil");
+  console.log("Hasil:", hasil);
+
+  if (!hasil) throw new Error("Hasil missing");
+
+  // stop here temporarily
 }

@@ -14,7 +14,6 @@ model User {
   lastName  String?
 
   teknisi Teknisi?
-  ipm     Ipm[]
 
   createdAt DateTime @default(now())
 }
@@ -70,10 +69,8 @@ model Ipm {
   teknisi   Teknisi @relation(fields: [teknisiId], references: [id])
 
   hasil       String
-  settingAlat String
-  terukur     String
+  settingAlat String?
+  terukur     String?
 
   createdAt DateTime @default(now())
-
-  users User[]
 }

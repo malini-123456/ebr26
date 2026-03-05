@@ -35,7 +35,7 @@ export const alatColumns: ColumnDef<Alat>[] = [
     accessorKey: 'nama',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Alat" />,
     cell: ({ row }) => (<Link
-      href={`./inventaris/${row.original.id}`}>
+      href={`/dashboard/inventaris/${row.original.id}`}>
       <span className="font-medium text-emerald-500">
         {row.original.nama}
       </span>

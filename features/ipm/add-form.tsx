@@ -1,91 +1,60 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
 import {
+  Field,
   FieldGroup,
   FieldSet,
-  FieldLegend,
   FieldLabel,
-  FieldDescription,
-  Field
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Alat } from "@/lib/definitions/tipe-alat";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
 
-type Ruangan = {
-  id: number;
-  namaRuangan: string;
-};
-
-interface CreateAlatProps {
-  ruanganList: Ruangan[];
+interface CreateIpmProps {
+  alatList: Alat[]
 }
-
 const items = [
   {
     id: 1,
-    label: "Nama Alat",
-    name: "nama",
+    label: "Setting Alat",
+    name: "settingAlat",
     type: "text",
-    placeholder: "Nama Alat",
-    required: true,
+    placeholder: "Setting",
   },
   {
     id: 2,
-    label: "Merek",
-    name: "merek",
+    label: "Terukur",
+    name: "terukur",
     type: "text",
-    placeholder: "Merek",
+    placeholder: "Terukur",
   },
   {
     id: 3,
-    label: "Tipe",
-    name: "tipe",
+    label: "Hasil",
+    name: "hasil",
     type: "text",
-    placeholder: "Tipe",
+    placeholder: "Hasil",
+    required: true,
   },
   {
     id: 4,
-    label: "No. Seri",
+    label: "Pilih Alat",
+    name: "inventaris",
     type: "text",
-    name: "noSeri",
-    placeholder: "No. Seri",
+    placeholder: "Hasil",
+    required: true,
   },
-  {
-    id: 6,
-    label: "Tahun",
-    type: "number",
-    name: "tahun",
-    placeholder: "Tahun",
-  },
-  {
-    id: 7,
-    label: "Tgl. Kalibrasi",
-    type: "date",
-    name: "kalibrasi",
-    placeholder: "Tgl. Kalibrasi",
-  },
-  {
-    id: 8,
-    label: "Keterangan",
-    type: "text",
-    name: "keterangan",
-    placeholder: "Keterangan",
-  }
 
 ]
-export default function CreateAlat({ ruanganList }: CreateAlatProps) {
 
-  const [ruanganId, setRuanganId] = useState<string>("");
+export default function CreateIpm({ alatList }: CreateIpmProps) {
+
+  const [alatId, setAlatId] = useState<string>("");
 
   return (
     <FieldGroup>
@@ -106,21 +75,21 @@ export default function CreateAlat({ ruanganList }: CreateAlatProps) {
           ))}
           <Field className="flex flex-row w-full items-center">
             <FieldLabel className="basis-1/3">
-              Ruangan
+              Alat
             </FieldLabel>
 
             <div className="basis-2/3">
               <Select
-                value={ruanganId}
-                onValueChange={(value) => setRuanganId(value)}
+                value={alatId}
+                onValueChange={(value) => setAlatId(value)}
               >
                 <SelectTrigger className="rounded-xl w-full">
                   <SelectValue placeholder="Pilih Ruangan" />
                 </SelectTrigger>
                 <SelectContent>
-                  {ruanganList.map((r) => (
+                  {alatList.map((r) => (
                     <SelectItem key={r.id} value={String(r.id)}>
-                      {r.namaRuangan}
+                      {r.noSeri}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -130,14 +99,13 @@ export default function CreateAlat({ ruanganList }: CreateAlatProps) {
               <input
                 type="hidden"
                 name="ruanganId"
-                value={ruanganId}
+                value={alatId}
                 required
               />
             </div>
           </Field>
         </FieldGroup>
       </FieldSet>
-      <Button type="submit" className="mt-4 py-2">Submit</Button>
     </FieldGroup>
   )
 }

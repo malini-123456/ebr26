@@ -27,12 +27,10 @@ export function DataTableToolbar<TData>({
   const globalFilter = table.getState().globalFilter as string | undefined;
   const [search, setSearch] = React.useState(globalFilter ?? '');
 
-  // Sync local state if table state changes
   React.useEffect(() => {
     setSearch(globalFilter ?? '');
   }, [globalFilter]);
 
-  // Debounce global filter updates
   React.useEffect(() => {
     const id = setTimeout(() => {
       table.setGlobalFilter(search || undefined);
@@ -168,13 +166,13 @@ function DataTableToolbarFilter<TData>({
 
         case 'date':
 
-          // return (
-          //   <DataTableDateFilter
-          //     column={column}
-          //     title={columnMeta.label ?? column.id}
-          //     multiple={false}
-          //   />
-          // );
+        // return (
+        //   <DataTableDateFilter
+        //     column={column}
+        //     title={columnMeta.label ?? column.id}
+        //     multiple={false}
+        //   />
+        // );
 
         case 'dateRange':
 

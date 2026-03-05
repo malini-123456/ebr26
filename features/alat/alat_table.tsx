@@ -12,29 +12,27 @@ interface AlatTableProps {
   totalItems: number;
 }
 
-export function AlatTable ({
+export function AlatTable({
   data,
   totalItems,
 }: AlatTableProps) {
   const searchParams = useSearchParams();
-  
-    const pageSize = Number(searchParams.get('perPage')) || 10;
-  
-    const pageCount = Math.ceil(totalItems / pageSize);
-  
-    const { table } = useDataTable({
-      data, // product data
-      columns: alatColumns, // product columns
-      pageCount,
-      shallow: false, //Setting to false triggers a network request with the updated querystring.
-      debounceMs: 500
-    });
 
-  console.log(table.getRowModel().rows)
+  const pageSize = Number(searchParams.get('perPage')) || 10;
 
-    return (
-      <DataTable table={table}>
-        <DataTableToolbar table={table}></DataTableToolbar>
-      </DataTable>
-    )
+  const pageCount = Math.ceil(totalItems / pageSize);
+
+  const { table } = useDataTable({
+    data, // product data
+    columns: alatColumns, // product columns
+    pageCount,
+    shallow: false, //Setting to false triggers a network request with the updated querystring.
+    debounceMs: 500
+  });
+
+  return (
+    <DataTable table={table}>
+      <DataTableToolbar table={table}></DataTableToolbar>
+    </DataTable>
+  )
 }
