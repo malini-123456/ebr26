@@ -166,13 +166,13 @@ function DataTableToolbarFilter<TData>({
 
         case 'date':
 
-        // return (
-        //   <DataTableDateFilter
-        //     column={column}
-        //     title={columnMeta.label ?? column.id}
-        //     multiple={false}
-        //   />
-        // );
+          return (
+            <DataTableDateFilter
+              column={column}
+              title={columnMeta.label ?? column.id}
+              multiple={false}
+            />
+          );
 
         case 'dateRange':
 

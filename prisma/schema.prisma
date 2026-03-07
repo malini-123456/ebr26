@@ -13,7 +13,7 @@ model User {
   firstName String?
   lastName  String?
 
-  teknisi Teknisi?
+  teknisi Teknisi[]
 
   createdAt DateTime @default(now())
 }
@@ -57,20 +57,17 @@ model Alat {
 }
 
 model Ipm {
-  id Int @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
+  hasil       String
+  settingAlat String?
+  terukur     String?
+  createdAt   DateTime @default(now())
 
   alatId Int
   alat   Alat @relation(fields: [alatId], references: [id])
 
-  ruanganId Int
-  ruangan   Ruangan @relation(fields: [ruanganId], references: [id])
+  ruanganId Int?
+  ruangan   Ruangan? @relation(fields: [ruanganId], references: [id])
 
-  teknisiId Int
-  teknisi   Teknisi @relation(fields: [teknisiId], references: [id])
-
-  hasil       String
-  settingAlat String?
-  terukur     String?
-
-  createdAt DateTime @default(now())
+  teknisi Teknisi[]
 }

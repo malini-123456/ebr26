@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EASY",
-  description: "Dashboard ENS10 Admin System",
+  title: "IPMKLK",
+  description: "Dashboard IPMKLK",
 };
 
 export default function RootLayout({

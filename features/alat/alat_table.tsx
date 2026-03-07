@@ -6,6 +6,7 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { alatColumns } from "./components/column";
 import { DataTable } from "@/components/ui/table/data-table";
 import { DataTableToolbar } from "@/components/ui/table/data-table-toolbar";
+import { DataTableDateFilter } from "@/components/ui/table/data-table-date-filter";
 
 interface AlatTableProps {
   data: Alat[];
@@ -33,6 +34,10 @@ export function AlatTable({
   return (
     <DataTable table={table}>
       <DataTableToolbar table={table}></DataTableToolbar>
+      <DataTableDateFilter
+        column={table.getColumn("kalibrasi")!}
+        title="filter"
+        multiple />
     </DataTable>
   )
 }

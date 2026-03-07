@@ -7,7 +7,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { prisma } from "@/lib/prisma";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import Link from "next/link";
 
 export default async function ContributorsOverviewTable() {
   const getAlats = await prisma.alat.findMany({
@@ -18,9 +19,9 @@ export default async function ContributorsOverviewTable() {
   return (
     <div className="max-w-3xl mx-auto bg-background p-4">
       <h4 className="mb-4 text-xl font-semibold text-foreground">Daftar Alat</h4>
-      <ScrollArea>
+      <ScrollArea className="h-9/12 w-full rounded-md border">
         <Table className="table-fixed py-5">
-          <TableHeader className="bg-neutral-300">
+          <TableHeader>
             <TableRow>
               <TableHead className="font-semibold">Nama</TableHead>
               <TableHead className="font-semibold">Merek</TableHead>
@@ -33,16 +34,20 @@ export default async function ContributorsOverviewTable() {
             {getAlats.map((item) => (
               <TableRow key={item.id} className="hover:bg-muted/40 transition-colors">
                 <TableCell>
-                  <span className="text-emerald-500">{item.nama}</span>
+                  <Link
+                    href={`/dashboard/ipm/create?alatId=${item.id}`}>
+                    <span className="text-emerald-500 hover:underline">{item.nama}</span>
+                  </Link>
                 </TableCell>
                 <TableCell>{item.merek}</TableCell>
                 <TableCell>{item.tipe}</TableCell>
                 <TableCell>{item.noSeri}</TableCell>
-                <TableCell>{item.ruanganId}</TableCell>
+                <TableCell>{item.ruangan?.namaRuangan}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>
   );

@@ -1,11 +1,33 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Row } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header";
 import { CellAction } from "./cell-action";
 import { Alat } from "../../../lib/definitions/tipe-alat";
 import Link from "next/link";
 
+const dateFilterFn = <TData,>(row: Row<TData>, columnId: string, value: unknown) => {
+
+  const rowValue = row.getValue(columnId)
+
+  if (!rowValue) return false
+
+  const rowDate = new Date(rowValue as string | number | Date).getTime()
+
+  // range filter
+  if (Array.isArray(value)) {
+    const [from, to] = value
+
+    if (!from && !to) return true
+    if (from && !to) return rowDate >= from
+    if (!from && to) return rowDate <= to
+
+    return rowDate >= from && rowDate <= to
+  }
+
+  // single date
+  return rowDate === value
+}
 
 export const alatColumns: ColumnDef<Alat>[] = [
   // {
@@ -67,6 +89,7 @@ export const alatColumns: ColumnDef<Alat>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Tgl. Kalibrasi" />
     ),
+    filterFn: dateFilterFn,
     cell: ({ row }) => {
       const value = row.original.kalibrasi;
 

@@ -41,7 +41,7 @@ export default async function Page() {
           <DataTableSkeleton columnCount={5} rowCount={6} filterCount={2} />
         }
       >
-        {/* <ModalIpm/> */}
+        <ModalIpm />
       </Suspense>
     </PageContainer >
   );
