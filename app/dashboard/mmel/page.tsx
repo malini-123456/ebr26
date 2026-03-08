@@ -3,21 +3,24 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function Page () {
+export default function Page() {
 
   return (
-    <PageContainer 
-    scrollable={false}
-    pageTitle="MMEL"
-    pageHeaderAction={
-      <Link
-      href='#'
-      className={cn(buttonVariants(), 'text-xs md:text-sm')}
-      >
-        <IconPlus className="mr-0.5 h-4 w-4" /> Tambah Alat
-      </Link>
-    }>egdeg
+    <PageContainer
+      scrollable={false}
+      pageTitle="MMEL"
+      pageHeaderAction={
+        <Link
+          href='#'
+          className={cn(buttonVariants(), 'text-xs md:text-sm')}
+        >
+          <IconPlus className="mr-0.5 h-4 w-4" /> Record
+        </Link>
+      }>
+      <Suspense></Suspense>
+
     </PageContainer>
   )
 }

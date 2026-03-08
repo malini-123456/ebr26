@@ -79,6 +79,7 @@ export const UserScalarFieldEnum = {
   clerkId: 'clerkId',
   firstName: 'firstName',
   lastName: 'lastName',
+  role: 'role',
   createdAt: 'createdAt'
 } as const
 
@@ -121,13 +122,12 @@ export type AlatScalarFieldEnum = (typeof AlatScalarFieldEnum)[keyof typeof Alat
 
 export const IpmScalarFieldEnum = {
   id: 'id',
-  alatId: 'alatId',
-  ruanganId: 'ruanganId',
-  teknisiId: 'teknisiId',
   hasil: 'hasil',
   settingAlat: 'settingAlat',
   terukur: 'terukur',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  alatId: 'alatId',
+  ruanganId: 'ruanganId'
 } as const
 
 export type IpmScalarFieldEnum = (typeof IpmScalarFieldEnum)[keyof typeof IpmScalarFieldEnum]

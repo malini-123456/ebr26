@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.4.2
- * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
+ * Prisma Client JS version: 7.4.1
+ * Query Engine version: 55ae170b1ced7fc6ed07a15f110549408c501bb3
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.4.2",
-  engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
+  client: "7.4.1",
+  engine: "55ae170b1ced7fc6ed07a15f110549408c501bb3"
 }
 
 /**
@@ -822,6 +822,7 @@ export const UserScalarFieldEnum = {
   clerkId: 'clerkId',
   firstName: 'firstName',
   lastName: 'lastName',
+  role: 'role',
   createdAt: 'createdAt'
 } as const
 
@@ -864,13 +865,12 @@ export type AlatScalarFieldEnum = (typeof AlatScalarFieldEnum)[keyof typeof Alat
 
 export const IpmScalarFieldEnum = {
   id: 'id',
-  alatId: 'alatId',
-  ruanganId: 'ruanganId',
-  teknisiId: 'teknisiId',
   hasil: 'hasil',
   settingAlat: 'settingAlat',
   terukur: 'terukur',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  alatId: 'alatId',
+  ruanganId: 'ruanganId'
 } as const
 
 export type IpmScalarFieldEnum = (typeof IpmScalarFieldEnum)[keyof typeof IpmScalarFieldEnum]

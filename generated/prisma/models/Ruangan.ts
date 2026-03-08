@@ -321,6 +321,11 @@ export type RuanganScalarRelationFilter = {
   isNot?: Prisma.RuanganWhereInput
 }
 
+export type RuanganNullableScalarRelationFilter = {
+  is?: Prisma.RuanganWhereInput | null
+  isNot?: Prisma.RuanganWhereInput | null
+}
+
 export type RuanganCreateNestedOneWithoutAlatInput = {
   create?: Prisma.XOR<Prisma.RuanganCreateWithoutAlatInput, Prisma.RuanganUncheckedCreateWithoutAlatInput>
   connectOrCreate?: Prisma.RuanganCreateOrConnectWithoutAlatInput
@@ -341,10 +346,12 @@ export type RuanganCreateNestedOneWithoutIpmInput = {
   connect?: Prisma.RuanganWhereUniqueInput
 }
 
-export type RuanganUpdateOneRequiredWithoutIpmNestedInput = {
+export type RuanganUpdateOneWithoutIpmNestedInput = {
   create?: Prisma.XOR<Prisma.RuanganCreateWithoutIpmInput, Prisma.RuanganUncheckedCreateWithoutIpmInput>
   connectOrCreate?: Prisma.RuanganCreateOrConnectWithoutIpmInput
   upsert?: Prisma.RuanganUpsertWithoutIpmInput
+  disconnect?: Prisma.RuanganWhereInput | boolean
+  delete?: Prisma.RuanganWhereInput | boolean
   connect?: Prisma.RuanganWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.RuanganUpdateToOneWithWhereWithoutIpmInput, Prisma.RuanganUpdateWithoutIpmInput>, Prisma.RuanganUncheckedUpdateWithoutIpmInput>
 }

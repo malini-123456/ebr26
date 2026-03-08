@@ -316,9 +316,14 @@ export type TeknisiSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type TeknisiScalarRelationFilter = {
-  is?: Prisma.TeknisiWhereInput
-  isNot?: Prisma.TeknisiWhereInput
+export type TeknisiListRelationFilter = {
+  every?: Prisma.TeknisiWhereInput
+  some?: Prisma.TeknisiWhereInput
+  none?: Prisma.TeknisiWhereInput
+}
+
+export type TeknisiOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type TeknisiCreateNestedOneWithoutUserInput = {
@@ -361,18 +366,42 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type TeknisiCreateNestedOneWithoutIpmInput = {
-  create?: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput>
-  connectOrCreate?: Prisma.TeknisiCreateOrConnectWithoutIpmInput
-  connect?: Prisma.TeknisiWhereUniqueInput
+export type TeknisiCreateNestedManyWithoutIpmInput = {
+  create?: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput> | Prisma.TeknisiCreateWithoutIpmInput[] | Prisma.TeknisiUncheckedCreateWithoutIpmInput[]
+  connectOrCreate?: Prisma.TeknisiCreateOrConnectWithoutIpmInput | Prisma.TeknisiCreateOrConnectWithoutIpmInput[]
+  connect?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
 }
 
-export type TeknisiUpdateOneRequiredWithoutIpmNestedInput = {
-  create?: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput>
-  connectOrCreate?: Prisma.TeknisiCreateOrConnectWithoutIpmInput
-  upsert?: Prisma.TeknisiUpsertWithoutIpmInput
-  connect?: Prisma.TeknisiWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TeknisiUpdateToOneWithWhereWithoutIpmInput, Prisma.TeknisiUpdateWithoutIpmInput>, Prisma.TeknisiUncheckedUpdateWithoutIpmInput>
+export type TeknisiUncheckedCreateNestedManyWithoutIpmInput = {
+  create?: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput> | Prisma.TeknisiCreateWithoutIpmInput[] | Prisma.TeknisiUncheckedCreateWithoutIpmInput[]
+  connectOrCreate?: Prisma.TeknisiCreateOrConnectWithoutIpmInput | Prisma.TeknisiCreateOrConnectWithoutIpmInput[]
+  connect?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+}
+
+export type TeknisiUpdateManyWithoutIpmNestedInput = {
+  create?: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput> | Prisma.TeknisiCreateWithoutIpmInput[] | Prisma.TeknisiUncheckedCreateWithoutIpmInput[]
+  connectOrCreate?: Prisma.TeknisiCreateOrConnectWithoutIpmInput | Prisma.TeknisiCreateOrConnectWithoutIpmInput[]
+  upsert?: Prisma.TeknisiUpsertWithWhereUniqueWithoutIpmInput | Prisma.TeknisiUpsertWithWhereUniqueWithoutIpmInput[]
+  set?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  disconnect?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  delete?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  connect?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  update?: Prisma.TeknisiUpdateWithWhereUniqueWithoutIpmInput | Prisma.TeknisiUpdateWithWhereUniqueWithoutIpmInput[]
+  updateMany?: Prisma.TeknisiUpdateManyWithWhereWithoutIpmInput | Prisma.TeknisiUpdateManyWithWhereWithoutIpmInput[]
+  deleteMany?: Prisma.TeknisiScalarWhereInput | Prisma.TeknisiScalarWhereInput[]
+}
+
+export type TeknisiUncheckedUpdateManyWithoutIpmNestedInput = {
+  create?: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput> | Prisma.TeknisiCreateWithoutIpmInput[] | Prisma.TeknisiUncheckedCreateWithoutIpmInput[]
+  connectOrCreate?: Prisma.TeknisiCreateOrConnectWithoutIpmInput | Prisma.TeknisiCreateOrConnectWithoutIpmInput[]
+  upsert?: Prisma.TeknisiUpsertWithWhereUniqueWithoutIpmInput | Prisma.TeknisiUpsertWithWhereUniqueWithoutIpmInput[]
+  set?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  disconnect?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  delete?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  connect?: Prisma.TeknisiWhereUniqueInput | Prisma.TeknisiWhereUniqueInput[]
+  update?: Prisma.TeknisiUpdateWithWhereUniqueWithoutIpmInput | Prisma.TeknisiUpdateWithWhereUniqueWithoutIpmInput[]
+  updateMany?: Prisma.TeknisiUpdateManyWithWhereWithoutIpmInput | Prisma.TeknisiUpdateManyWithWhereWithoutIpmInput[]
+  deleteMany?: Prisma.TeknisiScalarWhereInput | Prisma.TeknisiScalarWhereInput[]
 }
 
 export type TeknisiCreateWithoutUserInput = {
@@ -429,15 +458,29 @@ export type TeknisiCreateOrConnectWithoutIpmInput = {
   create: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput>
 }
 
-export type TeknisiUpsertWithoutIpmInput = {
+export type TeknisiUpsertWithWhereUniqueWithoutIpmInput = {
+  where: Prisma.TeknisiWhereUniqueInput
   update: Prisma.XOR<Prisma.TeknisiUpdateWithoutIpmInput, Prisma.TeknisiUncheckedUpdateWithoutIpmInput>
   create: Prisma.XOR<Prisma.TeknisiCreateWithoutIpmInput, Prisma.TeknisiUncheckedCreateWithoutIpmInput>
-  where?: Prisma.TeknisiWhereInput
 }
 
-export type TeknisiUpdateToOneWithWhereWithoutIpmInput = {
-  where?: Prisma.TeknisiWhereInput
+export type TeknisiUpdateWithWhereUniqueWithoutIpmInput = {
+  where: Prisma.TeknisiWhereUniqueInput
   data: Prisma.XOR<Prisma.TeknisiUpdateWithoutIpmInput, Prisma.TeknisiUncheckedUpdateWithoutIpmInput>
+}
+
+export type TeknisiUpdateManyWithWhereWithoutIpmInput = {
+  where: Prisma.TeknisiScalarWhereInput
+  data: Prisma.XOR<Prisma.TeknisiUpdateManyMutationInput, Prisma.TeknisiUncheckedUpdateManyWithoutIpmInput>
+}
+
+export type TeknisiScalarWhereInput = {
+  AND?: Prisma.TeknisiScalarWhereInput | Prisma.TeknisiScalarWhereInput[]
+  OR?: Prisma.TeknisiScalarWhereInput[]
+  NOT?: Prisma.TeknisiScalarWhereInput | Prisma.TeknisiScalarWhereInput[]
+  id?: Prisma.IntFilter<"Teknisi"> | number
+  userId?: Prisma.StringFilter<"Teknisi"> | string
+  createdAt?: Prisma.DateTimeFilter<"Teknisi"> | Date | string
 }
 
 export type TeknisiUpdateWithoutIpmInput = {
@@ -446,6 +489,12 @@ export type TeknisiUpdateWithoutIpmInput = {
 }
 
 export type TeknisiUncheckedUpdateWithoutIpmInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TeknisiUncheckedUpdateManyWithoutIpmInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string

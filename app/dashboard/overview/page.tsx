@@ -6,12 +6,34 @@ import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
 import ModalIpm from "@/features/ipm/modal";
-import { FloatingAdd } from "@/components/floating-ipmbutton";
 import { UnauthorizedToast } from "@/features/overview/unauth";
-import { ChartPieDonutText } from "@/features/overview/pie-charts";
+import { SectionCards } from "@/features/overview/stats";
+import { ChartBarHorizontal } from "@/features/overview/barcharts";
+import UpcomingDataTable from "@/features/overview/upcoming-kalibrasi";
+import { prisma } from "@/lib/prisma";
+import { groupIpmByMonth } from "@/utils/groupipm";
 
 export default async function Page() {
   const user = await currentUser();
+
+  const year = new Date().getFullYear()
+
+  const start = new Date(year, 0, 1) // Jan 1
+  const end = new Date(year, 6, 1)   // Jul 1
+
+  const ipmRecords = await prisma.ipm.findMany({
+    where: {
+      createdAt: {
+        gte: start,
+        lt: end
+      }
+    },
+    select: {
+      createdAt: true
+    }
+  })
+
+  const chartData = groupIpmByMonth(ipmRecords)
 
   return (
     <PageContainer
@@ -33,7 +55,13 @@ export default async function Page() {
       >
       </Suspense>
       <UnauthorizedToast />
-      <ChartPieDonutText />
+      <SectionCards />
+      <div className="grid grid-cols-1 md:grid-cols-2 my-3 md:gap-3">
+        <ChartBarHorizontal
+          data={chartData} />
+        <UpcomingDataTable />
+      </div>
+
     </PageContainer >
   );
 }

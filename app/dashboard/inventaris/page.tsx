@@ -7,8 +7,6 @@ import { cn } from "@/lib/utils";
 import { IconPlus } from "@tabler/icons-react";
 import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
-import { GenericDataTable } from "@/components/ui/table/generidata-table";
-import { alatColumns } from "@/features/alat/components/column";
 
 export default async function Page() {
 

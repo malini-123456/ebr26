@@ -1,4 +1,4 @@
-import { Ipm } from "../../lib/definitions/tipe-ipm";
+import { Ipm } from "../../lib/definitions/include-alat";
 
 export const IpmData: Ipm[] = [
 

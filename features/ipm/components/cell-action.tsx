@@ -11,7 +11,7 @@ import {
 import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { AlatWithIpm} from '../../../lib/definitions/tipe-ipm';
+import { AlatWithIpm } from '../../../lib/definitions/include-alat';
 
 interface CellActionProps {
   data: AlatWithIpm;

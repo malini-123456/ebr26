@@ -12,8 +12,9 @@ model User {
   clerkId   String  @unique
   firstName String?
   lastName  String?
+  role      String?
 
-  teknisi Teknisi[]
+  teknisi Teknisi?
 
   createdAt DateTime @default(now())
 }

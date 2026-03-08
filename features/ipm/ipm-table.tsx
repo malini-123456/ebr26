@@ -6,17 +6,17 @@ import { useDataTable } from '@/hooks/use-data-table';
 
 import { useSearchParams } from 'next/navigation';
 import { ipmColumns } from './components/column-page';
-import { AlatWithIpm } from '@/lib/definitions/tipe-ipm';
+import { IpmWithRelations } from '@/lib/definitions/tipe-ipm';
 
 interface IpmTableProps {
-  data: AlatWithIpm[];
+  data: IpmWithRelations[];
   totalItems: number;
 }
 export function IpmTable({
   data,
   totalItems,
 }: IpmTableProps) {
-  
+
   const searchParams = useSearchParams();
 
   const pageSize = Number(searchParams.get('perPage')) || 10;
@@ -32,10 +32,8 @@ export function IpmTable({
   });
 
   return (
-    <DataTable table={table}>      
-      <div className='grid grid-cols-4 justify-center gap-2'>
-        <DataTableToolbar table={table}></DataTableToolbar>
-      </div>
+    <DataTable table={table}>
+      <DataTableToolbar table={table}></DataTableToolbar>
     </DataTable>
   );
 }

@@ -37,7 +37,8 @@ export default async function BuatIPMForm() {
   ];
 
   const client = await clerkClient();
-  const teknisi = (await client.users.getUserList()).data;
+  const teknisi = (await client.users.getUserList(
+  )).data;
 
   const teknisiList = teknisi.map((t) => ({
     id: t.id,

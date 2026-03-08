@@ -16,7 +16,7 @@ export function UserAvatarProfile({
   user
 }: UserAvatarProfileProps) {
   return (
-    <div className='flex items-center gap-2'>
+    <div>
       <Avatar className={className}>
         <AvatarImage src={user?.imageUrl || ''} alt={user?.fullName || ''} />
         <AvatarFallback className='rounded-lg'>

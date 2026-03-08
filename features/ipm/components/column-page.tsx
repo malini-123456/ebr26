@@ -1,88 +1,69 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header";
-import { CellAction } from "./cell-action";
-import { AlatWithIpm } from "@/lib/definitions/tipe-ipm";
+import { ColumnDef } from "@tanstack/react-table"
+import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header"
+import { CellAction } from "./cell-action"
+import { AlatDashboard, IpmWithRelations } from "@/lib/definitions/tipe-ipm"
+import { AlatWithIpm } from "@/lib/definitions/include-alat"
 
-export const ipmColumns: ColumnDef<AlatWithIpm>[] = [
+export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
   {
-      accessorKey: 'id',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="No"/>,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
-      enableHiding: false,
-    },
-    {
-      accessorKey: 'nama',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Nama Alat" />,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
-    },
-
-    {
-      accessorKey: 'merek',
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Merek" />,
-      cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-      enableSorting: true,
-    },
+    accessorFn: (row) => row.alat.nama,
+    id: "nama",
+    header: "Nama Alat",
+  },
 
   {
-    accessorKey: "tipe",
+    accessorFn: (row) => row.alat.merek,
+    id: "merek",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Merek" />
+    ),
+  },
+
+  {
+    accessorFn: (row) => row.alat.tipe,
+    id: "tipe",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Tipe" />
     ),
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-    enableSorting: true,
   },
+
   {
-    accessorKey: "no_seri",
+    accessorFn: (row) => row.alat.noSeri,
+    id: "noSeri",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="No. Seri" />
+      <DataTableColumnHeader column={column} title="No Seri" />
     ),
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-    enableSorting: true,
   },
+
   {
-    accessorKey: "ruangan",
+    accessorFn: (row) => row.alat.ruangan.namaRuangan,
+    id: "ruangan",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Ruangan" />
     ),
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-    enableSorting: true,
   },
+
   {
-    accessorFn: (row) => row.ipm?.[0]?.createdAt,
-    id: "createdAt",
+    accessorKey: "createdAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Created At" />
+      <DataTableColumnHeader column={column} title="Tanggal IPM" />
     ),
     cell: ({ getValue }) => {
-      const date = getValue<Date | undefined>();
-      return date ? date.toLocaleDateString() : "—";
+      const date = getValue<Date>()
+      return date ? date.toLocaleDateString() : "—"
     },
   },
-  {
-    accessorKey: 'hasil',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Hasil" />,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-    enableSorting: true,
-  },
-  {
-    accessorKey: 'teknisi',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Teknisi" />,
-    cell: ({ getValue }) => <span>{getValue<string>()}</span>,
-    enableSorting: true,
-  },
-  {
-    id: 'action',
-    header: () => <span className="sr-only">Action</span>,
-    cell: ({ row }) => {
-      const alat = row.original
-      return <CellAction data={alat} />
-    },
-    enableSorting: false,
-    enableHiding: false,
 
-  } 
+  {
+    accessorKey: "hasil",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Hasil" />
+    ),
+  },
+  // {
+  //   id: "action",
+  //   cell: ({ row }) => <CellAction data={row.original} />,
+  // },
 ]

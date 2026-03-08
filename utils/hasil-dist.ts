@@ -1,4 +1,4 @@
-import { Ipm } from "@/lib/definitions/tipe-ipm";
+import { Ipm } from "@/lib/definitions/include-alat";
 
 type PieSlice = { name: string; value: number };
 
