@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.4.1",
-  "engineVersion": "55ae170b1ced7fc6ed07a15f110549408c501bb3",
+  "clientVersion": "7.4.2",
+  "engineVersion": "94a226be1cf2967af2541cca5529f0f7ba866919",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String  @id @default(cuid())\n  clerkId   String  @unique\n  firstName String?\n  lastName  String?\n  role      String?\n\n  teknisi Teknisi?\n\n  createdAt DateTime @default(now())\n}\n\nmodel Teknisi {\n  id     Int    @id @default(autoincrement())\n  userId String @unique\n  user   User   @relation(fields: [userId], references: [id])\n\n  ipm Ipm[]\n\n  createdAt DateTime @default(now())\n}\n\nmodel Ruangan {\n  id          Int    @id @default(autoincrement())\n  namaRuangan String\n\n  alat Alat[]\n  ipm  Ipm[]\n\n  createdAt DateTime @default(now())\n}\n\nmodel Alat {\n  id         Int       @id @default(autoincrement())\n  nama       String\n  merek      String\n  tipe       String\n  noSeri     String\n  tahun      Int\n  kalibrasi  DateTime?\n  keterangan String?\n\n  ruanganId Int\n  ruangan   Ruangan @relation(fields: [ruanganId], references: [id])\n\n  ipm Ipm[]\n\n  createdAt DateTime @default(now())\n}\n\nmodel Ipm {\n  id          Int      @id @default(autoincrement())\n  hasil       String\n  settingAlat String?\n  terukur     String?\n  createdAt   DateTime @default(now())\n\n  alatId Int\n  alat   Alat @relation(fields: [alatId], references: [id])\n\n  ruanganId Int?\n  ruangan   Ruangan? @relation(fields: [ruanganId], references: [id])\n\n  teknisi Teknisi[]\n}\n",
   "runtimeDataModel": {
@@ -67,7 +67,9 @@ export interface PrismaClientConstructor {
    * Type-safe database client for TypeScript
    * @example
    * ```
-   * const prisma = new PrismaClient()
+   * const prisma = new PrismaClient({
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * })
    * // Fetch zero or more Users
    * const users = await prisma.user.findMany()
    * ```
@@ -89,7 +91,9 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```

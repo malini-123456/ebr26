@@ -42,10 +42,10 @@ model Ruangan {
 model Alat {
   id         Int       @id @default(autoincrement())
   nama       String
-  merek      String
-  tipe       String
-  noSeri     String
-  tahun      Int
+  merek      String?
+  tipe       String?
+  noSeri     String?
+  tahun      Int?
   kalibrasi  DateTime?
   keterangan String?
 
