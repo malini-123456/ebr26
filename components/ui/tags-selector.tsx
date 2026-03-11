@@ -39,11 +39,14 @@ export function TagsSelector({ tags }: TagsSelectorProps) {
 
   return (
     <div >
-      <input
-        type="hidden"
-        name="tags"
-        value={JSON.stringify(selectedTags.map((t) => t.id))}
-      />
+      {selectedTags.map((tag) => (
+        <input
+          key={tag.id}
+          type="hidden"
+          name="teknisi"
+          value={tag.id}   // MUST BE user.id
+        />
+      ))}
       <FieldGroup>
         <Field className="flex flex-row w-full items-center">
           <FieldLabel className="basis-1/3">Teknisi</FieldLabel>
@@ -72,6 +75,7 @@ export function TagsSelector({ tags }: TagsSelectorProps) {
                     {tag.name}
                   </motion.span>
                   <button
+                    type="button"
                     onClick={() => removeSelectedTag(tag.id)}
                     className="p-1 rounded-full"
                   >
@@ -96,6 +100,7 @@ export function TagsSelector({ tags }: TagsSelectorProps) {
                     )
                     .map((tag) => (
                       <motion.button
+                        type="button"
                         key={tag.id}
                         layoutId={`tag-${tag.id}`}
                         className="flex items-center gap-1 px-4 py-2.5 bg-gray-100/60 rounded-full shrink-0"

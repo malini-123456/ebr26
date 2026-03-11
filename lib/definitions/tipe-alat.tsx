@@ -1,14 +1,14 @@
 export type Alat = {
   id: number;
   nama: string;
-  merek: string;
-  tipe: string;
-  noSeri: string;
+  merek: string | null;
+  tipe: string | null;
+  noSeri: string | null;
   ruanganId: number;
   ruangan: {
     namaRuangan: string;
   };
-  tahun: number;
+  tahun: number | null;
   kalibrasi: Date | null;
   keterangan: string | null;
   createdAt: Date;

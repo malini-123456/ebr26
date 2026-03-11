@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { TagsSelector } from "@/components/ui/tags-selector";
+import { prisma } from "@/lib/prisma";
 import { clerkClient } from "@clerk/nextjs/server";
 
 export default async function BuatIPMForm() {
@@ -36,14 +37,11 @@ export default async function BuatIPMForm() {
     },
   ];
 
-  const client = await clerkClient();
-  const teknisi = (await client.users.getUserList(
-  )).data;
-
+  const teknisi = await prisma.user.findMany();
   const teknisiList = teknisi.map((t) => ({
     id: t.id,
-    name: t.fullName
-  }))
+    name: t.firstName
+  }));
 
   return (
     <FieldGroup>

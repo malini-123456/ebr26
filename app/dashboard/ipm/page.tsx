@@ -19,7 +19,7 @@ export default async function Page() {
       ruangan: true,
       ipm: {
         include: {
-          teknisi: true
+          user: true
         },
         orderBy: {
           createdAt: "desc"
@@ -36,7 +36,7 @@ export default async function Page() {
           ruangan: true,
         },
       },
-      teknisi: true,
+      user: true,
     },
     orderBy: {
       createdAt: "desc",

@@ -385,7 +385,6 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Teknisi: 'Teknisi',
   Ruangan: 'Ruangan',
   Alat: 'Alat',
   Ipm: 'Ipm'
@@ -404,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "teknisi" | "ruangan" | "alat" | "ipm"
+    modelProps: "user" | "ruangan" | "alat" | "ipm"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -479,80 +478,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
-        }
-      }
-    }
-    Teknisi: {
-      payload: Prisma.$TeknisiPayload<ExtArgs>
-      fields: Prisma.TeknisiFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.TeknisiFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.TeknisiFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>
-        }
-        findFirst: {
-          args: Prisma.TeknisiFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.TeknisiFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>
-        }
-        findMany: {
-          args: Prisma.TeknisiFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>[]
-        }
-        create: {
-          args: Prisma.TeknisiCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>
-        }
-        createMany: {
-          args: Prisma.TeknisiCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.TeknisiCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>[]
-        }
-        delete: {
-          args: Prisma.TeknisiDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>
-        }
-        update: {
-          args: Prisma.TeknisiUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>
-        }
-        deleteMany: {
-          args: Prisma.TeknisiDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.TeknisiUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.TeknisiUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>[]
-        }
-        upsert: {
-          args: Prisma.TeknisiUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeknisiPayload>
-        }
-        aggregate: {
-          args: Prisma.TeknisiAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTeknisi>
-        }
-        groupBy: {
-          args: Prisma.TeknisiGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TeknisiGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.TeknisiCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TeknisiCountAggregateOutputType> | number
         }
       }
     }
@@ -819,23 +744,19 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  email: 'email',
+  name: 'name',
+  password: 'password',
+  imageUrl: 'imageUrl',
   clerkId: 'clerkId',
   firstName: 'firstName',
   lastName: 'lastName',
   role: 'role',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const TeknisiScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  createdAt: 'createdAt'
-} as const
-
-export type TeknisiScalarFieldEnum = (typeof TeknisiScalarFieldEnum)[keyof typeof TeknisiScalarFieldEnum]
 
 
 export const RuanganScalarFieldEnum = {
@@ -1057,7 +978,6 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  teknisi?: Prisma.TeknisiOmit
   ruangan?: Prisma.RuanganOmit
   alat?: Prisma.AlatOmit
   ipm?: Prisma.IpmOmit

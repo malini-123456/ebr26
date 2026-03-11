@@ -220,10 +220,10 @@ export type AlatGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type AlatGroupByOutputType = {
   id: number
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek: string | null
+  tipe: string | null
+  noSeri: string | null
+  tahun: number | null
   kalibrasi: Date | null
   keterangan: string | null
   ruanganId: number
@@ -256,10 +256,10 @@ export type AlatWhereInput = {
   NOT?: Prisma.AlatWhereInput | Prisma.AlatWhereInput[]
   id?: Prisma.IntFilter<"Alat"> | number
   nama?: Prisma.StringFilter<"Alat"> | string
-  merek?: Prisma.StringFilter<"Alat"> | string
-  tipe?: Prisma.StringFilter<"Alat"> | string
-  noSeri?: Prisma.StringFilter<"Alat"> | string
-  tahun?: Prisma.IntFilter<"Alat"> | number
+  merek?: Prisma.StringNullableFilter<"Alat"> | string | null
+  tipe?: Prisma.StringNullableFilter<"Alat"> | string | null
+  noSeri?: Prisma.StringNullableFilter<"Alat"> | string | null
+  tahun?: Prisma.IntNullableFilter<"Alat"> | number | null
   kalibrasi?: Prisma.DateTimeNullableFilter<"Alat"> | Date | string | null
   keterangan?: Prisma.StringNullableFilter<"Alat"> | string | null
   ruanganId?: Prisma.IntFilter<"Alat"> | number
@@ -271,10 +271,10 @@ export type AlatWhereInput = {
 export type AlatOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nama?: Prisma.SortOrder
-  merek?: Prisma.SortOrder
-  tipe?: Prisma.SortOrder
-  noSeri?: Prisma.SortOrder
-  tahun?: Prisma.SortOrder
+  merek?: Prisma.SortOrderInput | Prisma.SortOrder
+  tipe?: Prisma.SortOrderInput | Prisma.SortOrder
+  noSeri?: Prisma.SortOrderInput | Prisma.SortOrder
+  tahun?: Prisma.SortOrderInput | Prisma.SortOrder
   kalibrasi?: Prisma.SortOrderInput | Prisma.SortOrder
   keterangan?: Prisma.SortOrderInput | Prisma.SortOrder
   ruanganId?: Prisma.SortOrder
@@ -289,10 +289,10 @@ export type AlatWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AlatWhereInput[]
   NOT?: Prisma.AlatWhereInput | Prisma.AlatWhereInput[]
   nama?: Prisma.StringFilter<"Alat"> | string
-  merek?: Prisma.StringFilter<"Alat"> | string
-  tipe?: Prisma.StringFilter<"Alat"> | string
-  noSeri?: Prisma.StringFilter<"Alat"> | string
-  tahun?: Prisma.IntFilter<"Alat"> | number
+  merek?: Prisma.StringNullableFilter<"Alat"> | string | null
+  tipe?: Prisma.StringNullableFilter<"Alat"> | string | null
+  noSeri?: Prisma.StringNullableFilter<"Alat"> | string | null
+  tahun?: Prisma.IntNullableFilter<"Alat"> | number | null
   kalibrasi?: Prisma.DateTimeNullableFilter<"Alat"> | Date | string | null
   keterangan?: Prisma.StringNullableFilter<"Alat"> | string | null
   ruanganId?: Prisma.IntFilter<"Alat"> | number
@@ -304,10 +304,10 @@ export type AlatWhereUniqueInput = Prisma.AtLeast<{
 export type AlatOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nama?: Prisma.SortOrder
-  merek?: Prisma.SortOrder
-  tipe?: Prisma.SortOrder
-  noSeri?: Prisma.SortOrder
-  tahun?: Prisma.SortOrder
+  merek?: Prisma.SortOrderInput | Prisma.SortOrder
+  tipe?: Prisma.SortOrderInput | Prisma.SortOrder
+  noSeri?: Prisma.SortOrderInput | Prisma.SortOrder
+  tahun?: Prisma.SortOrderInput | Prisma.SortOrder
   kalibrasi?: Prisma.SortOrderInput | Prisma.SortOrder
   keterangan?: Prisma.SortOrderInput | Prisma.SortOrder
   ruanganId?: Prisma.SortOrder
@@ -325,10 +325,10 @@ export type AlatScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AlatScalarWhereWithAggregatesInput | Prisma.AlatScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Alat"> | number
   nama?: Prisma.StringWithAggregatesFilter<"Alat"> | string
-  merek?: Prisma.StringWithAggregatesFilter<"Alat"> | string
-  tipe?: Prisma.StringWithAggregatesFilter<"Alat"> | string
-  noSeri?: Prisma.StringWithAggregatesFilter<"Alat"> | string
-  tahun?: Prisma.IntWithAggregatesFilter<"Alat"> | number
+  merek?: Prisma.StringNullableWithAggregatesFilter<"Alat"> | string | null
+  tipe?: Prisma.StringNullableWithAggregatesFilter<"Alat"> | string | null
+  noSeri?: Prisma.StringNullableWithAggregatesFilter<"Alat"> | string | null
+  tahun?: Prisma.IntNullableWithAggregatesFilter<"Alat"> | number | null
   kalibrasi?: Prisma.DateTimeNullableWithAggregatesFilter<"Alat"> | Date | string | null
   keterangan?: Prisma.StringNullableWithAggregatesFilter<"Alat"> | string | null
   ruanganId?: Prisma.IntWithAggregatesFilter<"Alat"> | number
@@ -337,10 +337,10 @@ export type AlatScalarWhereWithAggregatesInput = {
 
 export type AlatCreateInput = {
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   createdAt?: Date | string
@@ -351,10 +351,10 @@ export type AlatCreateInput = {
 export type AlatUncheckedCreateInput = {
   id?: number
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   ruanganId: number
@@ -364,10 +364,10 @@ export type AlatUncheckedCreateInput = {
 
 export type AlatUpdateInput = {
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -378,10 +378,10 @@ export type AlatUpdateInput = {
 export type AlatUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ruanganId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -392,10 +392,10 @@ export type AlatUncheckedUpdateInput = {
 export type AlatCreateManyInput = {
   id?: number
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   ruanganId: number
@@ -404,10 +404,10 @@ export type AlatCreateManyInput = {
 
 export type AlatUpdateManyMutationInput = {
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -416,10 +416,10 @@ export type AlatUpdateManyMutationInput = {
 export type AlatUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ruanganId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -534,6 +534,14 @@ export type AlatUncheckedUpdateManyWithoutRuanganNestedInput = {
   deleteMany?: Prisma.AlatScalarWhereInput | Prisma.AlatScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
@@ -554,10 +562,10 @@ export type AlatUpdateOneRequiredWithoutIpmNestedInput = {
 
 export type AlatCreateWithoutRuanganInput = {
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   createdAt?: Date | string
@@ -567,10 +575,10 @@ export type AlatCreateWithoutRuanganInput = {
 export type AlatUncheckedCreateWithoutRuanganInput = {
   id?: number
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   createdAt?: Date | string
@@ -609,10 +617,10 @@ export type AlatScalarWhereInput = {
   NOT?: Prisma.AlatScalarWhereInput | Prisma.AlatScalarWhereInput[]
   id?: Prisma.IntFilter<"Alat"> | number
   nama?: Prisma.StringFilter<"Alat"> | string
-  merek?: Prisma.StringFilter<"Alat"> | string
-  tipe?: Prisma.StringFilter<"Alat"> | string
-  noSeri?: Prisma.StringFilter<"Alat"> | string
-  tahun?: Prisma.IntFilter<"Alat"> | number
+  merek?: Prisma.StringNullableFilter<"Alat"> | string | null
+  tipe?: Prisma.StringNullableFilter<"Alat"> | string | null
+  noSeri?: Prisma.StringNullableFilter<"Alat"> | string | null
+  tahun?: Prisma.IntNullableFilter<"Alat"> | number | null
   kalibrasi?: Prisma.DateTimeNullableFilter<"Alat"> | Date | string | null
   keterangan?: Prisma.StringNullableFilter<"Alat"> | string | null
   ruanganId?: Prisma.IntFilter<"Alat"> | number
@@ -621,10 +629,10 @@ export type AlatScalarWhereInput = {
 
 export type AlatCreateWithoutIpmInput = {
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   createdAt?: Date | string
@@ -634,10 +642,10 @@ export type AlatCreateWithoutIpmInput = {
 export type AlatUncheckedCreateWithoutIpmInput = {
   id?: number
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   ruanganId: number
@@ -662,10 +670,10 @@ export type AlatUpdateToOneWithWhereWithoutIpmInput = {
 
 export type AlatUpdateWithoutIpmInput = {
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -675,10 +683,10 @@ export type AlatUpdateWithoutIpmInput = {
 export type AlatUncheckedUpdateWithoutIpmInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ruanganId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -688,10 +696,10 @@ export type AlatUncheckedUpdateWithoutIpmInput = {
 export type AlatCreateManyRuanganInput = {
   id?: number
   nama: string
-  merek: string
-  tipe: string
-  noSeri: string
-  tahun: number
+  merek?: string | null
+  tipe?: string | null
+  noSeri?: string | null
+  tahun?: number | null
   kalibrasi?: Date | string | null
   keterangan?: string | null
   createdAt?: Date | string
@@ -699,10 +707,10 @@ export type AlatCreateManyRuanganInput = {
 
 export type AlatUpdateWithoutRuanganInput = {
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -712,10 +720,10 @@ export type AlatUpdateWithoutRuanganInput = {
 export type AlatUncheckedUpdateWithoutRuanganInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -725,10 +733,10 @@ export type AlatUncheckedUpdateWithoutRuanganInput = {
 export type AlatUncheckedUpdateManyWithoutRuanganInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nama?: Prisma.StringFieldUpdateOperationsInput | string
-  merek?: Prisma.StringFieldUpdateOperationsInput | string
-  tipe?: Prisma.StringFieldUpdateOperationsInput | string
-  noSeri?: Prisma.StringFieldUpdateOperationsInput | string
-  tahun?: Prisma.IntFieldUpdateOperationsInput | number
+  merek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipe?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noSeri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahun?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   kalibrasi?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   keterangan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -844,10 +852,10 @@ export type $AlatPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     nama: string
-    merek: string
-    tipe: string
-    noSeri: string
-    tahun: number
+    merek: string | null
+    tipe: string | null
+    noSeri: string | null
+    tahun: number | null
     kalibrasi: Date | null
     keterangan: string | null
     ruanganId: number

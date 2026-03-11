@@ -242,7 +242,7 @@ export type IpmWhereInput = {
   ruanganId?: Prisma.IntNullableFilter<"Ipm"> | number | null
   alat?: Prisma.XOR<Prisma.AlatScalarRelationFilter, Prisma.AlatWhereInput>
   ruangan?: Prisma.XOR<Prisma.RuanganNullableScalarRelationFilter, Prisma.RuanganWhereInput> | null
-  teknisi?: Prisma.TeknisiListRelationFilter
+  user?: Prisma.UserListRelationFilter
 }
 
 export type IpmOrderByWithRelationInput = {
@@ -255,7 +255,7 @@ export type IpmOrderByWithRelationInput = {
   ruanganId?: Prisma.SortOrderInput | Prisma.SortOrder
   alat?: Prisma.AlatOrderByWithRelationInput
   ruangan?: Prisma.RuanganOrderByWithRelationInput
-  teknisi?: Prisma.TeknisiOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByRelationAggregateInput
 }
 
 export type IpmWhereUniqueInput = Prisma.AtLeast<{
@@ -271,7 +271,7 @@ export type IpmWhereUniqueInput = Prisma.AtLeast<{
   ruanganId?: Prisma.IntNullableFilter<"Ipm"> | number | null
   alat?: Prisma.XOR<Prisma.AlatScalarRelationFilter, Prisma.AlatWhereInput>
   ruangan?: Prisma.XOR<Prisma.RuanganNullableScalarRelationFilter, Prisma.RuanganWhereInput> | null
-  teknisi?: Prisma.TeknisiListRelationFilter
+  user?: Prisma.UserListRelationFilter
 }, "id">
 
 export type IpmOrderByWithAggregationInput = {
@@ -309,7 +309,7 @@ export type IpmCreateInput = {
   createdAt?: Date | string
   alat: Prisma.AlatCreateNestedOneWithoutIpmInput
   ruangan?: Prisma.RuanganCreateNestedOneWithoutIpmInput
-  teknisi?: Prisma.TeknisiCreateNestedManyWithoutIpmInput
+  user?: Prisma.UserCreateNestedManyWithoutIpmsInput
 }
 
 export type IpmUncheckedCreateInput = {
@@ -320,7 +320,7 @@ export type IpmUncheckedCreateInput = {
   createdAt?: Date | string
   alatId: number
   ruanganId?: number | null
-  teknisi?: Prisma.TeknisiUncheckedCreateNestedManyWithoutIpmInput
+  user?: Prisma.UserUncheckedCreateNestedManyWithoutIpmsInput
 }
 
 export type IpmUpdateInput = {
@@ -330,7 +330,7 @@ export type IpmUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alat?: Prisma.AlatUpdateOneRequiredWithoutIpmNestedInput
   ruangan?: Prisma.RuanganUpdateOneWithoutIpmNestedInput
-  teknisi?: Prisma.TeknisiUpdateManyWithoutIpmNestedInput
+  user?: Prisma.UserUpdateManyWithoutIpmsNestedInput
 }
 
 export type IpmUncheckedUpdateInput = {
@@ -341,7 +341,7 @@ export type IpmUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alatId?: Prisma.IntFieldUpdateOperationsInput | number
   ruanganId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  teknisi?: Prisma.TeknisiUncheckedUpdateManyWithoutIpmNestedInput
+  user?: Prisma.UserUncheckedUpdateManyWithoutIpmsNestedInput
 }
 
 export type IpmCreateManyInput = {
@@ -423,41 +423,41 @@ export type IpmSumOrderByAggregateInput = {
   ruanganId?: Prisma.SortOrder
 }
 
-export type IpmCreateNestedManyWithoutTeknisiInput = {
-  create?: Prisma.XOR<Prisma.IpmCreateWithoutTeknisiInput, Prisma.IpmUncheckedCreateWithoutTeknisiInput> | Prisma.IpmCreateWithoutTeknisiInput[] | Prisma.IpmUncheckedCreateWithoutTeknisiInput[]
-  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutTeknisiInput | Prisma.IpmCreateOrConnectWithoutTeknisiInput[]
+export type IpmCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.IpmCreateWithoutUserInput, Prisma.IpmUncheckedCreateWithoutUserInput> | Prisma.IpmCreateWithoutUserInput[] | Prisma.IpmUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutUserInput | Prisma.IpmCreateOrConnectWithoutUserInput[]
   connect?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
 }
 
-export type IpmUncheckedCreateNestedManyWithoutTeknisiInput = {
-  create?: Prisma.XOR<Prisma.IpmCreateWithoutTeknisiInput, Prisma.IpmUncheckedCreateWithoutTeknisiInput> | Prisma.IpmCreateWithoutTeknisiInput[] | Prisma.IpmUncheckedCreateWithoutTeknisiInput[]
-  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutTeknisiInput | Prisma.IpmCreateOrConnectWithoutTeknisiInput[]
+export type IpmUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.IpmCreateWithoutUserInput, Prisma.IpmUncheckedCreateWithoutUserInput> | Prisma.IpmCreateWithoutUserInput[] | Prisma.IpmUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutUserInput | Prisma.IpmCreateOrConnectWithoutUserInput[]
   connect?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
 }
 
-export type IpmUpdateManyWithoutTeknisiNestedInput = {
-  create?: Prisma.XOR<Prisma.IpmCreateWithoutTeknisiInput, Prisma.IpmUncheckedCreateWithoutTeknisiInput> | Prisma.IpmCreateWithoutTeknisiInput[] | Prisma.IpmUncheckedCreateWithoutTeknisiInput[]
-  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutTeknisiInput | Prisma.IpmCreateOrConnectWithoutTeknisiInput[]
-  upsert?: Prisma.IpmUpsertWithWhereUniqueWithoutTeknisiInput | Prisma.IpmUpsertWithWhereUniqueWithoutTeknisiInput[]
+export type IpmUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.IpmCreateWithoutUserInput, Prisma.IpmUncheckedCreateWithoutUserInput> | Prisma.IpmCreateWithoutUserInput[] | Prisma.IpmUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutUserInput | Prisma.IpmCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.IpmUpsertWithWhereUniqueWithoutUserInput | Prisma.IpmUpsertWithWhereUniqueWithoutUserInput[]
   set?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
   disconnect?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
   delete?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
   connect?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
-  update?: Prisma.IpmUpdateWithWhereUniqueWithoutTeknisiInput | Prisma.IpmUpdateWithWhereUniqueWithoutTeknisiInput[]
-  updateMany?: Prisma.IpmUpdateManyWithWhereWithoutTeknisiInput | Prisma.IpmUpdateManyWithWhereWithoutTeknisiInput[]
+  update?: Prisma.IpmUpdateWithWhereUniqueWithoutUserInput | Prisma.IpmUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.IpmUpdateManyWithWhereWithoutUserInput | Prisma.IpmUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.IpmScalarWhereInput | Prisma.IpmScalarWhereInput[]
 }
 
-export type IpmUncheckedUpdateManyWithoutTeknisiNestedInput = {
-  create?: Prisma.XOR<Prisma.IpmCreateWithoutTeknisiInput, Prisma.IpmUncheckedCreateWithoutTeknisiInput> | Prisma.IpmCreateWithoutTeknisiInput[] | Prisma.IpmUncheckedCreateWithoutTeknisiInput[]
-  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutTeknisiInput | Prisma.IpmCreateOrConnectWithoutTeknisiInput[]
-  upsert?: Prisma.IpmUpsertWithWhereUniqueWithoutTeknisiInput | Prisma.IpmUpsertWithWhereUniqueWithoutTeknisiInput[]
+export type IpmUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.IpmCreateWithoutUserInput, Prisma.IpmUncheckedCreateWithoutUserInput> | Prisma.IpmCreateWithoutUserInput[] | Prisma.IpmUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.IpmCreateOrConnectWithoutUserInput | Prisma.IpmCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.IpmUpsertWithWhereUniqueWithoutUserInput | Prisma.IpmUpsertWithWhereUniqueWithoutUserInput[]
   set?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
   disconnect?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
   delete?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
   connect?: Prisma.IpmWhereUniqueInput | Prisma.IpmWhereUniqueInput[]
-  update?: Prisma.IpmUpdateWithWhereUniqueWithoutTeknisiInput | Prisma.IpmUpdateWithWhereUniqueWithoutTeknisiInput[]
-  updateMany?: Prisma.IpmUpdateManyWithWhereWithoutTeknisiInput | Prisma.IpmUpdateManyWithWhereWithoutTeknisiInput[]
+  update?: Prisma.IpmUpdateWithWhereUniqueWithoutUserInput | Prisma.IpmUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.IpmUpdateManyWithWhereWithoutUserInput | Prisma.IpmUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.IpmScalarWhereInput | Prisma.IpmScalarWhereInput[]
 }
 
@@ -545,15 +545,7 @@ export type IpmUncheckedUpdateManyWithoutAlatNestedInput = {
   deleteMany?: Prisma.IpmScalarWhereInput | Prisma.IpmScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type IpmCreateWithoutTeknisiInput = {
+export type IpmCreateWithoutUserInput = {
   hasil: string
   settingAlat?: string | null
   terukur?: string | null
@@ -562,7 +554,7 @@ export type IpmCreateWithoutTeknisiInput = {
   ruangan?: Prisma.RuanganCreateNestedOneWithoutIpmInput
 }
 
-export type IpmUncheckedCreateWithoutTeknisiInput = {
+export type IpmUncheckedCreateWithoutUserInput = {
   id?: number
   hasil: string
   settingAlat?: string | null
@@ -572,25 +564,25 @@ export type IpmUncheckedCreateWithoutTeknisiInput = {
   ruanganId?: number | null
 }
 
-export type IpmCreateOrConnectWithoutTeknisiInput = {
+export type IpmCreateOrConnectWithoutUserInput = {
   where: Prisma.IpmWhereUniqueInput
-  create: Prisma.XOR<Prisma.IpmCreateWithoutTeknisiInput, Prisma.IpmUncheckedCreateWithoutTeknisiInput>
+  create: Prisma.XOR<Prisma.IpmCreateWithoutUserInput, Prisma.IpmUncheckedCreateWithoutUserInput>
 }
 
-export type IpmUpsertWithWhereUniqueWithoutTeknisiInput = {
+export type IpmUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.IpmWhereUniqueInput
-  update: Prisma.XOR<Prisma.IpmUpdateWithoutTeknisiInput, Prisma.IpmUncheckedUpdateWithoutTeknisiInput>
-  create: Prisma.XOR<Prisma.IpmCreateWithoutTeknisiInput, Prisma.IpmUncheckedCreateWithoutTeknisiInput>
+  update: Prisma.XOR<Prisma.IpmUpdateWithoutUserInput, Prisma.IpmUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.IpmCreateWithoutUserInput, Prisma.IpmUncheckedCreateWithoutUserInput>
 }
 
-export type IpmUpdateWithWhereUniqueWithoutTeknisiInput = {
+export type IpmUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.IpmWhereUniqueInput
-  data: Prisma.XOR<Prisma.IpmUpdateWithoutTeknisiInput, Prisma.IpmUncheckedUpdateWithoutTeknisiInput>
+  data: Prisma.XOR<Prisma.IpmUpdateWithoutUserInput, Prisma.IpmUncheckedUpdateWithoutUserInput>
 }
 
-export type IpmUpdateManyWithWhereWithoutTeknisiInput = {
+export type IpmUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.IpmScalarWhereInput
-  data: Prisma.XOR<Prisma.IpmUpdateManyMutationInput, Prisma.IpmUncheckedUpdateManyWithoutTeknisiInput>
+  data: Prisma.XOR<Prisma.IpmUpdateManyMutationInput, Prisma.IpmUncheckedUpdateManyWithoutUserInput>
 }
 
 export type IpmScalarWhereInput = {
@@ -612,7 +604,7 @@ export type IpmCreateWithoutRuanganInput = {
   terukur?: string | null
   createdAt?: Date | string
   alat: Prisma.AlatCreateNestedOneWithoutIpmInput
-  teknisi?: Prisma.TeknisiCreateNestedManyWithoutIpmInput
+  user?: Prisma.UserCreateNestedManyWithoutIpmsInput
 }
 
 export type IpmUncheckedCreateWithoutRuanganInput = {
@@ -622,7 +614,7 @@ export type IpmUncheckedCreateWithoutRuanganInput = {
   terukur?: string | null
   createdAt?: Date | string
   alatId: number
-  teknisi?: Prisma.TeknisiUncheckedCreateNestedManyWithoutIpmInput
+  user?: Prisma.UserUncheckedCreateNestedManyWithoutIpmsInput
 }
 
 export type IpmCreateOrConnectWithoutRuanganInput = {
@@ -657,7 +649,7 @@ export type IpmCreateWithoutAlatInput = {
   terukur?: string | null
   createdAt?: Date | string
   ruangan?: Prisma.RuanganCreateNestedOneWithoutIpmInput
-  teknisi?: Prisma.TeknisiCreateNestedManyWithoutIpmInput
+  user?: Prisma.UserCreateNestedManyWithoutIpmsInput
 }
 
 export type IpmUncheckedCreateWithoutAlatInput = {
@@ -667,7 +659,7 @@ export type IpmUncheckedCreateWithoutAlatInput = {
   terukur?: string | null
   createdAt?: Date | string
   ruanganId?: number | null
-  teknisi?: Prisma.TeknisiUncheckedCreateNestedManyWithoutIpmInput
+  user?: Prisma.UserUncheckedCreateNestedManyWithoutIpmsInput
 }
 
 export type IpmCreateOrConnectWithoutAlatInput = {
@@ -696,7 +688,7 @@ export type IpmUpdateManyWithWhereWithoutAlatInput = {
   data: Prisma.XOR<Prisma.IpmUpdateManyMutationInput, Prisma.IpmUncheckedUpdateManyWithoutAlatInput>
 }
 
-export type IpmUpdateWithoutTeknisiInput = {
+export type IpmUpdateWithoutUserInput = {
   hasil?: Prisma.StringFieldUpdateOperationsInput | string
   settingAlat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -705,7 +697,7 @@ export type IpmUpdateWithoutTeknisiInput = {
   ruangan?: Prisma.RuanganUpdateOneWithoutIpmNestedInput
 }
 
-export type IpmUncheckedUpdateWithoutTeknisiInput = {
+export type IpmUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   hasil?: Prisma.StringFieldUpdateOperationsInput | string
   settingAlat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -715,7 +707,7 @@ export type IpmUncheckedUpdateWithoutTeknisiInput = {
   ruanganId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type IpmUncheckedUpdateManyWithoutTeknisiInput = {
+export type IpmUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   hasil?: Prisma.StringFieldUpdateOperationsInput | string
   settingAlat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -740,7 +732,7 @@ export type IpmUpdateWithoutRuanganInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alat?: Prisma.AlatUpdateOneRequiredWithoutIpmNestedInput
-  teknisi?: Prisma.TeknisiUpdateManyWithoutIpmNestedInput
+  user?: Prisma.UserUpdateManyWithoutIpmsNestedInput
 }
 
 export type IpmUncheckedUpdateWithoutRuanganInput = {
@@ -750,7 +742,7 @@ export type IpmUncheckedUpdateWithoutRuanganInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alatId?: Prisma.IntFieldUpdateOperationsInput | number
-  teknisi?: Prisma.TeknisiUncheckedUpdateManyWithoutIpmNestedInput
+  user?: Prisma.UserUncheckedUpdateManyWithoutIpmsNestedInput
 }
 
 export type IpmUncheckedUpdateManyWithoutRuanganInput = {
@@ -777,7 +769,7 @@ export type IpmUpdateWithoutAlatInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ruangan?: Prisma.RuanganUpdateOneWithoutIpmNestedInput
-  teknisi?: Prisma.TeknisiUpdateManyWithoutIpmNestedInput
+  user?: Prisma.UserUpdateManyWithoutIpmsNestedInput
 }
 
 export type IpmUncheckedUpdateWithoutAlatInput = {
@@ -787,7 +779,7 @@ export type IpmUncheckedUpdateWithoutAlatInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ruanganId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  teknisi?: Prisma.TeknisiUncheckedUpdateManyWithoutIpmNestedInput
+  user?: Prisma.UserUncheckedUpdateManyWithoutIpmsNestedInput
 }
 
 export type IpmUncheckedUpdateManyWithoutAlatInput = {
@@ -805,11 +797,11 @@ export type IpmUncheckedUpdateManyWithoutAlatInput = {
  */
 
 export type IpmCountOutputType = {
-  teknisi: number
+  user: number
 }
 
 export type IpmCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  teknisi?: boolean | IpmCountOutputTypeCountTeknisiArgs
+  user?: boolean | IpmCountOutputTypeCountUserArgs
 }
 
 /**
@@ -825,8 +817,8 @@ export type IpmCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensio
 /**
  * IpmCountOutputType without action
  */
-export type IpmCountOutputTypeCountTeknisiArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TeknisiWhereInput
+export type IpmCountOutputTypeCountUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
 }
 
 
@@ -840,7 +832,7 @@ export type IpmSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   ruanganId?: boolean
   alat?: boolean | Prisma.AlatDefaultArgs<ExtArgs>
   ruangan?: boolean | Prisma.Ipm$ruanganArgs<ExtArgs>
-  teknisi?: boolean | Prisma.Ipm$teknisiArgs<ExtArgs>
+  user?: boolean | Prisma.Ipm$userArgs<ExtArgs>
   _count?: boolean | Prisma.IpmCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ipm"]>
 
@@ -882,7 +874,7 @@ export type IpmOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
 export type IpmInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   alat?: boolean | Prisma.AlatDefaultArgs<ExtArgs>
   ruangan?: boolean | Prisma.Ipm$ruanganArgs<ExtArgs>
-  teknisi?: boolean | Prisma.Ipm$teknisiArgs<ExtArgs>
+  user?: boolean | Prisma.Ipm$userArgs<ExtArgs>
   _count?: boolean | Prisma.IpmCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IpmIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -899,7 +891,7 @@ export type $IpmPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   objects: {
     alat: Prisma.$AlatPayload<ExtArgs>
     ruangan: Prisma.$RuanganPayload<ExtArgs> | null
-    teknisi: Prisma.$TeknisiPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1305,7 +1297,7 @@ export interface Prisma__IpmClient<T, Null = never, ExtArgs extends runtime.Type
   readonly [Symbol.toStringTag]: "PrismaPromise"
   alat<T extends Prisma.AlatDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AlatDefaultArgs<ExtArgs>>): Prisma.Prisma__AlatClient<runtime.Types.Result.GetResult<Prisma.$AlatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   ruangan<T extends Prisma.Ipm$ruanganArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ipm$ruanganArgs<ExtArgs>>): Prisma.Prisma__RuanganClient<runtime.Types.Result.GetResult<Prisma.$RuanganPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  teknisi<T extends Prisma.Ipm$teknisiArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ipm$teknisiArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeknisiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.Ipm$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ipm$userArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1757,27 +1749,27 @@ export type Ipm$ruanganArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 /**
- * Ipm.teknisi
+ * Ipm.user
  */
-export type Ipm$teknisiArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Ipm$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Teknisi
+   * Select specific fields to fetch from the User
    */
-  select?: Prisma.TeknisiSelect<ExtArgs> | null
+  select?: Prisma.UserSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Teknisi
+   * Omit specific fields from the User
    */
-  omit?: Prisma.TeknisiOmit<ExtArgs> | null
+  omit?: Prisma.UserOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TeknisiInclude<ExtArgs> | null
-  where?: Prisma.TeknisiWhereInput
-  orderBy?: Prisma.TeknisiOrderByWithRelationInput | Prisma.TeknisiOrderByWithRelationInput[]
-  cursor?: Prisma.TeknisiWhereUniqueInput
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TeknisiScalarFieldEnum | Prisma.TeknisiScalarFieldEnum[]
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
 }
 
 /**

@@ -47,11 +47,6 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
- * Model Teknisi
- * 
- */
-export type Teknisi = Prisma.TeknisiModel
-/**
  * Model Ruangan
  * 
  */

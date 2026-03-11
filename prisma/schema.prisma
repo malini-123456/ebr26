@@ -8,25 +8,21 @@ datasource db {
 }
 
 model User {
-  id        String  @id @default(cuid())
+  id       String  @id @default(cuid())
+  email    String
+  name     String?
+  password String?
+  imageUrl String?
+
   clerkId   String  @unique
   firstName String?
   lastName  String?
   role      String?
 
-  teknisi Teknisi?
-
   createdAt DateTime @default(now())
-}
+  updatedAt DateTime @updatedAt
 
-model Teknisi {
-  id     Int    @id @default(autoincrement())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
-
-  ipm Ipm[]
-
-  createdAt DateTime @default(now())
+  ipms Ipm[]
 }
 
 model Ruangan {
@@ -70,5 +66,5 @@ model Ipm {
   ruanganId Int?
   ruangan   Ruangan? @relation(fields: [ruanganId], references: [id])
 
-  teknisi Teknisi[]
+  user User[]
 }

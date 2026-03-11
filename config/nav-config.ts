@@ -111,12 +111,12 @@ export const navItems: NavItem[] = [
     icon: 'laptop',
     items: []
   },
-  {
-    title: 'MMEL',
-    url: '/dashboard/mmel',
-    icon: 'workspace',
-    items: []
-  }
+  // {
+  //   title: 'MMEL',
+  //   url: '/dashboard/mmel',
+  //   icon: 'workspace',
+  //   items: []
+  // }
   // {
   //   title: 'Account',
   //   url: '#', // Placeholder as there is no direct link for the parent

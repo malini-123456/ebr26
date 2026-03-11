@@ -82,32 +82,82 @@ export async function createipm(formData: FormData) {
     throw new Error("Unauthorized");
   }
 
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
-    include: { teknisi: true },
-  });
-
-  if (!user || !user.teknisi) {
-    throw new Error("Teknisi profile not found");
-  }
-
   const alatIdRaw = formData.get("inventaris");
   if (!alatIdRaw) throw new Error("Alat is required");
 
   const alatId = Number(alatIdRaw);
-  const hasil = formData.get("hasil") as string;
-  const settingAlat = formData.get("settingAlat") as string || null;
-  const terukur = formData.get("terukur") as string || null;
 
-  // await prisma.ipm.create({
-  //   data: {
-  //     alatId,
-  //     teknisiId: user.teknisi.id,
-  //     hasil,
-  //     settingAlat: settingAlat || null,
-  //     terukur: terukur || null,
-  //   },
-  // });
+  const alat = await prisma.alat.findUnique({
+    where: { id: alatId },
+    select: { ruanganId: true }
+  });
+
+  if (!alat) throw new Error("Alat not found");
+
+  const hasil = formData.get("hasil") as string;
+  const settingAlat = formData.get("settingAlat")?.toString() || null;
+  const terukur = formData.get("terukur")?.toString() || null;
+  const teknisiIds = formData
+    .getAll("teknisi")
+    .map((id) => id.toString());
+  console.log("teknisiIds:", teknisiIds);
+
+  await prisma.ipm.create({
+    data: {
+      alatId,
+      hasil,
+      settingAlat,
+      terukur,
+      ruanganId: alat?.ruanganId,
+      user: {
+        connect: teknisiIds.map(id => ({ id }))
+      }
+    },
+  });
+
+  revalidatePath("/dashboard/ipm");
+  redirect("/dashboard/ipm");
+};
+
+export async function deleteIpm(id: number) {
+  await prisma.alat.delete({
+    where: { id },
+  })
+
+  revalidatePath("/dashboard/inventaris")
+}
+
+export async function editIpm(ipmId: number, formData: FormData) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const hasil = formData.get("hasil")?.toString();
+  const settingAlat = formData.get("settingAlat")?.toString() || null;
+  const terukur = formData.get("terukur")?.toString() || null;
+
+  if (!hasil) {
+    throw new Error("Hasil is required");
+  }
+
+  const teknisiIds = formData
+    .getAll("teknisi")
+    .map((id) => id.toString())
+    .filter(Boolean);
+
+  await prisma.ipm.update({
+    where: { id: ipmId },
+    data: {
+      hasil,
+      settingAlat,
+      terukur,
+      user: {
+        set: teknisiIds.map((id) => ({ id })),
+      },
+    },
+  });
 
   revalidatePath("/dashboard/ipm");
   redirect("/dashboard/ipm");

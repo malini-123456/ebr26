@@ -3,14 +3,22 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header"
 import { CellAction } from "./cell-action"
-import { AlatDashboard, IpmWithRelations } from "@/lib/definitions/tipe-ipm"
-import { AlatWithIpm } from "@/lib/definitions/include-alat"
+import { IpmWithRelations } from "@/lib/definitions/tipe-ipm"
+import Link from "next/link"
 
 export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
   {
     accessorFn: (row) => row.alat.nama,
     id: "nama",
-    header: "Nama Alat",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Nama Alat" />
+    ),
+    cell: ({ row }) => (<Link
+      href={`/dashboard/ipm/edit/${row.original.id}`}>
+      <span className="font-medium text-emerald-500">
+        {row.original.alat.nama}
+      </span>
+    </Link>)
   },
 
   {
@@ -62,8 +70,29 @@ export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
       <DataTableColumnHeader column={column} title="Hasil" />
     ),
   },
-  // {
-  //   id: "action",
-  //   cell: ({ row }) => <CellAction data={row.original} />,
-  // },
+  {
+    accessorKey: "user",
+    header: "Teknisi",
+    cell: ({ row }) => {
+      const users = row.original.user;
+
+      return (
+        <div className="flex gap-1 flex-wrap">
+          {users.map((u) => (
+            <span
+              key={u.id}
+              className="px-2 py-0.5 text-xs bg-gray-100 rounded"
+            >
+              {u.firstName}
+            </span>
+          ))}
+        </div>
+      );
+    },
+  },
+  {
+    id: "action",
+    header: "Action",
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
 ]

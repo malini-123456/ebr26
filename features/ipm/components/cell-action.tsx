@@ -10,36 +10,39 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { AlatWithIpm } from '../../../lib/definitions/include-alat';
+import { useState, useTransition } from 'react';
+import { IpmWithRelations } from '@/lib/definitions/tipe-ipm';
+import { toast } from 'sonner';
+import { deleteIpm } from '@/app/action/action';
 
 interface CellActionProps {
-  data: AlatWithIpm;
+  data: IpmWithRelations;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition()
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const onConfirm = async () => {
-    try {
-      setLoading(true);
-      // await axios.delete(`/api/products/${data.id}`);
-      router.refresh();
-      setOpen(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  const onConfirm = () => {
+    startTransition(async () => {
+      try {
+        await deleteIpm(data.id)
+        setOpen(false)
+        router.refresh()
+        toast.success('Item deleted successfully')
+      } catch (error) {
+        toast.error('Failed to delete item')
+      }
+    })
+  }
   return (
     <>
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
-        loading={loading}
+        loading={isPending}
       />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
@@ -52,7 +55,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/ipm/2026/${data.id}`)}
+            onClick={() => router.push(`/dashboard/ipm/edit/${data.id}`)}
           >
             <IconEdit className='mr-2 h-4 w-4' /> Update
           </DropdownMenuItem>

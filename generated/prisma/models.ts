@@ -9,7 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
-export type * from './models/Teknisi'
 export type * from './models/Ruangan'
 export type * from './models/Alat'
 export type * from './models/Ipm'

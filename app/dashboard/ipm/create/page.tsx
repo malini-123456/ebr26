@@ -45,43 +45,45 @@ export default async function CreateIpm({
       pageDescription={`Form IPM ${alat?.nama} SN: ${alat?.noSeri} terakhir dipelihara:`}
     >
       <Card className="mx-auto w-full">
-        <CardContent>
-          {form_alat.map((item) => {
+        <form action={createipm}>
 
-            let defaultVal =
-              item.name === "ruangan"
-                ? alat?.ruangan?.namaRuangan
-                : alat?.[item.name as keyof typeof alat];
+          <input type="hidden" name="inventaris" value={props.alatId} />
+          <CardContent>
+            {form_alat.map((item) => {
 
-            if (item.type === "date" && defaultVal) {
-              defaultVal = new Date(defaultVal as Date)
-                .toISOString()
-                .split("T")[0];
-            }
+              let defaultVal =
+                item.name === "ruangan"
+                  ? alat?.ruangan?.namaRuangan
+                  : alat?.[item.name as keyof typeof alat];
 
-            return (
-              <Field key={item.id} className="flex flex-row w-full items-center py-2">
-                <FieldLabel htmlFor={item.name} className="basis-1/3">
-                  {item.label}
-                </FieldLabel>
+              if (item.type === "date" && defaultVal) {
+                defaultVal = new Date(defaultVal as Date)
+                  .toISOString()
+                  .split("T")[0];
+              }
 
-                <Input
-                  id={item.name}
-                  type={item.type}
-                  defaultValue={defaultVal as string}
-                  disabled
-                  className="basis-2/3 rounded-xl"
-                />
-              </Field>
-            );
-          })}
-        </CardContent>
-        <Separator />
-        <CardContent>
-          <form action={createipm}>
+              return (
+                <Field key={item.id} className="flex flex-row w-full items-center py-2">
+                  <FieldLabel htmlFor={item.name} className="basis-1/3">
+                    {item.label}
+                  </FieldLabel>
+
+                  <Input
+                    id={item.name}
+                    type={item.type}
+                    defaultValue={defaultVal as string}
+                    disabled
+                    className="basis-2/3 rounded-xl"
+                  />
+                </Field>
+              );
+            })}
+          </CardContent>
+          <Separator />
+          <CardContent>
             <BuatIPMForm />
-          </form>
-        </CardContent>
+          </CardContent>
+        </form>
       </Card>
     </PageContainer>
   )

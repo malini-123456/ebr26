@@ -52,7 +52,6 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Teknisi: 'Teknisi',
   Ruangan: 'Ruangan',
   Alat: 'Alat',
   Ipm: 'Ipm'
@@ -76,23 +75,19 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  email: 'email',
+  name: 'name',
+  password: 'password',
+  imageUrl: 'imageUrl',
   clerkId: 'clerkId',
   firstName: 'firstName',
   lastName: 'lastName',
   role: 'role',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const TeknisiScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  createdAt: 'createdAt'
-} as const
-
-export type TeknisiScalarFieldEnum = (typeof TeknisiScalarFieldEnum)[keyof typeof TeknisiScalarFieldEnum]
 
 
 export const RuanganScalarFieldEnum = {
