@@ -71,19 +71,19 @@ export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
     ),
   },
   {
-    accessorKey: "user",
+    accessorKey: "teknisi",
     header: "Teknisi",
     cell: ({ row }) => {
-      const users = row.original.user;
+      const teknisi = row.original.teknisi ?? [];
 
       return (
-        <div className="flex gap-1 flex-wrap">
-          {users.map((u) => (
+        <div className="flex flex-wrap gap-1">
+          {teknisi.map((t: string) => (
             <span
-              key={u.id}
+              key={t}
               className="px-2 py-0.5 text-xs bg-gray-100 rounded"
             >
-              {u.firstName}
+              {t}
             </span>
           ))}
         </div>

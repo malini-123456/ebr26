@@ -33,11 +33,12 @@ export function AlatTable({
 
   return (
     <DataTable table={table}>
-      <DataTableToolbar table={table}></DataTableToolbar>
-      <DataTableDateFilter
-        column={table.getColumn("kalibrasi")!}
-        title="filter"
-        multiple />
+      <DataTableToolbar table={table}>
+        <DataTableDateFilter
+          column={table.getColumn("kalibrasi")!}
+          title="filter"
+          multiple />
+      </DataTableToolbar>
     </DataTable>
   )
 }

@@ -122,7 +122,8 @@ export const IpmScalarFieldEnum = {
   terukur: 'terukur',
   createdAt: 'createdAt',
   alatId: 'alatId',
-  ruanganId: 'ruanganId'
+  ruanganId: 'ruanganId',
+  teknisi: 'teknisi'
 } as const
 
 export type IpmScalarFieldEnum = (typeof IpmScalarFieldEnum)[keyof typeof IpmScalarFieldEnum]

@@ -1491,6 +1491,11 @@ export type AlatFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Skip the first `n` Alats.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Alats.
+   */
   distinct?: Prisma.AlatScalarFieldEnum | Prisma.AlatScalarFieldEnum[]
 }
 

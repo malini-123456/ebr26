@@ -4,9 +4,9 @@ export type AlatDashboard = Prisma.AlatGetPayload<{
   include: {
     ruangan: true
     ipm: {
-      include: {
-        user: true
-      }
+      // include: {
+      //   user: true
+      // }
       orderBy: {
         createdAt: "desc"
       }
@@ -23,6 +23,6 @@ export type IpmWithRelations = Prisma.IpmGetPayload<{
         ruangan: true
       }
     }
-    user: true
+    // user: true
   }
 }>;

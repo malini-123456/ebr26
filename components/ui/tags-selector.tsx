@@ -10,6 +10,8 @@ import { Field, FieldContent, FieldGroup, FieldLabel } from "./field";
 type Tag = {
   id: string;
   name: string | null;
+  namalengkap: string | null;
+  nip: string | null;
 };
 
 type TagsSelectorProps = {
@@ -44,7 +46,7 @@ export function TagsSelector({ tags }: TagsSelectorProps) {
           key={tag.id}
           type="hidden"
           name="teknisi"
-          value={tag.id}   // MUST BE user.id
+          value={tag.name ?? ""}   // MUST BE user.id
         />
       ))}
       <FieldGroup>
@@ -52,7 +54,7 @@ export function TagsSelector({ tags }: TagsSelectorProps) {
           <FieldLabel className="basis-1/3">Teknisi</FieldLabel>
           <FieldContent className="basis-2/3">
             <motion.div
-              className="w-full flex items-center justify-start gap-1.5 bg-white border h-14 mt-2 mb-3 overflow-x-auto p-1.5 no-scrollbar"
+              className="w-full flex items-center justify-start gap-1.5 border h-10 mt-2 mb-3 overflow-x-auto p-1.5 no-scrollbar"
               style={{
                 borderRadius: 16,
               }}
@@ -62,7 +64,7 @@ export function TagsSelector({ tags }: TagsSelectorProps) {
               {selectedTags.map((tag) => (
                 <motion.div
                   key={tag.id}
-                  className="flex items-center gap-1 pl-3 pr-1 py-1 bg-white shadow-md border h-full shrink-0"
+                  className="flex items-center gap-1 pl-3 pr-1 py-1 shadow-md border h-full shrink-0"
                   style={{
                     borderRadius: 14,
                   }}
@@ -86,7 +88,7 @@ export function TagsSelector({ tags }: TagsSelectorProps) {
             </motion.div>
             {tags.length > selectedTags.length && (
               <motion.div
-                className="bg-white shadow-sm p-2 border w-full"
+                className="shadow-sm p-2 border w-full"
                 style={{
                   borderRadius: 16,
                 }}

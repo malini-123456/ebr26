@@ -7,6 +7,7 @@ import { useDataTable } from '@/hooks/use-data-table';
 import { useSearchParams } from 'next/navigation';
 import { ipmColumns } from './components/column-page';
 import { IpmWithRelations } from '@/lib/definitions/tipe-ipm';
+import { DataTableDateFilter } from '@/components/ui/table/data-table-date-filter';
 
 interface IpmTableProps {
   data: IpmWithRelations[];
@@ -33,7 +34,12 @@ export function IpmTable({
 
   return (
     <DataTable table={table}>
-      <DataTableToolbar table={table}></DataTableToolbar>
+      <DataTableToolbar table={table}>
+        <DataTableDateFilter
+          column={table.getColumn("createdAt")!}
+          title="filter"
+          multiple />
+      </DataTableToolbar>
     </DataTable>
   );
 }

@@ -44,9 +44,6 @@ export default function ContributorsOverviewTableClient({ data }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto bg-background p-4">
-      <h4 className="mb-4 text-xl font-semibold text-foreground">
-        Daftar Alat
-      </h4>
 
       <Input
         placeholder="Search alat..."

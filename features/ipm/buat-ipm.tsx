@@ -8,6 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { TagsSelector } from "@/components/ui/tags-selector";
 import { prisma } from "@/lib/prisma";
+import { pns } from "@/lib/teknisi_constant";
 import { clerkClient } from "@clerk/nextjs/server";
 
 export default async function BuatIPMForm() {
@@ -43,6 +44,7 @@ export default async function BuatIPMForm() {
     name: t.firstName
   }));
 
+
   return (
     <FieldGroup>
       <FieldSet>
@@ -61,7 +63,7 @@ export default async function BuatIPMForm() {
           ))}
         </FieldGroup>
       </FieldSet>
-      <TagsSelector tags={teknisiList} />
+      <TagsSelector tags={pns} />
       <Button type="submit" className="mt-4 py-2">Submit</Button>
     </FieldGroup>
   )

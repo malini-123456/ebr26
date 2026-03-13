@@ -22,7 +22,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  ipms Ipm[]
+  // ipms Ipm[]
 }
 
 model Ruangan {
@@ -65,6 +65,7 @@ model Ipm {
 
   ruanganId Int?
   ruangan   Ruangan? @relation(fields: [ruanganId], references: [id])
+  teknisi   String[]
 
-  user User[]
+  // user User[]
 }

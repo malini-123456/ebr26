@@ -80,7 +80,7 @@ export default async function CreateIpm({
             })}
           </CardContent>
           <Separator />
-          <CardContent>
+          <CardContent className="my-3">
             <BuatIPMForm />
           </CardContent>
         </form>

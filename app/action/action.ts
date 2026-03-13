@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import z from "zod";
+import { id } from "zod/v4/locales";
 
 export async function createAlat(formData: FormData) {
   const nama = formData.get("nama") as string;
@@ -109,9 +110,10 @@ export async function createipm(formData: FormData) {
       settingAlat,
       terukur,
       ruanganId: alat?.ruanganId,
-      user: {
-        connect: teknisiIds.map(id => ({ id }))
-      }
+      teknisi: teknisiIds
+      // user: {
+      //   connect: teknisiIds.map(id => ({ id }))
+      // }
     },
   });
 
@@ -153,9 +155,10 @@ export async function editIpm(ipmId: number, formData: FormData) {
       hasil,
       settingAlat,
       terukur,
-      user: {
-        set: teknisiIds.map((id) => ({ id })),
-      },
+      teknisi: teknisiIds
+      // user: {
+      //   set: teknisiIds.map((id) => ({ id })),
+      // },
     },
   });
 

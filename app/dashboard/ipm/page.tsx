@@ -14,20 +14,20 @@ import { AlatDashboard } from "@/lib/definitions/tipe-ipm";
 export default async function Page() {
   const user = await currentUser();
 
-  const data: AlatDashboard[] = await prisma.alat.findMany({
-    include: {
-      ruangan: true,
-      ipm: {
-        include: {
-          user: true
-        },
-        orderBy: {
-          createdAt: "desc"
-        },
-        take: 1
-      }
-    }
-  });
+  // const data: AlatDashboard[] = await prisma.alat.findMany({
+  //   include: {
+  //     ruangan: true,
+  //     ipm: {
+  //       // include: {
+  //       //   user: true
+  //       // },
+  //       orderBy: {
+  //         createdAt: "desc"
+  //       },
+  //       take: 1
+  //     }
+  //   }
+  // });
 
   const dataipm = await prisma.ipm.findMany({
     include: {
@@ -36,7 +36,6 @@ export default async function Page() {
           ruangan: true,
         },
       },
-      user: true,
     },
     orderBy: {
       createdAt: "desc",

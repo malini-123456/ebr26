@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { TagsSelector } from "@/components/ui/tags-selector";
+import { pns } from "@/lib/teknisi_constant";
 
 type PageProps = {
   params: Promise<{
@@ -29,7 +30,6 @@ export default async function EditIpmPage({ params }: PageProps) {
           ruangan: true,
         },
       },
-      user: true,
     },
   });
 
@@ -116,7 +116,7 @@ export default async function EditIpmPage({ params }: PageProps) {
             </FieldGroup>
 
             {/* Teknisi selector */}
-            <TagsSelector tags={teknisiList} />
+            <TagsSelector tags={pns} />
 
           </CardContent>
 
