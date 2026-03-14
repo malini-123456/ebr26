@@ -1,10 +1,35 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, Row } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header"
 import { CellAction } from "./cell-action"
 import { IpmWithRelations } from "@/lib/definitions/tipe-ipm"
 import Link from "next/link"
+import { Badge } from "@/components/ui/badge"
+
+
+const dateFilterFn = <TData,>(row: Row<TData>, columnId: string, value: unknown) => {
+
+  const rowValue = row.getValue(columnId)
+
+  if (!rowValue) return false
+
+  const rowDate = new Date(rowValue as string | number | Date).getTime()
+
+  // range filter
+  if (Array.isArray(value)) {
+    const [from, to] = value
+
+    if (!from && !to) return true
+    if (from && !to) return rowDate >= from
+    if (!from && to) return rowDate <= to
+
+    return rowDate >= from && rowDate <= to
+  }
+
+  // single date
+  return rowDate === value
+}
 
 export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
   {
@@ -60,8 +85,15 @@ export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
     ),
     cell: ({ getValue }) => {
       const date = getValue<Date>()
-      return date ? date.toLocaleDateString() : "—"
+      return date
+        ? date.toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+        : "—"
     },
+    filterFn: dateFilterFn,
   },
 
   {
@@ -69,6 +101,17 @@ export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Hasil" />
     ),
+    cell: ({ row }) => {
+      const hasil = row.getValue("hasil") as string;
+
+      return (
+        <Badge
+          variant={hasil === "Alat Dapat Digunakan" ? "default" : "destructive"}
+        >
+          {hasil}
+        </Badge>
+      );
+    },
   },
   {
     accessorKey: "teknisi",
@@ -81,7 +124,7 @@ export const ipmColumns: ColumnDef<IpmWithRelations>[] = [
           {teknisi.map((t: string) => (
             <span
               key={t}
-              className="px-2 py-0.5 text-xs bg-gray-100 rounded"
+              className="px-2 py-0.5 text-xs rounded"
             >
               {t}
             </span>

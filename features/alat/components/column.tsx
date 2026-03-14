@@ -95,7 +95,8 @@ export const alatColumns: ColumnDef<Alat>[] = [
 
       return (
         <span>
-          {value ? new Date(value).toLocaleDateString("id-ID") : "-"}
+          {value ? new Date(value).toLocaleDateString("id-ID")
+            : "-"}
         </span>
       );
     },

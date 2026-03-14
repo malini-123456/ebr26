@@ -122,7 +122,7 @@ export async function createipm(formData: FormData) {
 };
 
 export async function deleteIpm(id: number) {
-  await prisma.alat.delete({
+  await prisma.ipm.delete({
     where: { id },
   })
 

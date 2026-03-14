@@ -1,5 +1,6 @@
 "use client";
 
+import ActionButton from "@/components/ui/action-button";
 import { Button } from "@/components/ui/button";
 import {
   FieldGroup,
@@ -29,6 +30,13 @@ interface CreateAlatProps {
 }
 
 export default function CreateAlat({ ruanganList, initialData }: CreateAlatProps) {
+
+  const [isPending, setIsPending] = useState(false);
+
+  function handleClick() {
+    setIsPending(true);
+    setTimeout(() => setIsPending(false), 1500);
+  }
 
   const isEdit = !!initialData;
 
@@ -110,9 +118,14 @@ export default function CreateAlat({ ruanganList, initialData }: CreateAlatProps
         </FieldGroup>
       </FieldSet>
 
-      <Button type="submit" className="mt-4 py-2">
-        {isEdit ? "Update" : "Submit"}
-      </Button>
+
+      <ActionButton
+        onClick={handleClick}
+        isPending={isPending}>
+        <Button type="submit" className="mt-4 py-2">
+          {isEdit ? "Update" : "Submit"}
+        </Button>
+      </ActionButton>
     </FieldGroup>
   );
 }
