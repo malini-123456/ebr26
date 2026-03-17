@@ -38,7 +38,7 @@ export function ChartBarHorizontal({ data }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Horizontal</CardTitle>
+        <CardTitle>Jumlah Pemeliharaan</CardTitle>
         <CardDescription>January - June 2026</CardDescription>
       </CardHeader>
       <CardContent>

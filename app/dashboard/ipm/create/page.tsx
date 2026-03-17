@@ -36,8 +36,6 @@ export default async function CreateIpm({
     { id: 9, label: "Ruangan", name: "ruangan", type: "text" }
   ];
 
-
-
   return (
     <PageContainer
       scrollable={true}

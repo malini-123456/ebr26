@@ -1,6 +1,6 @@
 import ContributorsOverviewTable from "@/components/contributors-overview-table";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { prisma } from "@/lib/prisma";
 import { IconPlus } from "@tabler/icons-react";
 
@@ -17,7 +17,7 @@ export default async function ModalIpm() {
         <DialogTrigger asChild>
           <Button><IconPlus />Add Ipm</Button>
         </DialogTrigger>
-        <DialogContent className="mx-4 h-screen w-4xl">
+        <DialogContent className="mx-4 h-dvh w-4xl">
           <DialogHeader>
             <DialogTitle>Pilih Alat</DialogTitle>
           </DialogHeader>

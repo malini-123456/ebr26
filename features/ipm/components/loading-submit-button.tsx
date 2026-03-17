@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom";
 
 export default function SubmitButton() {
   const { pending } = useFormStatus();
+
   return (
     <Button type="submit" disabled={pending} className="mt-4 py-2 flex gap-2 items-center">
       {pending && (

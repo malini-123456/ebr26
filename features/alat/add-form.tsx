@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Alat } from "@/lib/definitions/tipe-alat";
 import { useState } from "react";
+import SubmitButton from "../ipm/components/loading-submit-button";
 
 type Ruangan = {
   id: number;
@@ -117,15 +118,7 @@ export default function CreateAlat({ ruanganList, initialData }: CreateAlatProps
           </Field>
         </FieldGroup>
       </FieldSet>
-
-
-      <ActionButton
-        onClick={handleClick}
-        isPending={isPending}>
-        <Button type="submit" className="mt-4 py-2">
-          {isEdit ? "Update" : "Submit"}
-        </Button>
-      </ActionButton>
+      <SubmitButton />
     </FieldGroup>
   );
 }

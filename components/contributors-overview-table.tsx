@@ -43,7 +43,7 @@ export default function ContributorsOverviewTableClient({ data }: Props) {
   });
 
   return (
-    <div className="max-w-3xl mx-auto bg-background p-4">
+    <div className="max-w-3xl mx-auto bg-background">
 
       <Input
         placeholder="Search alat..."
@@ -52,8 +52,8 @@ export default function ContributorsOverviewTableClient({ data }: Props) {
         className="mb-4"
       />
 
-      <ScrollArea className="h-9/12 w-full rounded-md border">
-        <Table className="table-fixed py-5">
+      <ScrollArea className="max-h-[50vh] overflow-y-auto px-4">
+        <Table className="table-fixed">
           <TableHeader>
             <TableRow>
               <TableHead>Nama</TableHead>
