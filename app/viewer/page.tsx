@@ -1,21 +1,15 @@
 import PageContainer from "@/components/layout/page-container";
-import { currentUser } from "@clerk/nextjs/server";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
-import ModalIpm from "@/features/ipm/modal";
-import { UnauthorizedToast } from "@/features/overview/unauth";
-import { SectionCards } from "@/features/overview/stats";
 import { ChartBarHorizontal } from "@/features/overview/barcharts";
+import FilledCalendar from "@/features/overview/filled-calendar";
+import { SectionCards } from "@/features/overview/stats";
 import UpcomingDataTable from "@/features/overview/upcoming-kalibrasi";
 import { prisma } from "@/lib/prisma";
 import { groupIpmByMonth } from "@/utils/groupipm";
-import FilledCalendar from "@/features/overview/filled-calendar";
+import { Suspense } from "react";
 
-export default async function Page() {
-  const user = await currentUser();
+
+export default async function AdminDashboard() {
 
   const year = new Date().getFullYear()
 
@@ -56,23 +50,8 @@ export default async function Page() {
   return (
     <PageContainer
       scrollable={false}
-      pageTitle={<div>Hi {user?.firstName}, welcome back 👋🏻</div>}
-      pageHeaderAction={
-        <Link
-          href="#"
-          className={cn(buttonVariants(), 'text-xs md:text-sm')}
-        >
-          <ModalIpm />
-        </Link >
-      }
+    // pageTitle={<div>Hi {user?.firstName}, welcome back 👋🏻</div>}
     >
-      <Suspense
-        fallback={
-          <DataTableSkeleton columnCount={5} rowCount={6} filterCount={2} />
-        }
-      >
-      </Suspense>
-      <UnauthorizedToast />
       <SectionCards />
       <div className="grid grid-cols-1 md:grid-cols-2 my-3 md:gap-3">
         <ChartBarHorizontal

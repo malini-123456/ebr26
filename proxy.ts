@@ -6,7 +6,7 @@ const isAdminRoute = createRouteMatcher(['/dashboard(.*)'])
 
 export default clerkMiddleware(async (auth, req) => {
   if (isAdminRoute(req) && (await auth()).sessionClaims?.metadata?.role !== 'admin') {
-    const url = new URL('/users', req.url)
+    const url = new URL('/viewer', req.url)
     return NextResponse.redirect(url)
   }
 })

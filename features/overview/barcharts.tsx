@@ -39,7 +39,7 @@ export function ChartBarHorizontal({ data }: Props) {
     <Card>
       <CardHeader>
         <CardTitle>Jumlah Pemeliharaan</CardTitle>
-        <CardDescription>January - June 2026</CardDescription>
+        <CardDescription>Januari - Juni 2026</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

@@ -260,6 +260,10 @@ function SidebarTrigger({
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar()
 
+  const isMobile = useIsMobile()
+
+  if (isMobile) return null
+
   return (
     <Button
       data-sidebar="trigger"

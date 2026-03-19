@@ -46,6 +46,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from "@/components/icons";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function AppSidebar() {
   const pathname = usePathname();
@@ -59,13 +60,15 @@ export default function AppSidebar() {
     // Side effects based on sidebar state changes
   }, [isOpen]);
 
+  const isMobile = useIsMobile();
+
   return (
     <Sidebar collapsible='icon'>
       <SidebarHeader>
       </SidebarHeader>
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>
-          <SidebarGroupLabel>Overview</SidebarGroupLabel>
+          <SidebarGroupLabel className='hidden md:block'>Overview</SidebarGroupLabel>
           <SidebarMenu>
             {filteredItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;
@@ -79,11 +82,15 @@ export default function AppSidebar() {
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
-                        tooltip={item.title}
+                        tooltip={<span className={isMobile ? "hidden" : ""}>
+                          {item.title}
+                        </span>}
                         isActive={pathname === item.url}
                       >
                         {item.icon && <Icon />}
-                        <span>{item.title}</span>
+                        <span className={isMobile ? "hidden" : ""}>
+                          {item.title}
+                        </span>
                         <IconChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
@@ -111,10 +118,13 @@ export default function AppSidebar() {
                     asChild
                     tooltip={item.title}
                     isActive={pathname === item.url}
+                    className={isMobile ? "flex flex-row" : ""}
                   >
                     <Link href={item.url}>
                       <Icon />
-                      <span>{item.title}</span>
+                      <span className={isMobile ? "hidden" : ""}>
+                        {item.title}
+                      </span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

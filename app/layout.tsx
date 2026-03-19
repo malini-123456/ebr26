@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,7 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="system"
             enableSystem>
-            {children}
+            <TooltipProvider>{children}</TooltipProvider>
             <Toaster richColors />
           </ThemeProvider>
         </body>

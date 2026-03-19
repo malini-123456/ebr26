@@ -6,13 +6,20 @@ import {
   Hospital,
   Leaf,
   Lightbulb,
+  QrCode,
   Trophy,
 } from "lucide-react";
 import React from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export default async function List2() {
   const ruangan = await prisma.ruangan.findMany();
@@ -23,30 +30,35 @@ export default async function List2() {
           <Separator />
           {ruangan.map((item) => (
             <React.Fragment key={item.id}>
-              <div className="grid items-center gap-4 px-4 py-2 md:grid-cols-4 hover:bg-secondary">
+              <div className="grid items-center gap-4 px-4 py-2  hover:bg-secondary">
                 <div className="order-2 flex items-center gap-2 md:order-none">
                   <span className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md bg-muted">
                     <Hospital />
                   </span>
-                  {/* <div className="flex flex-col gap-1">
-                    <h3 className="font-semibold">{item.namaRuangan}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {item.namaRuangan}
-                    </p>
-                  </div> */}
+
+                  <p className="order-1 text-xl font-medium md:order-none md:col-span-2">
+                    {item.namaRuangan}
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link
+                      href={`./ruangan/${item.id}`}
+                      className="order-3 ml-auto w-fit gap-2 md:order-none">
+                      <span>View Details</span>
+
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button variant="outline" className="cursor-pointer">
+                        <QrCode />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Download QR Code</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
-                <p className="order-1 text-xl font-medium md:order-none md:col-span-2">
-                  {item.namaRuangan}
-                </p>
-                <Button variant="outline" asChild>
-                  <a
-                    className="order-3 ml-auto w-fit gap-2 md:order-none"
-                    href={item.namaRuangan}
-                  >
-                    <span>View Details</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                </Button>
               </div>
               <Separator />
             </React.Fragment>
