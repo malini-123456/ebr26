@@ -36,7 +36,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Dashboard',
     url: '/dashboard/overview',
-    icon: 'dashboard',
+    icon: 'home',
     isActive: false,
     shortcut: ['d', 'd'],
     items: []
@@ -90,25 +90,17 @@ export const navItems: NavItem[] = [
   //   isActive: false,
   //   items: []
   // },
-  // {
-  //   title: 'Pemeliharaan',
-  //   url:'#',
-  //   icon:'laptop',
-  //   items: [
-  //     {
-  //       title: '2025',
-  //       url:'/dashboard/appsheet',
-  //     },
-  //     {
-  //       title:'2026',
-  //       url:'/dashboard/ipm',
-  //     }
-  //   ]
-  // },
   {
     title: 'Pemeliharaan',
     url: '/dashboard/ipm',
     icon: 'laptop',
+    items: []
+  },
+
+  {
+    title: 'EKIN',
+    url: '/dashboard/ekin',
+    icon: 'product',
     items: []
   },
   // {

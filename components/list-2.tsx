@@ -1,13 +1,6 @@
 import {
   ArrowRight,
-  Award,
-  Building2,
-  HeartHandshake,
   Hospital,
-  Leaf,
-  Lightbulb,
-  QrCode,
-  Trophy,
 } from "lucide-react";
 import React from "react";
 import {
@@ -20,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { QrDownloadButton } from "@/components/qr-download-button";
 
 export default async function List2() {
   const ruangan = await prisma.ruangan.findMany();
@@ -49,10 +43,8 @@ export default async function List2() {
                     </Link>
                   </Button>
                   <Tooltip>
-                    <TooltipTrigger>
-                      <Button variant="outline" className="cursor-pointer">
-                        <QrCode />
-                      </Button>
+                    <TooltipTrigger asChild>
+                      <QrDownloadButton ruanganId={item.id} namaRuangan={item.namaRuangan} />
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Download QR Code</p>

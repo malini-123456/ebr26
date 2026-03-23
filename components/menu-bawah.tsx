@@ -44,17 +44,20 @@ export default function MenuBawah() {
       url: '/dashboard/ipm',
       icon: 'laptop',
     },
+    {
+      title: 'EKIN',
+      url: '/dashboard/ekin',
+      icon: 'product',
+    },
   ];
 
   return (
-    <div className="fixed bottom-0">
-      <div className="flex flex-col gap-4 md:hidden overflow-auto px-5">
-        <ExpandableTabs
-          tabs={tabs}
-          activeColor="text-primary"
-        // className="border-blue-200 dark:border-blue-800"
-        />
-      </div>
+    <div className="fixed bottom-4 left-0 right-0 flex justify-center md:hidden px-5">
+      <ExpandableTabs
+        tabs={tabs}
+        activeColor="text-primary"
+      // className="border-blue-200 dark:border-blue-800"
+      />
     </div>
   )
 }

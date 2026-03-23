@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { editAlat } from "@/app/action/action";
 import AlatForm from "@/features/alat/add-form";
 import PageContainer from "@/components/layout/page-container";
+import { checkRole } from "@/utils/roles";
 
 export default async function EditAlatPage({
   params,
@@ -10,7 +11,7 @@ export default async function EditAlatPage({
   params: Promise<{ inventarisId: string }>;
 }) {
   const { inventarisId } = await params
-
+  const isAdmin = await checkRole('admin');
   const id = Number(inventarisId)
 
   const alat = await prisma.alat.findUnique({
@@ -27,7 +28,10 @@ export default async function EditAlatPage({
   });
 
   return (
-    <PageContainer>
+    <PageContainer
+      access={isAdmin}
+      accessFallback={<div>Only admin can access</div>}
+    >
       <form action={editAlat.bind(null, id)}>
         <AlatForm
           ruanganList={ruanganList}

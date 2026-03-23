@@ -29,11 +29,11 @@ export default function FilledCalendar({
         <CardTitle>Pemeliharaan Harian</CardTitle>
         <CardDescription></CardDescription>
       </CardHeader>
-      <CardContent className="mx-auto">
+      <CardContent className="flex justify-center p-2 md:p-6">
         <Calendar
           mode="single"
           numberOfMonths={1}
-          className="rounded-lg border [--cell-size:--spacing(9)] md:[--cell-size:--spacing(12) lg:[--cell-size:--spacing(18) ]"
+          className="rounded-lg border [--cell-size:--spacing(8)] sm:[--cell-size:--spacing(9)] md:[--cell-size:--spacing(11)] lg:[--cell-size:--spacing(13)]"
           modifiers={{
             hasIPM: datesWithIPM,
           }}
@@ -48,12 +48,9 @@ export default function FilledCalendar({
 
               return (
                 <div className="relative w-full h-full">
-                  {/* ✅ keep original day button */}
                   {props.children}
-
-                  {/* ✅ overlay your count */}
                   {count && (
-                    <span className="absolute bottom-0 right-0 text-[15px] text-primary rounded-full w-4 h-4 flex items-center justify-center">
+                    <span className="absolute bottom-0 right-0 text-[9px] md:text-[11px] text-primary rounded-full w-3 h-3 md:w-4 md:h-4 flex items-center justify-center leading-none">
                       {count}
                     </span>
                   )}

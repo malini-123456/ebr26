@@ -6,6 +6,7 @@ import BuatIPMForm from "@/features/ipm/buat-ipm";
 import { Separator } from "@/components/ui/separator";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { checkRole } from "@/utils/roles";
 
 
 type PageProps = {
@@ -19,6 +20,7 @@ export default async function CreateIpm({
 }) {
 
   const props = await searchParams;
+  const isAdmin = await checkRole('admin');
 
   const alat = await prisma.alat.findUnique({
     where: { id: Number(props.alatId) },
@@ -41,6 +43,8 @@ export default async function CreateIpm({
       scrollable={true}
       pageTitle={<div>Tambah IPM</div>}
       pageDescription={`Form IPM ${alat?.nama} SN: ${alat?.noSeri} terakhir dipelihara:`}
+      access={isAdmin}
+      accessFallback={<div>Only admin can access</div>}
     >
       <Card className="mx-auto w-full">
         <form action={createipm}>

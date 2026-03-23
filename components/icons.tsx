@@ -36,12 +36,14 @@ import {
   IconCrown,
   IconStar,
   IconBox,
-  IconPalette
+  IconPalette,
+  IconHome
 } from '@tabler/icons-react';
 
 export type Icon = React.ComponentType<IconProps>;
 
 export const Icons = {
+  home: IconHome,
   dashboard: IconLayoutDashboard,
   logo: IconCommand,
   login: IconLogin,

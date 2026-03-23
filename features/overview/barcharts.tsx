@@ -42,7 +42,7 @@ export function ChartBarHorizontal({ data }: Props) {
         <CardDescription>Januari - Juni 2026</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="min-h-55 w-full">
           <BarChart
             accessibilityLayer
             data={data}

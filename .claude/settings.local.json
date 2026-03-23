@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Read(//c/Users/LENOVO/AppData/Local/npm-cache/_logs/**)",
+      "Bash(pnpm add:*)"
+    ]
+  }
+}

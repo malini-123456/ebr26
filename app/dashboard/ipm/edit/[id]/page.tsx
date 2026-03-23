@@ -1,4 +1,5 @@
 import PageContainer from "@/components/layout/page-container";
+import { checkRole } from "@/utils/roles";
 import { Card, CardContent } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
 import { editIpm } from "@/app/action/action";
@@ -21,6 +22,7 @@ type PageProps = {
 export default async function EditIpmPage({ params }: PageProps) {
   const { id } = await params;
 
+  const isAdmin = await checkRole('admin');
   const ipmId = Number(id);
   const ipm = await prisma.ipm.findUnique({
     where: { id: ipmId },
@@ -49,6 +51,8 @@ export default async function EditIpmPage({ params }: PageProps) {
       scrollable
       pageTitle="Edit IPM"
       pageDescription={`Edit IPM ${ipm.alat.nama} SN: ${ipm.alat.noSeri}`}
+      access={isAdmin}
+      accessFallback={<div>Only admin can access</div>}
     >
       <Card className="mx-auto w-full">
         <form action={editIpm.bind(null, ipmId)}>
