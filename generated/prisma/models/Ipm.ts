@@ -46,6 +46,10 @@ export type IpmMinAggregateOutputType = {
   createdAt: Date | null
   alatId: number | null
   ruanganId: number | null
+  catatan: string | null
+  suhu: string | null
+  kelembapan: string | null
+  kelistrikan: string | null
 }
 
 export type IpmMaxAggregateOutputType = {
@@ -56,6 +60,10 @@ export type IpmMaxAggregateOutputType = {
   createdAt: Date | null
   alatId: number | null
   ruanganId: number | null
+  catatan: string | null
+  suhu: string | null
+  kelembapan: string | null
+  kelistrikan: string | null
 }
 
 export type IpmCountAggregateOutputType = {
@@ -67,6 +75,10 @@ export type IpmCountAggregateOutputType = {
   alatId: number
   ruanganId: number
   teknisi: number
+  catatan: number
+  suhu: number
+  kelembapan: number
+  kelistrikan: number
   _all: number
 }
 
@@ -91,6 +103,10 @@ export type IpmMinAggregateInputType = {
   createdAt?: true
   alatId?: true
   ruanganId?: true
+  catatan?: true
+  suhu?: true
+  kelembapan?: true
+  kelistrikan?: true
 }
 
 export type IpmMaxAggregateInputType = {
@@ -101,6 +117,10 @@ export type IpmMaxAggregateInputType = {
   createdAt?: true
   alatId?: true
   ruanganId?: true
+  catatan?: true
+  suhu?: true
+  kelembapan?: true
+  kelistrikan?: true
 }
 
 export type IpmCountAggregateInputType = {
@@ -112,6 +132,10 @@ export type IpmCountAggregateInputType = {
   alatId?: true
   ruanganId?: true
   teknisi?: true
+  catatan?: true
+  suhu?: true
+  kelembapan?: true
+  kelistrikan?: true
   _all?: true
 }
 
@@ -210,6 +234,10 @@ export type IpmGroupByOutputType = {
   alatId: number
   ruanganId: number | null
   teknisi: string[]
+  catatan: string | null
+  suhu: string | null
+  kelembapan: string | null
+  kelistrikan: string | null
   _count: IpmCountAggregateOutputType | null
   _avg: IpmAvgAggregateOutputType | null
   _sum: IpmSumAggregateOutputType | null
@@ -244,6 +272,10 @@ export type IpmWhereInput = {
   alatId?: Prisma.IntFilter<"Ipm"> | number
   ruanganId?: Prisma.IntNullableFilter<"Ipm"> | number | null
   teknisi?: Prisma.StringNullableListFilter<"Ipm">
+  catatan?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  suhu?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  kelembapan?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  kelistrikan?: Prisma.StringNullableFilter<"Ipm"> | string | null
   alat?: Prisma.XOR<Prisma.AlatScalarRelationFilter, Prisma.AlatWhereInput>
   ruangan?: Prisma.XOR<Prisma.RuanganNullableScalarRelationFilter, Prisma.RuanganWhereInput> | null
 }
@@ -257,6 +289,10 @@ export type IpmOrderByWithRelationInput = {
   alatId?: Prisma.SortOrder
   ruanganId?: Prisma.SortOrderInput | Prisma.SortOrder
   teknisi?: Prisma.SortOrder
+  catatan?: Prisma.SortOrderInput | Prisma.SortOrder
+  suhu?: Prisma.SortOrderInput | Prisma.SortOrder
+  kelembapan?: Prisma.SortOrderInput | Prisma.SortOrder
+  kelistrikan?: Prisma.SortOrderInput | Prisma.SortOrder
   alat?: Prisma.AlatOrderByWithRelationInput
   ruangan?: Prisma.RuanganOrderByWithRelationInput
 }
@@ -273,6 +309,10 @@ export type IpmWhereUniqueInput = Prisma.AtLeast<{
   alatId?: Prisma.IntFilter<"Ipm"> | number
   ruanganId?: Prisma.IntNullableFilter<"Ipm"> | number | null
   teknisi?: Prisma.StringNullableListFilter<"Ipm">
+  catatan?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  suhu?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  kelembapan?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  kelistrikan?: Prisma.StringNullableFilter<"Ipm"> | string | null
   alat?: Prisma.XOR<Prisma.AlatScalarRelationFilter, Prisma.AlatWhereInput>
   ruangan?: Prisma.XOR<Prisma.RuanganNullableScalarRelationFilter, Prisma.RuanganWhereInput> | null
 }, "id">
@@ -286,6 +326,10 @@ export type IpmOrderByWithAggregationInput = {
   alatId?: Prisma.SortOrder
   ruanganId?: Prisma.SortOrderInput | Prisma.SortOrder
   teknisi?: Prisma.SortOrder
+  catatan?: Prisma.SortOrderInput | Prisma.SortOrder
+  suhu?: Prisma.SortOrderInput | Prisma.SortOrder
+  kelembapan?: Prisma.SortOrderInput | Prisma.SortOrder
+  kelistrikan?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.IpmCountOrderByAggregateInput
   _avg?: Prisma.IpmAvgOrderByAggregateInput
   _max?: Prisma.IpmMaxOrderByAggregateInput
@@ -305,6 +349,10 @@ export type IpmScalarWhereWithAggregatesInput = {
   alatId?: Prisma.IntWithAggregatesFilter<"Ipm"> | number
   ruanganId?: Prisma.IntNullableWithAggregatesFilter<"Ipm"> | number | null
   teknisi?: Prisma.StringNullableListFilter<"Ipm">
+  catatan?: Prisma.StringNullableWithAggregatesFilter<"Ipm"> | string | null
+  suhu?: Prisma.StringNullableWithAggregatesFilter<"Ipm"> | string | null
+  kelembapan?: Prisma.StringNullableWithAggregatesFilter<"Ipm"> | string | null
+  kelistrikan?: Prisma.StringNullableWithAggregatesFilter<"Ipm"> | string | null
 }
 
 export type IpmCreateInput = {
@@ -313,6 +361,10 @@ export type IpmCreateInput = {
   terukur?: string | null
   createdAt?: Date | string
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
   alat: Prisma.AlatCreateNestedOneWithoutIpmInput
   ruangan?: Prisma.RuanganCreateNestedOneWithoutIpmInput
 }
@@ -326,6 +378,10 @@ export type IpmUncheckedCreateInput = {
   alatId: number
   ruanganId?: number | null
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
 }
 
 export type IpmUpdateInput = {
@@ -334,6 +390,10 @@ export type IpmUpdateInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alat?: Prisma.AlatUpdateOneRequiredWithoutIpmNestedInput
   ruangan?: Prisma.RuanganUpdateOneWithoutIpmNestedInput
 }
@@ -347,6 +407,10 @@ export type IpmUncheckedUpdateInput = {
   alatId?: Prisma.IntFieldUpdateOperationsInput | number
   ruanganId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IpmCreateManyInput = {
@@ -358,6 +422,10 @@ export type IpmCreateManyInput = {
   alatId: number
   ruanganId?: number | null
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
 }
 
 export type IpmUpdateManyMutationInput = {
@@ -366,6 +434,10 @@ export type IpmUpdateManyMutationInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IpmUncheckedUpdateManyInput = {
@@ -377,6 +449,10 @@ export type IpmUncheckedUpdateManyInput = {
   alatId?: Prisma.IntFieldUpdateOperationsInput | number
   ruanganId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IpmListRelationFilter = {
@@ -406,6 +482,10 @@ export type IpmCountOrderByAggregateInput = {
   alatId?: Prisma.SortOrder
   ruanganId?: Prisma.SortOrder
   teknisi?: Prisma.SortOrder
+  catatan?: Prisma.SortOrder
+  suhu?: Prisma.SortOrder
+  kelembapan?: Prisma.SortOrder
+  kelistrikan?: Prisma.SortOrder
 }
 
 export type IpmAvgOrderByAggregateInput = {
@@ -422,6 +502,10 @@ export type IpmMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   alatId?: Prisma.SortOrder
   ruanganId?: Prisma.SortOrder
+  catatan?: Prisma.SortOrder
+  suhu?: Prisma.SortOrder
+  kelembapan?: Prisma.SortOrder
+  kelistrikan?: Prisma.SortOrder
 }
 
 export type IpmMinOrderByAggregateInput = {
@@ -432,6 +516,10 @@ export type IpmMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   alatId?: Prisma.SortOrder
   ruanganId?: Prisma.SortOrder
+  catatan?: Prisma.SortOrder
+  suhu?: Prisma.SortOrder
+  kelembapan?: Prisma.SortOrder
+  kelistrikan?: Prisma.SortOrder
 }
 
 export type IpmSumOrderByAggregateInput = {
@@ -539,6 +627,10 @@ export type IpmCreateWithoutRuanganInput = {
   terukur?: string | null
   createdAt?: Date | string
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
   alat: Prisma.AlatCreateNestedOneWithoutIpmInput
 }
 
@@ -550,6 +642,10 @@ export type IpmUncheckedCreateWithoutRuanganInput = {
   createdAt?: Date | string
   alatId: number
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
 }
 
 export type IpmCreateOrConnectWithoutRuanganInput = {
@@ -590,6 +686,10 @@ export type IpmScalarWhereInput = {
   alatId?: Prisma.IntFilter<"Ipm"> | number
   ruanganId?: Prisma.IntNullableFilter<"Ipm"> | number | null
   teknisi?: Prisma.StringNullableListFilter<"Ipm">
+  catatan?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  suhu?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  kelembapan?: Prisma.StringNullableFilter<"Ipm"> | string | null
+  kelistrikan?: Prisma.StringNullableFilter<"Ipm"> | string | null
 }
 
 export type IpmCreateWithoutAlatInput = {
@@ -598,6 +698,10 @@ export type IpmCreateWithoutAlatInput = {
   terukur?: string | null
   createdAt?: Date | string
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
   ruangan?: Prisma.RuanganCreateNestedOneWithoutIpmInput
 }
 
@@ -609,6 +713,10 @@ export type IpmUncheckedCreateWithoutAlatInput = {
   createdAt?: Date | string
   ruanganId?: number | null
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
 }
 
 export type IpmCreateOrConnectWithoutAlatInput = {
@@ -645,6 +753,10 @@ export type IpmCreateManyRuanganInput = {
   createdAt?: Date | string
   alatId: number
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
 }
 
 export type IpmUpdateWithoutRuanganInput = {
@@ -653,6 +765,10 @@ export type IpmUpdateWithoutRuanganInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alat?: Prisma.AlatUpdateOneRequiredWithoutIpmNestedInput
 }
 
@@ -664,6 +780,10 @@ export type IpmUncheckedUpdateWithoutRuanganInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alatId?: Prisma.IntFieldUpdateOperationsInput | number
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IpmUncheckedUpdateManyWithoutRuanganInput = {
@@ -674,6 +794,10 @@ export type IpmUncheckedUpdateManyWithoutRuanganInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   alatId?: Prisma.IntFieldUpdateOperationsInput | number
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IpmCreateManyAlatInput = {
@@ -684,6 +808,10 @@ export type IpmCreateManyAlatInput = {
   createdAt?: Date | string
   ruanganId?: number | null
   teknisi?: Prisma.IpmCreateteknisiInput | string[]
+  catatan?: string | null
+  suhu?: string | null
+  kelembapan?: string | null
+  kelistrikan?: string | null
 }
 
 export type IpmUpdateWithoutAlatInput = {
@@ -692,6 +820,10 @@ export type IpmUpdateWithoutAlatInput = {
   terukur?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ruangan?: Prisma.RuanganUpdateOneWithoutIpmNestedInput
 }
 
@@ -703,6 +835,10 @@ export type IpmUncheckedUpdateWithoutAlatInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ruanganId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type IpmUncheckedUpdateManyWithoutAlatInput = {
@@ -713,6 +849,10 @@ export type IpmUncheckedUpdateManyWithoutAlatInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ruanganId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   teknisi?: Prisma.IpmUpdateteknisiInput | string[]
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suhu?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelembapan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelistrikan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -726,6 +866,10 @@ export type IpmSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   alatId?: boolean
   ruanganId?: boolean
   teknisi?: boolean
+  catatan?: boolean
+  suhu?: boolean
+  kelembapan?: boolean
+  kelistrikan?: boolean
   alat?: boolean | Prisma.AlatDefaultArgs<ExtArgs>
   ruangan?: boolean | Prisma.Ipm$ruanganArgs<ExtArgs>
 }, ExtArgs["result"]["ipm"]>
@@ -739,6 +883,10 @@ export type IpmSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   alatId?: boolean
   ruanganId?: boolean
   teknisi?: boolean
+  catatan?: boolean
+  suhu?: boolean
+  kelembapan?: boolean
+  kelistrikan?: boolean
   alat?: boolean | Prisma.AlatDefaultArgs<ExtArgs>
   ruangan?: boolean | Prisma.Ipm$ruanganArgs<ExtArgs>
 }, ExtArgs["result"]["ipm"]>
@@ -752,6 +900,10 @@ export type IpmSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   alatId?: boolean
   ruanganId?: boolean
   teknisi?: boolean
+  catatan?: boolean
+  suhu?: boolean
+  kelembapan?: boolean
+  kelistrikan?: boolean
   alat?: boolean | Prisma.AlatDefaultArgs<ExtArgs>
   ruangan?: boolean | Prisma.Ipm$ruanganArgs<ExtArgs>
 }, ExtArgs["result"]["ipm"]>
@@ -765,9 +917,13 @@ export type IpmSelectScalar = {
   alatId?: boolean
   ruanganId?: boolean
   teknisi?: boolean
+  catatan?: boolean
+  suhu?: boolean
+  kelembapan?: boolean
+  kelistrikan?: boolean
 }
 
-export type IpmOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "hasil" | "settingAlat" | "terukur" | "createdAt" | "alatId" | "ruanganId" | "teknisi", ExtArgs["result"]["ipm"]>
+export type IpmOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "hasil" | "settingAlat" | "terukur" | "createdAt" | "alatId" | "ruanganId" | "teknisi" | "catatan" | "suhu" | "kelembapan" | "kelistrikan", ExtArgs["result"]["ipm"]>
 export type IpmInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   alat?: boolean | Prisma.AlatDefaultArgs<ExtArgs>
   ruangan?: boolean | Prisma.Ipm$ruanganArgs<ExtArgs>
@@ -796,6 +952,10 @@ export type $IpmPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     alatId: number
     ruanganId: number | null
     teknisi: string[]
+    catatan: string | null
+    suhu: string | null
+    kelembapan: string | null
+    kelistrikan: string | null
   }, ExtArgs["result"]["ipm"]>
   composites: {}
 }
@@ -1229,6 +1389,10 @@ export interface IpmFieldRefs {
   readonly alatId: Prisma.FieldRef<"Ipm", 'Int'>
   readonly ruanganId: Prisma.FieldRef<"Ipm", 'Int'>
   readonly teknisi: Prisma.FieldRef<"Ipm", 'String[]'>
+  readonly catatan: Prisma.FieldRef<"Ipm", 'String'>
+  readonly suhu: Prisma.FieldRef<"Ipm", 'String'>
+  readonly kelembapan: Prisma.FieldRef<"Ipm", 'String'>
+  readonly kelistrikan: Prisma.FieldRef<"Ipm", 'String'>
 }
     
 
@@ -1425,11 +1589,6 @@ export type IpmFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Skip the first `n` Ipms.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of Ipms.
-   */
   distinct?: Prisma.IpmScalarFieldEnum | Prisma.IpmScalarFieldEnum[]
 }
 

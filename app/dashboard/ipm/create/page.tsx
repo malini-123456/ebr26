@@ -27,6 +27,11 @@ export default async function CreateIpm({
     include: { ruangan: true },
   });
 
+  const latestIpm = await prisma.ipm.findFirst({
+    where: { alatId: Number(props.alatId) },
+    orderBy: { createdAt: "desc" },
+  });
+
   const form_alat = [
     { id: 1, label: "Nama Alat", name: "nama", type: "text", required: true },
     { id: 2, label: "Merek", name: "merek", type: "text" },
@@ -42,7 +47,13 @@ export default async function CreateIpm({
     <PageContainer
       scrollable={true}
       pageTitle={<div>Tambah IPM</div>}
-      pageDescription={`Form IPM ${alat?.nama} SN: ${alat?.noSeri} terakhir dipelihara:`}
+      pageDescription={
+        `Form IPM ${alat?.nama} 
+        SN: ${alat?.noSeri} 
+        — terakhir dipelihara: ${latestIpm ? new Date(
+          latestIpm.createdAt).toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" }
+
+          ) : "belum ada data"}`}
       access={isAdmin}
       accessFallback={<div>Only admin can access</div>}
     >

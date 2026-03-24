@@ -1158,11 +1158,6 @@ export type RuanganFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` Ruangans.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of Ruangans.
-   */
   distinct?: Prisma.RuanganScalarFieldEnum | Prisma.RuanganScalarFieldEnum[]
 }
 

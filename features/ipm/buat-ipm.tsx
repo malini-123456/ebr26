@@ -11,32 +11,20 @@ import { pns } from "@/lib/teknisi_constant";
 import { clerkClient } from "@clerk/nextjs/server";
 import SubmitButton from "./components/loading-submit-button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 
 export default async function BuatIPMForm() {
 
-  const items = [
-    {
-      id: 1,
-      label: "Setting Alat",
-      name: "settingAlat",
-      type: "text",
-      placeholder: "Setting",
-    },
-    {
-      id: 2,
-      label: "Terukur",
-      name: "terukur",
-      type: "text",
-      placeholder: "Terukur",
-    },
-    // {
-    //   id: 3,
-    //   label: "Hasil",
-    //   name: "hasil",
-    //   type: "text",
-    //   placeholder: "Hasil",
-    //   required: true,
-    // },
+  const itemsLingkungan = [
+    { id: 1, label: "Suhu (°C)", name: "suhu", type: "text" },
+    { id: 2, label: "Kelembapan (%)", name: "kelembapan", type: "text" },
+    { id: 3, label: "Kelistrikan (V)", name: "kelistrikan", type: "text" },
+  ];
+
+  const itemsAlat = [
+    { id: 4, label: "Setting Alat", name: "settingAlat", type: "text" },
+    { id: 5, label: "Terukur", name: "terukur", type: "text" },
+    { id: 6, label: "Catatan", name: "catatan", type: "text" },
   ];
 
   // const teknisi = await prisma.user.findMany();
@@ -49,7 +37,19 @@ export default async function BuatIPMForm() {
     <FieldGroup>
       <FieldSet>
         <FieldGroup>
-          {items.map((ipm) => (
+          {itemsLingkungan.map((ipm) => (
+            <Field key={ipm.id} className="flex flex-row w-full items-center">
+              <FieldLabel htmlFor={ipm.name} className="basis-1/3">{ipm.label}</FieldLabel>
+              <Input
+                id={ipm.name}
+                name={ipm.name}
+                type={ipm.type}
+                className="basis-2/3 rounded-xl"
+              />
+            </Field>
+          ))}
+          <Separator />
+          {itemsAlat.map((ipm) => (
             <Field key={ipm.id} className="flex flex-row w-full items-center">
               <FieldLabel htmlFor={ipm.name} className="basis-1/3">{ipm.label}</FieldLabel>
               <Input

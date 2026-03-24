@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { TagsSelector } from "@/components/ui/tags-selector";
 import { pns } from "@/lib/teknisi_constant";
+import SubmitButton from "@/features/ipm/components/loading-submit-button";
 
 type PageProps = {
   params: Promise<{
@@ -90,6 +91,39 @@ export default async function EditIpmPage({ params }: PageProps) {
             <FieldGroup>
 
               <Field className="flex flex-row w-full items-center py-2">
+                <FieldLabel className="basis-1/3">Suhu (°C)</FieldLabel>
+                <Input
+                  name="suhu"
+                  defaultValue={ipm.suhu ?? ""}
+                  className="basis-2/3"
+                />
+              </Field>
+
+              <Field className="flex flex-row w-full items-center py-2">
+                <FieldLabel className="basis-1/3">Kelembapan (%)</FieldLabel>
+                <Input
+                  name="kelembapan"
+                  defaultValue={ipm.kelembapan ?? ""}
+                  className="basis-2/3"
+                />
+              </Field>
+
+              <Field className="flex flex-row w-full items-center py-2">
+                <FieldLabel className="basis-1/3">Kelistrikan (V)</FieldLabel>
+                <Input
+                  name="kelistrikan"
+                  defaultValue={ipm.kelistrikan ?? ""}
+                  className="basis-2/3"
+                />
+              </Field>
+
+            </FieldGroup>
+
+            <Separator />
+
+            <FieldGroup>
+
+              <Field className="flex flex-row w-full items-center py-2">
                 <FieldLabel className="basis-1/3">Setting Alat</FieldLabel>
                 <Input
                   name="settingAlat"
@@ -103,6 +137,15 @@ export default async function EditIpmPage({ params }: PageProps) {
                 <Input
                   name="terukur"
                   defaultValue={ipm.terukur ?? ""}
+                  className="basis-2/3"
+                />
+              </Field>
+
+              <Field className="flex flex-row w-full items-center py-2">
+                <FieldLabel className="basis-1/3">Catatan</FieldLabel>
+                <Input
+                  name="catatan"
+                  defaultValue={ipm.catatan ?? ""}
                   className="basis-2/3"
                 />
               </Field>
@@ -125,12 +168,7 @@ export default async function EditIpmPage({ params }: PageProps) {
           </CardContent>
 
           <CardContent>
-            <button
-              type="submit"
-              className="px-4 py-2 rounded-lg bg-emerald-600 text-white"
-            >
-              Update IPM
-            </button>
+            <SubmitButton />
           </CardContent>
 
         </form>

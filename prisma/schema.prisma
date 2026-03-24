@@ -65,7 +65,11 @@ model Ipm {
 
   ruanganId Int?
   ruangan   Ruangan? @relation(fields: [ruanganId], references: [id])
-  teknisi   String[]
+  teknisi     String[]
+  catatan     String?
+  suhu        String?
+  kelembapan  String?
+  kelistrikan String?
 
   // user User[]
 }

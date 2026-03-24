@@ -98,6 +98,10 @@ export async function createipm(formData: FormData) {
   const hasil = formData.get("hasil") as string;
   const settingAlat = formData.get("settingAlat")?.toString() || null;
   const terukur = formData.get("terukur")?.toString() || null;
+  const suhu = formData.get("suhu")?.toString() || null;
+  const kelembapan = formData.get("kelembapan")?.toString() || null;
+  const kelistrikan = formData.get("kelistrikan")?.toString() || null;
+  const catatan = formData.get("catatan")?.toString() || null;
   const teknisiIds = formData
     .getAll("teknisi")
     .map((id) => id.toString());
@@ -109,6 +113,10 @@ export async function createipm(formData: FormData) {
       hasil,
       settingAlat,
       terukur,
+      suhu,
+      kelembapan,
+      kelistrikan,
+      catatan,
       ruanganId: alat?.ruanganId,
       teknisi: teknisiIds
       // user: {
@@ -139,6 +147,10 @@ export async function editIpm(ipmId: number, formData: FormData) {
   const hasil = formData.get("hasil")?.toString();
   const settingAlat = formData.get("settingAlat")?.toString() || null;
   const terukur = formData.get("terukur")?.toString() || null;
+  const suhu = formData.get("suhu")?.toString() || null;
+  const kelembapan = formData.get("kelembapan")?.toString() || null;
+  const kelistrikan = formData.get("kelistrikan")?.toString() || null;
+  const catatan = formData.get("catatan")?.toString() || null;
 
   if (!hasil) {
     throw new Error("Hasil is required");
@@ -155,6 +167,10 @@ export async function editIpm(ipmId: number, formData: FormData) {
       hasil,
       settingAlat,
       terukur,
+      suhu,
+      kelembapan,
+      kelistrikan,
+      catatan,
       teknisi: teknisiIds
       // user: {
       //   set: teknisiIds.map((id) => ({ id })),
