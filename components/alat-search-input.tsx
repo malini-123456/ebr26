@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 
-export function AlatSearchInput() {
+export function AlatSearchInput({ placeholder = "Cari nama, merek, tipe, no. seri..." }: { placeholder?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -25,7 +25,7 @@ export function AlatSearchInput() {
 
   return (
     <Input
-      placeholder="Cari nama, merek, tipe, no. seri..."
+      placeholder={placeholder}
       defaultValue={searchParams.get("q") ?? ""}
       onChange={handleChange}
       className="max-w-sm"

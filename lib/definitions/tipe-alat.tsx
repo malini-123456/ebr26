@@ -12,4 +12,8 @@ export type Alat = {
   kalibrasi: Date | null;
   keterangan: string | null;
   createdAt: Date;
+  ipm?: {
+    hasil: string;
+    createdAt: Date;
+  }[];
 };

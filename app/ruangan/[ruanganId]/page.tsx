@@ -1,31 +1,19 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { AlatSearchInput } from "@/components/alat-search-input";
-import { AlatPagination } from "@/components/alat-pagination";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
-import { Suspense } from "react";
-
-const PAGE_SIZE = 10;
+import { AlatdiRuangan } from "@/features/ruangan/datatable_detailalat";
 
 export default async function DetailRuangan({
   params,
-  searchParams,
 }: {
   params: Promise<{ ruanganId: string }>
-  searchParams: Promise<{ q?: string; page?: string }>
 }) {
   const { ruanganId } = await params;
-  const { q, page: pageParam } = await searchParams;
   const id = Number(ruanganId);
-  const page = Math.max(1, Number(pageParam) || 1);
-  const search = q?.trim() ?? "";
 
-  // Stats use full unfiltered data
   const ruangan = await prisma.ruangan.findUnique({
     where: { id },
     include: {
-      alat: { include: { ipm: { orderBy: { createdAt: "desc" }, take: 1 } } },
+      alat: { include: { ruangan: true, ipm: { orderBy: { createdAt: "desc" }, take: 1 } } },
       ipm: { orderBy: { createdAt: "desc" } },
     },
   });
@@ -43,31 +31,6 @@ export default async function DetailRuangan({
   const ipmOk = ruangan?.ipm.filter((i) => i.hasil === "Alat Dapat Digunakan").length ?? 0;
   const ipmFail = totalIpm - ipmOk;
 
-  // Filtered + paginated alat for the table
-  const searchFilter = search
-    ? {
-      OR: [
-        { nama: { contains: search, mode: "insensitive" as const } },
-        { merek: { contains: search, mode: "insensitive" as const } },
-        { tipe: { contains: search, mode: "insensitive" as const } },
-        { noSeri: { contains: search, mode: "insensitive" as const } },
-      ],
-    }
-    : {};
-
-  const [filteredAlat, filteredCount] = await Promise.all([
-    prisma.alat.findMany({
-      where: { ruanganId: id, ...searchFilter },
-      include: { ipm: { orderBy: { createdAt: "desc" }, take: 1 } },
-      orderBy: { nama: "asc" },
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-    }),
-    prisma.alat.count({ where: { ruanganId: id, ...searchFilter } }),
-  ]);
-
-  const totalPages = Math.max(1, Math.ceil(filteredCount / PAGE_SIZE));
-
   return (
     <div className="flex flex-col gap-6">
 
@@ -78,7 +41,8 @@ export default async function DetailRuangan({
       </div>
 
       {/* Stat cards */}
-      <div className="flex flex-wrap gap-3">
+      <div className="
+    grid grid-cols-1 md:grid-cols-3 rounded-xl gap-3">
 
         <Card className="@container/card flex-1 min-w-55">
           <CardHeader className="relative">
@@ -146,84 +110,10 @@ export default async function DetailRuangan({
 
       </div>
 
-      {/* Alat table */}
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between gap-4 flex-wrap">
-          <CardTitle>Daftar Alat</CardTitle>
-          <Suspense>
-            <AlatSearchInput />
-          </Suspense>
-        </CardHeader>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nama</TableHead>
-                <TableHead>Merek</TableHead>
-                <TableHead>Tipe</TableHead>
-                <TableHead>No. Seri</TableHead>
-                <TableHead>Tahun</TableHead>
-                <TableHead>Kalibrasi</TableHead>
-                <TableHead>IPM Terakhir</TableHead>
-                <TableHead>Status IPM</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredAlat.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
-                    {search ? "Tidak ada alat yang cocok" : "Belum ada alat terdaftar"}
-                  </TableCell>
-                </TableRow>
-              )}
-              {filteredAlat.map((alat) => {
-                const lastIpmEntry = alat.ipm[0] ?? null;
-                const lastHasil = lastIpmEntry?.hasil ?? null;
-                const lastIpmDate = lastIpmEntry?.createdAt ?? null;
-                return (
-                  <TableRow key={alat.id}>
-                    <TableCell className="font-medium">{alat.nama}</TableCell>
-                    <TableCell>{alat.merek ?? "—"}</TableCell>
-                    <TableCell>{alat.tipe ?? "—"}</TableCell>
-                    <TableCell>{alat.noSeri ?? "—"}</TableCell>
-                    <TableCell>{alat.tahun ?? "—"}</TableCell>
-                    <TableCell>
-                      {alat.kalibrasi
-                        ? alat.kalibrasi.toLocaleDateString("id-ID", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })
-                        : "—"}
-                    </TableCell>
-                    <TableCell>
-                      {lastIpmDate
-                        ? lastIpmDate.toLocaleDateString("id-ID", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })
-                        : <span className="text-muted-foreground text-xs">—</span>}
-                    </TableCell>
-                    <TableCell>
-                      {lastHasil ? (
-                        <Badge variant={lastHasil === "Alat Dapat Digunakan" ? "default" : "destructive"}>
-                          {lastHasil}
-                        </Badge>
-                      ) : (
-                        <span className="text-muted-foreground text-xs">Belum IPM</span>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <Suspense>
-            <AlatPagination page={page} totalPages={totalPages} />
-          </Suspense>
-        </CardContent>
-      </Card>
+      <AlatdiRuangan
+        data={ruangan?.alat ?? []}
+        totalItems={totalAlat}
+        ruanganId={id} />
 
     </div>
   );
