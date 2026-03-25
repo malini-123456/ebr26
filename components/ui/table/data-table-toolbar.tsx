@@ -9,20 +9,54 @@ import { DataTableSliderFilter } from '@/components/ui/table/data-table-slider-f
 import { DataTableViewOptions } from '@/components/ui/table/data-table-view-options';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { CrossIcon } from 'lucide-react';
+import { DownloadIcon, X } from 'lucide-react';
+import { IconFileExcel } from '@tabler/icons-react';
 
 interface DataTableToolbarProps<TData> extends React.ComponentProps<'div'> {
   table: Table<TData>;
+  exportFilename?: string;
 }
 
 export function DataTableToolbar<TData>({
   table,
   children,
   className,
+  exportFilename = 'export',
   ...props
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+
+  const onExport = React.useCallback(() => {
+    const rows = table.getFilteredRowModel().rows;
+    const visibleColumns = table
+      .getVisibleLeafColumns()
+      .filter((col) => col.id !== 'select' && col.id !== 'actions');
+
+    const headers = visibleColumns.map(
+      (col) => (col.columnDef.meta as { label?: string } | undefined)?.label ?? col.id
+    );
+
+    const csvRows = rows.map((row) =>
+      visibleColumns.map((col) => {
+        const value = row.getValue(col.id);
+        const str = value == null ? '' : String(value);
+        return str.includes(',') || str.includes('"') || str.includes('\n')
+          ? `"${str.replace(/"/g, '""')}"`
+          : str;
+      })
+    );
+
+    const csv = [headers, ...csvRows].map((r) => r.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${exportFilename}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  }, [table, exportFilename]);
 
   const globalFilter = table.getState().globalFilter as string | undefined;
   const [search, setSearch] = React.useState(globalFilter ?? '');
@@ -72,7 +106,7 @@ export function DataTableToolbar<TData>({
               className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               onClick={() => setSearch('')}
             >
-              <CrossIcon size={14} />
+              <X size={14} />
             </button>
           )}
         </div>
@@ -88,28 +122,30 @@ export function DataTableToolbar<TData>({
             className='border-dashed'
             onClick={onReset}
           >
-            <CrossIcon />
+            <X />
             Reset
           </Button>
         )}
       </div>
       <div className='flex items-center gap-2'>
         {children}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                aria-label='Export filtered data'
+                variant='outline'
+                size='sm'
+                onClick={onExport}
+              >
+                <IconFileExcel />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Export to CSV</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <DataTableViewOptions table={table} />
       </div>
-      {/* <DataTableFacetedFilter
-        column={table.getColumn("kondisi")}
-        title='Kondisi'
-        options={[
-          {
-            label: "Baik", value: "baik"
-          },
-          {
-            label: "Rusak", value: "rusak"
-          },
-        ]}
-        multiple
-      /> */}
     </div>
   );
 }

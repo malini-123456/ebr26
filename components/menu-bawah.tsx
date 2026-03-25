@@ -21,7 +21,7 @@ export default function MenuBawah() {
   const tabs: TabItem[] = [
     {
       title: "Home",
-      icon: "dashboard",
+      icon: "home",
       url: "/dashboard/overview",
     },
     {

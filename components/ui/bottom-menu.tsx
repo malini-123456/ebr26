@@ -84,7 +84,7 @@ export function ExpandableTabs({
     <div
       ref={outsideClickRef}
       className={cn(
-        "justify-between flex flex-wrap items-center gap-2 w-screen border bg-background p-3 shadow-sm",
+        "justify-between flex flex-wrap items-center gap-2 w-screen border bg-background p-3 shadow-sm rounded-2xl",
         className
       )}
     >

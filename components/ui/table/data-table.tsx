@@ -24,7 +24,7 @@ export function DataTable<TData>({
   children
 }: DataTableProps<TData>) {
   return (
-    <div>
+    <div className='flex flex-1 flex-col overflow-hidden gap-2'>
       {children}
       <div className='relative flex flex-1 overflow-hidden rounded-lg border'>
 

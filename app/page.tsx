@@ -3,9 +3,13 @@ import {
   SignUpButton,
   SignedOut,
 } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth();
+  if (userId) redirect("/dashboard/overview");
 
   return (
     <div className="h-screen relative flex w-full max-w-7xl items-center justify-center overflow-hidden mx-auto">
