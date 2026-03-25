@@ -68,7 +68,7 @@ export default function PageContainer({
       </div>
     </ScrollArea>
   ) : (
-    <div className='flex h-[calc(100dvh-52px)] flex-col overflow-hidden p-4 md:px-6'>
+    <div className='flex flex-1 flex-col p-4 md:px-6'>
       <div className='mb-4 flex items-start justify-between'>
         <Heading
           title={pageTitle ?? ''}
