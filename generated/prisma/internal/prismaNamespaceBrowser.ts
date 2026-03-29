@@ -51,6 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Ruangan: 'Ruangan',
+  Alat: 'Alat',
+  Ipm: 'Ipm',
   Produk: 'Produk',
   Instruksi: 'Instruksi',
   Bahan: 'Bahan',
@@ -74,6 +77,49 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const RuanganScalarFieldEnum = {
+  id: 'id',
+  namaRuangan: 'namaRuangan'
+} as const
+
+export type RuanganScalarFieldEnum = (typeof RuanganScalarFieldEnum)[keyof typeof RuanganScalarFieldEnum]
+
+
+export const AlatScalarFieldEnum = {
+  id: 'id',
+  nama: 'nama',
+  merek: 'merek',
+  tipe: 'tipe',
+  noSeri: 'noSeri',
+  ruanganId: 'ruanganId',
+  tahun: 'tahun',
+  kalibrasi: 'kalibrasi',
+  keterangan: 'keterangan',
+  createdAt: 'createdAt'
+} as const
+
+export type AlatScalarFieldEnum = (typeof AlatScalarFieldEnum)[keyof typeof AlatScalarFieldEnum]
+
+
+export const IpmScalarFieldEnum = {
+  id: 'id',
+  alatId: 'alatId',
+  hasil: 'hasil',
+  settingAlat: 'settingAlat',
+  terukur: 'terukur',
+  suhu: 'suhu',
+  kelembapan: 'kelembapan',
+  kelistrikan: 'kelistrikan',
+  catatan: 'catatan',
+  ruanganId: 'ruanganId',
+  teknisi: 'teknisi',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IpmScalarFieldEnum = (typeof IpmScalarFieldEnum)[keyof typeof IpmScalarFieldEnum]
 
 
 export const ProdukScalarFieldEnum = {

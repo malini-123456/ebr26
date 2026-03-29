@@ -360,13 +360,13 @@ export async function deleteInstruksi(id: number, produkId: number) {
 //   redirect("/dashboard/ipm");
 // };
 
-// export async function deleteIpm(id: number) {
-//   await prisma.ipm.delete({
-//     where: { id },
-//   })
+export async function deleteIpm(id: number) {
+  await prisma.ipm.delete({
+    where: { id },
+  })
 
-//   revalidatePath("/dashboard/inventaris")
-// }
+  revalidatePath("/dashboard/inventaris")
+}
 
 // export async function editIpm(ipmId: number, formData: FormData) {
 //   const { userId } = await auth();

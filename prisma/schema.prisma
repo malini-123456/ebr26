@@ -7,6 +7,46 @@ datasource db {
   provider = "postgresql"
 }
 
+model Ruangan {
+  id          Int    @id @default(autoincrement())
+  namaRuangan String
+  alat        Alat[]
+  ipm         Ipm[]
+}
+
+model Alat {
+  id         Int       @id @default(autoincrement())
+  nama       String
+  merek      String?
+  tipe       String?
+  noSeri     String?
+  ruanganId  Int
+  ruangan    Ruangan   @relation(fields: [ruanganId], references: [id])
+  tahun      Int?
+  kalibrasi  DateTime?
+  keterangan String?
+  createdAt  DateTime  @default(now())
+  ipm        Ipm[]
+}
+
+model Ipm {
+  id          Int      @id @default(autoincrement())
+  alatId      Int
+  alat        Alat     @relation(fields: [alatId], references: [id])
+  hasil       String
+  settingAlat String?
+  terukur     String?
+  suhu        String?
+  kelembapan  String?
+  kelistrikan String?
+  catatan     String?
+  ruanganId   Int?
+  ruangan     Ruangan? @relation(fields: [ruanganId], references: [id])
+  teknisi     String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Produk {
   id              Int      @id @default(autoincrement())
   nama_produk     String

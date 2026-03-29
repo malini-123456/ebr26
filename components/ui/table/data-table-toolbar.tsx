@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
-import { IconFileExcel, IconFilePdf } from '@tabler/icons-react';
+import { IconFileExcel } from '@tabler/icons-react';
 
 interface DataTableToolbarProps<TData> extends React.ComponentProps<'div'> {
   table: Table<TData>;

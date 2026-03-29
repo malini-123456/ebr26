@@ -384,6 +384,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  Ruangan: 'Ruangan',
+  Alat: 'Alat',
+  Ipm: 'Ipm',
   Produk: 'Produk',
   Instruksi: 'Instruksi',
   Bahan: 'Bahan',
@@ -406,10 +409,232 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "produk" | "instruksi" | "bahan" | "bets" | "inspectionSession" | "checklistTemplate" | "inspectionItem"
+    modelProps: "ruangan" | "alat" | "ipm" | "produk" | "instruksi" | "bahan" | "bets" | "inspectionSession" | "checklistTemplate" | "inspectionItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    Ruangan: {
+      payload: Prisma.$RuanganPayload<ExtArgs>
+      fields: Prisma.RuanganFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RuanganFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RuanganFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>
+        }
+        findFirst: {
+          args: Prisma.RuanganFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RuanganFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>
+        }
+        findMany: {
+          args: Prisma.RuanganFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>[]
+        }
+        create: {
+          args: Prisma.RuanganCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>
+        }
+        createMany: {
+          args: Prisma.RuanganCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RuanganCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>[]
+        }
+        delete: {
+          args: Prisma.RuanganDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>
+        }
+        update: {
+          args: Prisma.RuanganUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>
+        }
+        deleteMany: {
+          args: Prisma.RuanganDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RuanganUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RuanganUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>[]
+        }
+        upsert: {
+          args: Prisma.RuanganUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RuanganPayload>
+        }
+        aggregate: {
+          args: Prisma.RuanganAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRuangan>
+        }
+        groupBy: {
+          args: Prisma.RuanganGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RuanganGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RuanganCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RuanganCountAggregateOutputType> | number
+        }
+      }
+    }
+    Alat: {
+      payload: Prisma.$AlatPayload<ExtArgs>
+      fields: Prisma.AlatFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AlatFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AlatFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>
+        }
+        findFirst: {
+          args: Prisma.AlatFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AlatFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>
+        }
+        findMany: {
+          args: Prisma.AlatFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>[]
+        }
+        create: {
+          args: Prisma.AlatCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>
+        }
+        createMany: {
+          args: Prisma.AlatCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AlatCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>[]
+        }
+        delete: {
+          args: Prisma.AlatDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>
+        }
+        update: {
+          args: Prisma.AlatUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>
+        }
+        deleteMany: {
+          args: Prisma.AlatDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AlatUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AlatUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>[]
+        }
+        upsert: {
+          args: Prisma.AlatUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AlatPayload>
+        }
+        aggregate: {
+          args: Prisma.AlatAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAlat>
+        }
+        groupBy: {
+          args: Prisma.AlatGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AlatGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AlatCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AlatCountAggregateOutputType> | number
+        }
+      }
+    }
+    Ipm: {
+      payload: Prisma.$IpmPayload<ExtArgs>
+      fields: Prisma.IpmFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IpmFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IpmFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>
+        }
+        findFirst: {
+          args: Prisma.IpmFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IpmFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>
+        }
+        findMany: {
+          args: Prisma.IpmFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>[]
+        }
+        create: {
+          args: Prisma.IpmCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>
+        }
+        createMany: {
+          args: Prisma.IpmCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IpmCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>[]
+        }
+        delete: {
+          args: Prisma.IpmDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>
+        }
+        update: {
+          args: Prisma.IpmUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>
+        }
+        deleteMany: {
+          args: Prisma.IpmDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IpmUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IpmUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>[]
+        }
+        upsert: {
+          args: Prisma.IpmUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IpmPayload>
+        }
+        aggregate: {
+          args: Prisma.IpmAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIpm>
+        }
+        groupBy: {
+          args: Prisma.IpmGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpmGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IpmCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IpmCountAggregateOutputType> | number
+        }
+      }
+    }
     Produk: {
       payload: Prisma.$ProdukPayload<ExtArgs>
       fields: Prisma.ProdukFieldRefs
@@ -967,6 +1192,49 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const RuanganScalarFieldEnum = {
+  id: 'id',
+  namaRuangan: 'namaRuangan'
+} as const
+
+export type RuanganScalarFieldEnum = (typeof RuanganScalarFieldEnum)[keyof typeof RuanganScalarFieldEnum]
+
+
+export const AlatScalarFieldEnum = {
+  id: 'id',
+  nama: 'nama',
+  merek: 'merek',
+  tipe: 'tipe',
+  noSeri: 'noSeri',
+  ruanganId: 'ruanganId',
+  tahun: 'tahun',
+  kalibrasi: 'kalibrasi',
+  keterangan: 'keterangan',
+  createdAt: 'createdAt'
+} as const
+
+export type AlatScalarFieldEnum = (typeof AlatScalarFieldEnum)[keyof typeof AlatScalarFieldEnum]
+
+
+export const IpmScalarFieldEnum = {
+  id: 'id',
+  alatId: 'alatId',
+  hasil: 'hasil',
+  settingAlat: 'settingAlat',
+  terukur: 'terukur',
+  suhu: 'suhu',
+  kelembapan: 'kelembapan',
+  kelistrikan: 'kelistrikan',
+  catatan: 'catatan',
+  ruanganId: 'ruanganId',
+  teknisi: 'teknisi',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IpmScalarFieldEnum = (typeof IpmScalarFieldEnum)[keyof typeof IpmScalarFieldEnum]
+
+
 export const ProdukScalarFieldEnum = {
   id: 'id',
   nama_produk: 'nama_produk',
@@ -1245,6 +1513,9 @@ export type PrismaClientOptions = ({
   comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
+  ruangan?: Prisma.RuanganOmit
+  alat?: Prisma.AlatOmit
+  ipm?: Prisma.IpmOmit
   produk?: Prisma.ProdukOmit
   instruksi?: Prisma.InstruksiOmit
   bahan?: Prisma.BahanOmit
