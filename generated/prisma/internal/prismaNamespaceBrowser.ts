@@ -51,10 +51,13 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
-  Ruangan: 'Ruangan',
-  Alat: 'Alat',
-  Ipm: 'Ipm'
+  Produk: 'Produk',
+  Instruksi: 'Instruksi',
+  Bahan: 'Bahan',
+  Bets: 'Bets',
+  InspectionSession: 'InspectionSession',
+  ChecklistTemplate: 'ChecklistTemplate',
+  InspectionItem: 'InspectionItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,64 +76,95 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
+export const ProdukScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  name: 'name',
-  password: 'password',
-  imageUrl: 'imageUrl',
-  clerkId: 'clerkId',
-  firstName: 'firstName',
-  lastName: 'lastName',
-  role: 'role',
+  nama_produk: 'nama_produk',
+  kode_produk: 'kode_produk',
+  hasil_produk: 'hasil_produk',
+  satuan_produk: 'satuan_produk',
+  bentuk_produk: 'bentuk_produk',
+  warna_produk: 'warna_produk',
+  aroma_produk: 'aroma_produk',
+  ph_produk: 'ph_produk',
+  homogenitas: 'homogenitas',
+  foto_produk: 'foto_produk',
+  createdAtProduk: 'createdAtProduk',
+  updateAtProduk: 'updateAtProduk'
+} as const
+
+export type ProdukScalarFieldEnum = (typeof ProdukScalarFieldEnum)[keyof typeof ProdukScalarFieldEnum]
+
+
+export const InstruksiScalarFieldEnum = {
+  id: 'id',
+  produkId: 'produkId',
+  langkah: 'langkah',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+export type InstruksiScalarFieldEnum = (typeof InstruksiScalarFieldEnum)[keyof typeof InstruksiScalarFieldEnum]
 
 
-export const RuanganScalarFieldEnum = {
+export const BahanScalarFieldEnum = {
   id: 'id',
-  namaRuangan: 'namaRuangan',
-  createdAt: 'createdAt'
+  produkId: 'produkId',
+  nama_bahan: 'nama_bahan',
+  jumlah_bahan: 'jumlah_bahan',
+  satuan_bahan: 'satuan_bahan',
+  createdAtBahan: 'createdAtBahan',
+  updateAtBahan: 'updateAtBahan'
 } as const
 
-export type RuanganScalarFieldEnum = (typeof RuanganScalarFieldEnum)[keyof typeof RuanganScalarFieldEnum]
+export type BahanScalarFieldEnum = (typeof BahanScalarFieldEnum)[keyof typeof BahanScalarFieldEnum]
 
 
-export const AlatScalarFieldEnum = {
+export const BetsScalarFieldEnum = {
   id: 'id',
-  nama: 'nama',
-  merek: 'merek',
-  tipe: 'tipe',
-  noSeri: 'noSeri',
-  tahun: 'tahun',
-  kalibrasi: 'kalibrasi',
-  keterangan: 'keterangan',
-  ruanganId: 'ruanganId',
-  createdAt: 'createdAt'
-} as const
-
-export type AlatScalarFieldEnum = (typeof AlatScalarFieldEnum)[keyof typeof AlatScalarFieldEnum]
-
-
-export const IpmScalarFieldEnum = {
-  id: 'id',
-  hasil: 'hasil',
-  settingAlat: 'settingAlat',
-  terukur: 'terukur',
+  nomor_bets: 'nomor_bets',
+  produkId: 'produkId',
+  ukuran: 'ukuran',
+  satuan: 'satuan',
+  expiredDate: 'expiredDate',
   createdAt: 'createdAt',
-  alatId: 'alatId',
-  ruanganId: 'ruanganId',
-  teknisi: 'teknisi',
-  catatan: 'catatan',
-  suhu: 'suhu',
-  kelembapan: 'kelembapan',
-  kelistrikan: 'kelistrikan'
+  updatedAt: 'updatedAt'
 } as const
 
-export type IpmScalarFieldEnum = (typeof IpmScalarFieldEnum)[keyof typeof IpmScalarFieldEnum]
+export type BetsScalarFieldEnum = (typeof BetsScalarFieldEnum)[keyof typeof BetsScalarFieldEnum]
+
+
+export const InspectionSessionScalarFieldEnum = {
+  id: 'id',
+  betsId: 'betsId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InspectionSessionScalarFieldEnum = (typeof InspectionSessionScalarFieldEnum)[keyof typeof InspectionSessionScalarFieldEnum]
+
+
+export const ChecklistTemplateScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  order: 'order',
+  isActive: 'isActive'
+} as const
+
+export type ChecklistTemplateScalarFieldEnum = (typeof ChecklistTemplateScalarFieldEnum)[keyof typeof ChecklistTemplateScalarFieldEnum]
+
+
+export const InspectionItemScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  templateId: 'templateId',
+  result: 'result',
+  petugas: 'petugas',
+  pengawas: 'pengawas',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InspectionItemScalarFieldEnum = (typeof InspectionItemScalarFieldEnum)[keyof typeof InspectionItemScalarFieldEnum]
 
 
 export const SortOrder = {

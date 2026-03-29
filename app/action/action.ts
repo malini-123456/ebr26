@@ -1,183 +1,414 @@
 "use server";
+import { writeFile } from "fs/promises";
+import path from "path";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
-import z from "zod";
-import { id } from "zod/v4/locales";
 
-export async function createAlat(formData: FormData) {
-  const nama = formData.get("nama") as string;
-  const merek = formData.get("merek") as string;
-  const tipe = formData.get("tipe") as string;
-  const noSeri = formData.get("noSeri") as string;
-  const ruanganId = Number(formData.get("ruanganId"));
-  const tahun = Number(formData.get("tahun"));
-  const kalibrasiValue = formData.get("kalibrasi") as string;
-  const keterangan = formData.get("keterangan") as string | null;
+///// PROSES 1 /////
 
-  await prisma.alat.create({
-    data: {
-      nama,
-      merek,
-      tipe,
-      noSeri,
-      ruanganId,
-      tahun,
-      kalibrasi: kalibrasiValue
-        ? new Date(kalibrasiValue)
-        : null,
-      keterangan: keterangan || null,
-    },
-  });
+const checklistKeys = [
+  "ruangandibersihkan",
+  "statuskebersihan",
+  "alatproduksi",
+  "alatdibersihkan",
+  "alatbekerja",
+  "bahancukup",
+  "bahanlengkap",
+  "bahanjumlah",
+  "batchrecord",
+] as const
 
-  revalidatePath("/dashboard/inventaris");
-  redirect("/dashboard/inventaris")
-};
-
-export async function editAlat(id: number, formData: FormData) {
-
-  const nama = formData.get("nama") as string;
-  const merek = formData.get("merek") as string;
-  const tipe = formData.get("tipe") as string;
-  const noSeri = formData.get("noSeri") as string;
-  const ruanganId = Number(formData.get("ruanganId"));
-  const tahun = Number(formData.get("tahun"));
-  const kalibrasiValue = formData.get("kalibrasi") as string;
-  const keterangan = formData.get("keterangan") as string | null;
-
-  await prisma.alat.update({
-    where: { id },
-    data: {
-      nama,
-      merek,
-      tipe,
-      noSeri,
-      ruanganId,
-      tahun,
-      kalibrasi: kalibrasiValue
-        ? new Date(kalibrasiValue)
-        : null,
-      keterangan: keterangan || null,
-
-    }
-  }).catch(() => {
-    throw new Error("Alat not found")
-  })
-  revalidatePath("/dashboard/inventaris");
-  redirect("/dashboard/inventaris");
-};
-
-export async function deleteAlat(id: number) {
-  await prisma.alat.delete({
-    where: { id },
+export async function saveProses1(betsId: number, formData: FormData) {
+  const session = await prisma.inspectionSession.upsert({
+    where: { betsId },
+    update: {},
+    create: { betsId },
   })
 
-  revalidatePath("/dashboard/inventaris")
-}
+  // Remove old items so we can write fresh values
+  await prisma.inspectionItem.deleteMany({ where: { sessionId: session.id } })
 
-export async function createipm(formData: FormData) {
-  const { userId } = await auth();
+  for (let i = 0; i < checklistKeys.length; i++) {
+    const key = checklistKeys[i]
+    const template = await prisma.checklistTemplate.upsert({
+      where: { label: key },
+      update: {},
+      create: { label: key, order: i },
+    })
 
-  if (!userId) {
-    throw new Error("Unauthorized");
+    await prisma.inspectionItem.create({
+      data: {
+        sessionId: session.id,
+        templateId: template.id,
+        result: formData.get(`pemeriksaan_${key}`) === "ya",
+        petugas: formData.get(`petugas_${key}`) as string,
+        pengawas: formData.get(`pengawas_${key}`) as string,
+      },
+    })
   }
 
-  const alatIdRaw = formData.get("inventaris");
-  if (!alatIdRaw) throw new Error("Alat is required");
+  revalidatePath(`/bets`)
+  redirect(`/bets`)
+}
 
-  const alatId = Number(alatIdRaw);
+///// BETS /////
 
-  const alat = await prisma.alat.findUnique({
-    where: { id: alatId },
-    select: { ruanganId: true }
-  });
+export async function CreateBets(formData: FormData) {
+  const nomor_bets = formData.get("nomor_bets") as string;
+  const produkId = Number(formData.get("produkId"));
+  const ukuran = Number(formData.get("ukuran"));
+  const satuan = formData.get("satuan") as string;
+  const expiredDate = formData.get("expiredDate") as string;
 
-  if (!alat) throw new Error("Alat not found");
-
-  const hasil = formData.get("hasil") as string;
-  const settingAlat = formData.get("settingAlat")?.toString() || null;
-  const terukur = formData.get("terukur")?.toString() || null;
-  const suhu = formData.get("suhu")?.toString() || null;
-  const kelembapan = formData.get("kelembapan")?.toString() || null;
-  const kelistrikan = formData.get("kelistrikan")?.toString() || null;
-  const catatan = formData.get("catatan")?.toString() || null;
-  const teknisiIds = formData
-    .getAll("teknisi")
-    .map((id) => id.toString());
-  console.log("teknisiIds:", teknisiIds);
-
-  await prisma.ipm.create({
+  await prisma.bets.create({
     data: {
-      alatId,
-      hasil,
-      settingAlat,
-      terukur,
-      suhu,
-      kelembapan,
-      kelistrikan,
-      catatan,
-      ruanganId: alat?.ruanganId,
-      teknisi: teknisiIds
-      // user: {
-      //   connect: teknisiIds.map(id => ({ id }))
-      // }
+      nomor_bets,
+      produkId,
+      ukuran,
+      satuan,
+      expiredDate: new Date(expiredDate),
     },
   });
 
-  revalidatePath("/dashboard/ipm");
-  redirect("/dashboard/ipm");
+  revalidatePath("/home");
+  redirect("/home");
 };
 
-export async function deleteIpm(id: number) {
-  await prisma.ipm.delete({
+export async function deleteBets(id: number) {
+  await prisma.bets.delete({
     where: { id },
   })
 
   revalidatePath("/dashboard/inventaris")
 }
 
-export async function editIpm(ipmId: number, formData: FormData) {
-  const { userId } = await auth();
+//////// PRODUK /////////
 
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
+export async function CreateProduk(formData: FormData) {
+  const nama_produk = formData.get("nama_produk") as string;
+  const kode_produk = formData.get("kode_produk") as string;
+  const hasil_produk = formData.get("hasil_produk") as string;
+  const satuan_produk = formData.get("satuan_produk") as string;
+  const bentuk_produk = formData.get("bentuk_produk") as string;
+  const warna_produk = formData.get("warna_produk") as string;
+  const aroma_produk = formData.get("aroma_produk") as string;
+  const ph_produk = formData.get("ph_produk") as string;
+  const homogenitas = formData.get("homogenitas") as string;
+  const foto_produk = formData.getAll("foto_produk") as string[];
 
-  const hasil = formData.get("hasil")?.toString();
-  const settingAlat = formData.get("settingAlat")?.toString() || null;
-  const terukur = formData.get("terukur")?.toString() || null;
-  const suhu = formData.get("suhu")?.toString() || null;
-  const kelembapan = formData.get("kelembapan")?.toString() || null;
-  const kelistrikan = formData.get("kelistrikan")?.toString() || null;
-  const catatan = formData.get("catatan")?.toString() || null;
-
-  if (!hasil) {
-    throw new Error("Hasil is required");
-  }
-
-  const teknisiIds = formData
-    .getAll("teknisi")
-    .map((id) => id.toString())
-    .filter(Boolean);
-
-  await prisma.ipm.update({
-    where: { id: ipmId },
+  await prisma.produk.create({
     data: {
-      hasil,
-      settingAlat,
-      terukur,
-      suhu,
-      kelembapan,
-      kelistrikan,
-      catatan,
-      teknisi: teknisiIds
-      // user: {
-      //   set: teknisiIds.map((id) => ({ id })),
-      // },
+      nama_produk,
+      kode_produk,
+      hasil_produk,
+      satuan_produk,
+      bentuk_produk,
+      warna_produk,
+      aroma_produk,
+      ph_produk,
+      homogenitas,
+      foto_produk,
     },
   });
 
-  revalidatePath("/dashboard/ipm");
-  redirect("/dashboard/ipm");
+  revalidatePath("/produk");
+  redirect("/produk");
 }
+
+export async function uploadFoto(formData: FormData): Promise<string[]> {
+  const files = formData.getAll("files") as File[];
+  const urls: string[] = [];
+
+  for (const file of files) {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const fileName = `${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
+    const filePath = path.join(process.cwd(), "public", "uploads", fileName);
+    await writeFile(filePath, buffer);
+    urls.push(`/uploads/${fileName}`);
+  }
+
+  return urls;
+}
+
+export async function editProduk(id: number, formData: FormData) {
+  const nama_produk = formData.get("nama_produk") as string;
+  const kode_produk = formData.get("kode_produk") as string;
+  const hasil_produk = formData.get("hasil_produk") as string;
+  const satuan_produk = formData.get("satuan_produk") as string;
+  const bentuk_produk = formData.get("bentuk_produk") as string;
+  const warna_produk = formData.get("warna_produk") as string;
+  const aroma_produk = formData.get("aroma_produk") as string;
+  const ph_produk = formData.get("ph_produk") as string;
+  const homogenitas = formData.get("homogenitas") as string;
+  const foto_produk = formData.getAll("foto_produk") as string[];
+
+  await prisma.produk.update({
+    where: { id },
+    data: {
+      nama_produk,
+      kode_produk,
+      hasil_produk,
+      satuan_produk,
+      bentuk_produk,
+      warna_produk,
+      aroma_produk,
+      ph_produk,
+      homogenitas,
+      foto_produk,
+    },
+  });
+
+  revalidatePath("/produk");
+  redirect("/produk");
+}
+
+export async function deleteProduk(id: number) {
+  await prisma.produk.delete({
+    where: { id },
+  })
+
+  revalidatePath("/produk")
+}
+
+///// BAHAN /////
+
+export async function createBahan(produkId: number, formData: FormData) {
+  const nama_bahan = formData.get("nama_bahan") as string;
+  const jumlah_bahan = Number(formData.get("jumlah_bahan"));
+  const satuan_bahan = formData.get("satuan_bahan") as string;
+
+  await prisma.bahan.create({
+    data: { produkId, nama_bahan, jumlah_bahan, satuan_bahan },
+  });
+
+  revalidatePath(`/produk/${produkId}`);
+  redirect(`/produk/${produkId}`);
+}
+
+export async function editBahan(id: number, produkId: number, formData: FormData) {
+  const nama_bahan = formData.get("nama_bahan") as string;
+  const jumlah_bahan = Number(formData.get("jumlah_bahan"));
+  const satuan_bahan = formData.get("satuan_bahan") as string;
+
+  await prisma.bahan.update({
+    where: { id },
+    data: { nama_bahan, jumlah_bahan, satuan_bahan },
+  });
+
+  revalidatePath(`/produk/${produkId}`);
+  redirect(`/produk/${produkId}`);
+}
+
+export async function deleteBahan(id: number, produkId: number) {
+  await prisma.bahan.delete({ where: { id } });
+  revalidatePath(`/produk/${produkId}`);
+}
+
+///// INSTRUKSI /////
+
+export async function createInstruksi(produkId: number, formData: FormData) {
+  const langkah = formData.get("langkah") as string;
+
+  await prisma.instruksi.create({
+    data: { produkId, langkah },
+  });
+
+  revalidatePath(`/produk/${produkId}`);
+  redirect(`/produk/${produkId}`);
+}
+
+export async function editInstruksi(id: number, produkId: number, formData: FormData) {
+  const langkah = formData.get("langkah") as string;
+
+  await prisma.instruksi.update({
+    where: { id },
+    data: { langkah },
+  });
+
+  revalidatePath(`/produk/${produkId}`);
+  redirect(`/produk/${produkId}`);
+}
+
+export async function deleteInstruksi(id: number, produkId: number) {
+  await prisma.instruksi.delete({ where: { id } });
+  revalidatePath(`/produk/${produkId}`);
+}
+
+
+// export async function createAlat(formData: FormData) {
+//   const nama = formData.get("nama") as string;
+//   const merek = formData.get("merek") as string;
+//   const tipe = formData.get("tipe") as string;
+//   const noSeri = formData.get("noSeri") as string;
+//   const ruanganId = Number(formData.get("ruanganId"));
+//   const tahun = Number(formData.get("tahun"));
+//   const kalibrasiValue = formData.get("kalibrasi") as string;
+//   const keterangan = formData.get("keterangan") as string | null;
+
+//   await prisma.alat.create({
+//     data: {
+//       nama,
+//       merek,
+//       tipe,
+//       noSeri,
+//       ruanganId,
+//       tahun,
+//       kalibrasi: kalibrasiValue
+//         ? new Date(kalibrasiValue)
+//         : null,
+//       keterangan: keterangan || null,
+//     },
+//   });
+
+//   revalidatePath("/dashboard/inventaris");
+//   redirect("/dashboard/inventaris")
+// };
+
+// export async function editAlat(id: number, formData: FormData) {
+
+//   const nama = formData.get("nama") as string;
+//   const merek = formData.get("merek") as string;
+//   const tipe = formData.get("tipe") as string;
+//   const noSeri = formData.get("noSeri") as string;
+//   const ruanganId = Number(formData.get("ruanganId"));
+//   const tahun = Number(formData.get("tahun"));
+//   const kalibrasiValue = formData.get("kalibrasi") as string;
+//   const keterangan = formData.get("keterangan") as string | null;
+
+//   await prisma.alat.update({
+//     where: { id },
+//     data: {
+//       nama,
+//       merek,
+//       tipe,
+//       noSeri,
+//       ruanganId,
+//       tahun,
+//       kalibrasi: kalibrasiValue
+//         ? new Date(kalibrasiValue)
+//         : null,
+//       keterangan: keterangan || null,
+
+//     }
+//   }).catch(() => {
+//     throw new Error("Alat not found")
+//   })
+//   revalidatePath("/dashboard/inventaris");
+//   redirect("/dashboard/inventaris");
+// };
+
+// export async function deleteAlat(id: number) {
+//   await prisma.alat.delete({
+//     where: { id },
+//   })
+
+//   revalidatePath("/dashboard/inventaris")
+// }
+
+// export async function createipm(formData: FormData) {
+//   const { userId } = await auth();
+
+//   if (!userId) {
+//     throw new Error("Unauthorized");
+//   }
+
+//   const alatIdRaw = formData.get("inventaris");
+//   if (!alatIdRaw) throw new Error("Alat is required");
+
+//   const alatId = Number(alatIdRaw);
+
+//   const alat = await prisma.alat.findUnique({
+//     where: { id: alatId },
+//     select: { ruanganId: true }
+//   });
+
+//   if (!alat) throw new Error("Alat not found");
+
+//   const hasil = formData.get("hasil") as string;
+//   const settingAlat = formData.get("settingAlat")?.toString() || null;
+//   const terukur = formData.get("terukur")?.toString() || null;
+//   const suhu = formData.get("suhu")?.toString() || null;
+//   const kelembapan = formData.get("kelembapan")?.toString() || null;
+//   const kelistrikan = formData.get("kelistrikan")?.toString() || null;
+//   const catatan = formData.get("catatan")?.toString() || null;
+//   const teknisiIds = formData
+//     .getAll("teknisi")
+//     .map((id) => id.toString());
+//   console.log("teknisiIds:", teknisiIds);
+
+//   await prisma.ipm.create({
+//     data: {
+//       alatId,
+//       hasil,
+//       settingAlat,
+//       terukur,
+//       suhu,
+//       kelembapan,
+//       kelistrikan,
+//       catatan,
+//       ruanganId: alat?.ruanganId,
+//       teknisi: teknisiIds
+//       // user: {
+//       //   connect: teknisiIds.map(id => ({ id }))
+//       // }
+//     },
+//   });
+
+//   revalidatePath("/dashboard/ipm");
+//   redirect("/dashboard/ipm");
+// };
+
+// export async function deleteIpm(id: number) {
+//   await prisma.ipm.delete({
+//     where: { id },
+//   })
+
+//   revalidatePath("/dashboard/inventaris")
+// }
+
+// export async function editIpm(ipmId: number, formData: FormData) {
+//   const { userId } = await auth();
+
+//   if (!userId) {
+//     throw new Error("Unauthorized");
+//   }
+
+//   const hasil = formData.get("hasil")?.toString();
+//   const settingAlat = formData.get("settingAlat")?.toString() || null;
+//   const terukur = formData.get("terukur")?.toString() || null;
+//   const suhu = formData.get("suhu")?.toString() || null;
+//   const kelembapan = formData.get("kelembapan")?.toString() || null;
+//   const kelistrikan = formData.get("kelistrikan")?.toString() || null;
+//   const catatan = formData.get("catatan")?.toString() || null;
+
+//   if (!hasil) {
+//     throw new Error("Hasil is required");
+//   }
+
+//   const teknisiIds = formData
+//     .getAll("teknisi")
+//     .map((id) => id.toString())
+//     .filter(Boolean);
+
+//   await prisma.ipm.update({
+//     where: { id: ipmId },
+//     data: {
+//       hasil,
+//       settingAlat,
+//       terukur,
+//       suhu,
+//       kelembapan,
+//       kelistrikan,
+//       catatan,
+//       teknisi: teknisiIds
+//       // user: {
+//       //   set: teknisiIds.map((id) => ({ id })),
+//       // },
+//     },
+//   });
+
+//   revalidatePath("/dashboard/ipm");
+//   redirect("/dashboard/ipm");
+// }

@@ -18,22 +18,37 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model User
+ * Model Produk
  * 
  */
-export type User = Prisma.UserModel
+export type Produk = Prisma.ProdukModel
 /**
- * Model Ruangan
+ * Model Instruksi
  * 
  */
-export type Ruangan = Prisma.RuanganModel
+export type Instruksi = Prisma.InstruksiModel
 /**
- * Model Alat
+ * Model Bahan
  * 
  */
-export type Alat = Prisma.AlatModel
+export type Bahan = Prisma.BahanModel
 /**
- * Model Ipm
+ * Model Bets
  * 
  */
-export type Ipm = Prisma.IpmModel
+export type Bets = Prisma.BetsModel
+/**
+ * Model InspectionSession
+ * 
+ */
+export type InspectionSession = Prisma.InspectionSessionModel
+/**
+ * Model ChecklistTemplate
+ * 
+ */
+export type ChecklistTemplate = Prisma.ChecklistTemplateModel
+/**
+ * Model InspectionItem
+ * 
+ */
+export type InspectionItem = Prisma.InspectionItemModel

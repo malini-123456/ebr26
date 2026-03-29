@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "IPMKLK",
-  description: "Dashboard IPMKLK",
+  title: "EBR",
+  description: "Electronic Batch Record",
 };
 
 export default function RootLayout({

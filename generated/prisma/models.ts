@@ -8,8 +8,11 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User'
-export type * from './models/Ruangan'
-export type * from './models/Alat'
-export type * from './models/Ipm'
+export type * from './models/Produk'
+export type * from './models/Instruksi'
+export type * from './models/Bahan'
+export type * from './models/Bets'
+export type * from './models/InspectionSession'
+export type * from './models/ChecklistTemplate'
+export type * from './models/InspectionItem'
 export type * from './commonInputTypes'

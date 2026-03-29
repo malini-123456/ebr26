@@ -6,7 +6,8 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Read(//c/Users/LENOVO/AppData/Local/npm-cache/_logs/**)",
       "Bash(pnpm add:*)",
-      "Bash(npx prisma:*)"
+      "Bash(npx prisma:*)",
+      "Bash(node -e \"const { Direction, Slot } = require\\(''radix-ui''\\); console.log\\(''Direction keys:'', Object.keys\\(Direction\\)\\); console.log\\(''Slot keys:'', Object.keys\\(Slot\\)\\);\")"
     ]
   }
 }

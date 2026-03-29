@@ -34,34 +34,41 @@ import { NavItem } from "@/types"
  */
 export const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
-    url: '/dashboard/overview',
+    title: 'Home',
+    url: '/home',
     icon: 'home',
     isActive: false,
     shortcut: ['d', 'd'],
     items: []
   },
   {
-    title: 'Super Admin',
-    url: '/dashboard/admin',
-    icon: 'user2',
+    title: 'Batch Record',
+    url: '/bets',
+    icon: 'post',
     isActive: false,
     items: []
   },
-  {
-    title: 'Inventaris',
-    url: '/dashboard/inventaris',
-    icon: 'workspace',
-    isActive: false,
-    items: []
-  },
-  {
-    title: 'Ruangan',
-    url: '/dashboard/ruangan',
-    icon: 'media',
-    isActive: false,
-    items: []
-  },
+  // {
+  //   title: 'Super Admin',
+  //   url: '/dashboard/admin',
+  //   icon: 'user2',
+  //   isActive: false,
+  //   items: []
+  // },
+  // {
+  //   title: 'Inventaris',
+  //   url: '/dashboard/inventaris',
+  //   icon: 'workspace',
+  //   isActive: false,
+  //   items: []
+  // },
+  // {
+  //   title: 'Ruangan',
+  //   url: '/dashboard/ruangan',
+  //   icon: 'media',
+  //   isActive: false,
+  //   items: []
+  // },
 
   // {
   //   title: 'Teams',
@@ -90,16 +97,16 @@ export const navItems: NavItem[] = [
   //   isActive: false,
   //   items: []
   // },
-  {
-    title: 'Pemeliharaan',
-    url: '/dashboard/ipm',
-    icon: 'laptop',
-    items: []
-  },
+  // {
+  //   title: 'Pemeliharaan',
+  //   url: '/dashboard/ipm',
+  //   icon: 'laptop',
+  //   items: []
+  // },
 
   {
-    title: 'EKIN',
-    url: '/dashboard/ekin',
+    title: 'Produk',
+    url: '/produk',
     icon: 'product',
     items: []
   },

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   const { userId } = await auth();
-  if (userId) redirect("/dashboard/overview");
+  if (userId) redirect("/home");
 
   return (
     <div className="h-screen relative flex w-full max-w-7xl items-center justify-center overflow-hidden mx-auto">

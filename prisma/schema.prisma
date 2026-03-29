@@ -7,69 +7,95 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id       String  @id @default(cuid())
-  email    String
-  name     String?
-  password String?
-  imageUrl String?
+model Produk {
+  id              Int      @id @default(autoincrement())
+  nama_produk     String
+  kode_produk     String   @unique
+  hasil_produk    String
+  satuan_produk   String
+  bentuk_produk   String?
+  warna_produk    String?
+  aroma_produk    String?
+  ph_produk       String?
+  homogenitas     String?
+  foto_produk     String[]
+  createdAtProduk DateTime @default(now())
+  updateAtProduk  DateTime @updatedAt
 
-  clerkId   String  @unique
-  firstName String?
-  lastName  String?
-  role      String?
+  bahan     Bahan[]
+  instruksi Instruksi[]
+  bets      Bets[]
+}
+
+model Instruksi {
+  id        Int      @id @default(autoincrement())
+  produkId  Int
+  produk    Produk   @relation(fields: [produkId], references: [id], onDelete: Cascade)
+  langkah   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Bahan {
+  id             Int      @id @default(autoincrement())
+  produkId       Int
+  produk         Produk   @relation(fields: [produkId], references: [id])
+  nama_bahan     String
+  jumlah_bahan   Float
+  satuan_bahan   String
+  createdAtBahan DateTime @default(now())
+  updateAtBahan  DateTime @updatedAt
+}
+
+model Bets {
+  id          Int      @id @default(autoincrement())
+  nomor_bets  String   @unique
+  produkId    Int
+  produk      Produk   @relation(fields: [produkId], references: [id])
+  ukuran      Float
+  satuan      String
+  expiredDate DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  inspectionSession InspectionSession?
+}
+
+model InspectionSession {
+  id        String           @id @default(cuid())
+  betsId    Int?             @unique
+  bets      Bets?            @relation(fields: [betsId], references: [id])
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  items     InspectionItem[]
+}
+
+model ChecklistTemplate {
+  id       String           @id @default(cuid())
+  label    String           @unique
+  order    Int
+  isActive Boolean          @default(true)
+  items    InspectionItem[]
+}
+
+model InspectionItem {
+  id String @id @default(cuid())
+
+  // FK to which session this belongs
+  sessionId String
+  session   InspectionSession @relation(fields: [sessionId], references: [id])
+
+  // FK to the checklist question
+  templateId String
+  template   ChecklistTemplate @relation(fields: [templateId], references: [id])
+
+  // The toggle result ("Ya" / "Tidak")
+  result Boolean @default(false)
+
+  // Free-text fields from the form
+  petugas  String? // Officer name/note
+  pengawas String? // Supervisor name/note
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  // ipms Ipm[]
-}
-
-model Ruangan {
-  id          Int    @id @default(autoincrement())
-  namaRuangan String
-
-  alat Alat[]
-  ipm  Ipm[]
-
-  createdAt DateTime @default(now())
-}
-
-model Alat {
-  id         Int       @id @default(autoincrement())
-  nama       String
-  merek      String?
-  tipe       String?
-  noSeri     String?
-  tahun      Int?
-  kalibrasi  DateTime?
-  keterangan String?
-
-  ruanganId Int
-  ruangan   Ruangan @relation(fields: [ruanganId], references: [id])
-
-  ipm Ipm[]
-
-  createdAt DateTime @default(now())
-}
-
-model Ipm {
-  id          Int      @id @default(autoincrement())
-  hasil       String
-  settingAlat String?
-  terukur     String?
-  createdAt   DateTime @default(now())
-
-  alatId Int
-  alat   Alat @relation(fields: [alatId], references: [id])
-
-  ruanganId Int?
-  ruangan   Ruangan? @relation(fields: [ruanganId], references: [id])
-  teknisi     String[]
-  catatan     String?
-  suhu        String?
-  kelembapan  String?
-  kelistrikan String?
-
-  // user User[]
 }
