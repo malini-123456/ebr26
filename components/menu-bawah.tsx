@@ -22,31 +22,16 @@ export default function MenuBawah() {
     {
       title: "Home",
       icon: "home",
-      url: "/dashboard/overview",
+      url: "/home",
     },
     {
-      title: 'Super Admin',
-      url: '/dashboard/admin',
-      icon: 'user2',
+      title: 'Batch Record',
+      url: '/bets',
+      icon: 'post',
     },
     {
-      title: 'Inventaris',
-      url: '/dashboard/inventaris',
-      icon: 'workspace',
-    },
-    {
-      title: 'Ruangan',
-      url: '/dashboard/ruangan',
-      icon: 'media',
-    },
-    {
-      title: 'Pemeliharaan',
-      url: '/dashboard/ipm',
-      icon: 'laptop',
-    },
-    {
-      title: 'EKIN',
-      url: '/dashboard/ekin',
+      title: 'Produk',
+      url: '/produk',
       icon: 'product',
     },
   ];
