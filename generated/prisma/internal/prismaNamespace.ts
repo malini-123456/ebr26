@@ -393,7 +393,9 @@ export const ModelName = {
   Bets: 'Bets',
   InspectionSession: 'InspectionSession',
   ChecklistTemplate: 'ChecklistTemplate',
-  InspectionItem: 'InspectionItem'
+  InspectionItem: 'InspectionItem',
+  PenimbanganSession: 'PenimbanganSession',
+  PenimbanganItem: 'PenimbanganItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "ruangan" | "alat" | "ipm" | "produk" | "instruksi" | "bahan" | "bets" | "inspectionSession" | "checklistTemplate" | "inspectionItem"
+    modelProps: "ruangan" | "alat" | "ipm" | "produk" | "instruksi" | "bahan" | "bets" | "inspectionSession" | "checklistTemplate" | "inspectionItem" | "penimbanganSession" | "penimbanganItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1153,6 +1155,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PenimbanganSession: {
+      payload: Prisma.$PenimbanganSessionPayload<ExtArgs>
+      fields: Prisma.PenimbanganSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PenimbanganSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PenimbanganSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.PenimbanganSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PenimbanganSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>
+        }
+        findMany: {
+          args: Prisma.PenimbanganSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>[]
+        }
+        create: {
+          args: Prisma.PenimbanganSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>
+        }
+        createMany: {
+          args: Prisma.PenimbanganSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PenimbanganSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.PenimbanganSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>
+        }
+        update: {
+          args: Prisma.PenimbanganSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.PenimbanganSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PenimbanganSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PenimbanganSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.PenimbanganSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.PenimbanganSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePenimbanganSession>
+        }
+        groupBy: {
+          args: Prisma.PenimbanganSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PenimbanganSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PenimbanganSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PenimbanganSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    PenimbanganItem: {
+      payload: Prisma.$PenimbanganItemPayload<ExtArgs>
+      fields: Prisma.PenimbanganItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PenimbanganItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PenimbanganItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>
+        }
+        findFirst: {
+          args: Prisma.PenimbanganItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PenimbanganItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>
+        }
+        findMany: {
+          args: Prisma.PenimbanganItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>[]
+        }
+        create: {
+          args: Prisma.PenimbanganItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>
+        }
+        createMany: {
+          args: Prisma.PenimbanganItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PenimbanganItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>[]
+        }
+        delete: {
+          args: Prisma.PenimbanganItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>
+        }
+        update: {
+          args: Prisma.PenimbanganItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.PenimbanganItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PenimbanganItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PenimbanganItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.PenimbanganItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenimbanganItemPayload>
+        }
+        aggregate: {
+          args: Prisma.PenimbanganItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePenimbanganItem>
+        }
+        groupBy: {
+          args: Prisma.PenimbanganItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PenimbanganItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PenimbanganItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PenimbanganItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1324,6 +1474,33 @@ export const InspectionItemScalarFieldEnum = {
 } as const
 
 export type InspectionItemScalarFieldEnum = (typeof InspectionItemScalarFieldEnum)[keyof typeof InspectionItemScalarFieldEnum]
+
+
+export const PenimbanganSessionScalarFieldEnum = {
+  id: 'id',
+  betsId: 'betsId',
+  catatan: 'catatan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PenimbanganSessionScalarFieldEnum = (typeof PenimbanganSessionScalarFieldEnum)[keyof typeof PenimbanganSessionScalarFieldEnum]
+
+
+export const PenimbanganItemScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  bahanId: 'bahanId',
+  jmlDitimbang: 'jmlDitimbang',
+  satuan: 'satuan',
+  noBatchBahan: 'noBatchBahan',
+  ditimbangOleh: 'ditimbangOleh',
+  diawasiOleh: 'diawasiOleh',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PenimbanganItemScalarFieldEnum = (typeof PenimbanganItemScalarFieldEnum)[keyof typeof PenimbanganItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1523,6 +1700,8 @@ export type GlobalOmitConfig = {
   inspectionSession?: Prisma.InspectionSessionOmit
   checklistTemplate?: Prisma.ChecklistTemplateOmit
   inspectionItem?: Prisma.InspectionItemOmit
+  penimbanganSession?: Prisma.PenimbanganSessionOmit
+  penimbanganItem?: Prisma.PenimbanganItemOmit
 }
 
 /* Types for Logging */

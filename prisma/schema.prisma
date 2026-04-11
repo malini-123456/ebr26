@@ -7,46 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model Ruangan {
-  id          Int    @id @default(autoincrement())
-  namaRuangan String
-  alat        Alat[]
-  ipm         Ipm[]
-}
-
-model Alat {
-  id         Int       @id @default(autoincrement())
-  nama       String
-  merek      String?
-  tipe       String?
-  noSeri     String?
-  ruanganId  Int
-  ruangan    Ruangan   @relation(fields: [ruanganId], references: [id])
-  tahun      Int?
-  kalibrasi  DateTime?
-  keterangan String?
-  createdAt  DateTime  @default(now())
-  ipm        Ipm[]
-}
-
-model Ipm {
-  id          Int      @id @default(autoincrement())
-  alatId      Int
-  alat        Alat     @relation(fields: [alatId], references: [id])
-  hasil       String
-  settingAlat String?
-  terukur     String?
-  suhu        String?
-  kelembapan  String?
-  kelistrikan String?
-  catatan     String?
-  ruanganId   Int?
-  ruangan     Ruangan? @relation(fields: [ruanganId], references: [id])
-  teknisi     String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model Produk {
   id              Int      @id @default(autoincrement())
   nama_produk     String
@@ -77,14 +37,15 @@ model Instruksi {
 }
 
 model Bahan {
-  id             Int      @id @default(autoincrement())
-  produkId       Int
-  produk         Produk   @relation(fields: [produkId], references: [id])
-  nama_bahan     String
-  jumlah_bahan   Float
-  satuan_bahan   String
-  createdAtBahan DateTime @default(now())
-  updateAtBahan  DateTime @updatedAt
+  id               Int               @id @default(autoincrement())
+  produkId         Int
+  produk           Produk            @relation(fields: [produkId], references: [id])
+  nama_bahan       String
+  jumlah_bahan     Float
+  satuan_bahan     String
+  createdAtBahan   DateTime          @default(now())
+  updateAtBahan    DateTime          @updatedAt
+  penimbanganItems PenimbanganItem[]
 }
 
 model Bets {
@@ -98,7 +59,8 @@ model Bets {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  inspectionSession InspectionSession?
+  inspectionSession  InspectionSession?
+  penimbanganSession PenimbanganSession?
 }
 
 model InspectionSession {
@@ -138,4 +100,29 @@ model InspectionItem {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model PenimbanganSession {
+  id        String            @id @default(cuid())
+  betsId    Int               @unique
+  bets      Bets              @relation(fields: [betsId], references: [id])
+  catatan   String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  items     PenimbanganItem[]
+}
+
+model PenimbanganItem {
+  id            String             @id @default(cuid())
+  sessionId     String
+  session       PenimbanganSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  bahanId       Int
+  bahan         Bahan              @relation(fields: [bahanId], references: [id])
+  jmlDitimbang  Float
+  satuan        String
+  noBatchBahan  String?
+  ditimbangOleh String?
+  diawasiOleh   String?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
 }

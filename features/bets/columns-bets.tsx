@@ -6,7 +6,7 @@ import { BetsGetPayload } from "@/generated/prisma/models";
 import { CellAction } from "./cell-action";
 import Image from "next/image";
 
-type BetsRow = BetsGetPayload<{ include: { produk: true } }>
+type BetsRow = BetsGetPayload<{ include: { produk: true; inspectionSession: true; penimbanganSession: true } }>
 
 const dateFilterFn = <TData,>(row: Row<TData>, columnId: string, value: unknown) => {
   const rowValue = row.getValue(columnId)
@@ -92,6 +92,45 @@ export const betscol: ColumnDef<BetsRow>[] = [
       return <span>{new Date(value).toLocaleDateString("id-ID")}</span>
     },
     enableSorting: true,
+  },
+  {
+    id: 'progress',
+    header: 'Progress',
+    cell: ({ row }) => {
+      const steps = [
+        { label: 'Proses 1', done: !!row.original.inspectionSession },
+        { label: 'Penimbangan', done: !!row.original.penimbanganSession },
+      ]
+      const completed = steps.filter((s) => s.done).length
+      return (
+        <div className="flex flex-col gap-1.5 min-w-[140px]">
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <span>{completed}/{steps.length} selesai</span>
+          </div>
+          <div className="flex h-1.5 w-full overflow-hidden rounded-full bg-muted">
+            <div
+              className="h-full bg-primary transition-all"
+              style={{ width: `${(completed / steps.length) * 100}%` }}
+            />
+          </div>
+          <div className="flex gap-1">
+            {steps.map((step) => (
+              <span
+                key={step.label}
+                className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${
+                  step.done
+                    ? 'bg-primary/10 text-primary'
+                    : 'bg-muted text-muted-foreground'
+                }`}
+              >
+                {step.label}
+              </span>
+            ))}
+          </div>
+        </div>
+      )
+    },
+    enableSorting: false,
   },
   {
     id: 'action',

@@ -60,7 +60,9 @@ export const ModelName = {
   Bets: 'Bets',
   InspectionSession: 'InspectionSession',
   ChecklistTemplate: 'ChecklistTemplate',
-  InspectionItem: 'InspectionItem'
+  InspectionItem: 'InspectionItem',
+  PenimbanganSession: 'PenimbanganSession',
+  PenimbanganItem: 'PenimbanganItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -211,6 +213,33 @@ export const InspectionItemScalarFieldEnum = {
 } as const
 
 export type InspectionItemScalarFieldEnum = (typeof InspectionItemScalarFieldEnum)[keyof typeof InspectionItemScalarFieldEnum]
+
+
+export const PenimbanganSessionScalarFieldEnum = {
+  id: 'id',
+  betsId: 'betsId',
+  catatan: 'catatan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PenimbanganSessionScalarFieldEnum = (typeof PenimbanganSessionScalarFieldEnum)[keyof typeof PenimbanganSessionScalarFieldEnum]
+
+
+export const PenimbanganItemScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  bahanId: 'bahanId',
+  jmlDitimbang: 'jmlDitimbang',
+  satuan: 'satuan',
+  noBatchBahan: 'noBatchBahan',
+  ditimbangOleh: 'ditimbangOleh',
+  diawasiOleh: 'diawasiOleh',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PenimbanganItemScalarFieldEnum = (typeof PenimbanganItemScalarFieldEnum)[keyof typeof PenimbanganItemScalarFieldEnum]
 
 
 export const SortOrder = {

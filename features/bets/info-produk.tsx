@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 type BetsInfo = {
@@ -9,6 +10,7 @@ type BetsInfo = {
     nama_produk: string
     kode_produk: string
     hasil_produk: string
+    foto_produk: string[]
   }
 }
 
@@ -35,14 +37,21 @@ export function CardInfoProduk({ betsInfo }: { betsInfo: BetsInfo }) {
         <CardTitle>Informasi Produk</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-2 text-sm">
-          {fields(betsInfo).map((item) => (
-            <div key={item.label} className="flex gap-2">
-              <span className="font-medium w-40 shrink-0">{item.label}</span>
-              <span>:</span>
-              <span className="text-muted-foreground">{item.value}</span>
+        <div className="grid md:grid-cols-2 gap-6">
+          {betsInfo.produk.foto_produk.length > 0 && (
+            <div className="relative w-32 h-32 rounded-md overflow-hidden border shrink-0">
+              <Image src={betsInfo.produk.foto_produk[0]} alt="Foto produk" fill className="object-cover" />
             </div>
-          ))}
+          )}
+          <div className="space-y-2 text-sm">
+            {fields(betsInfo).map((item) => (
+              <div key={item.label} className="flex gap-2">
+                <span className="font-medium w-40 shrink-0">{item.label}</span>
+                <span>:</span>
+                <span className="text-muted-foreground">{item.value}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>

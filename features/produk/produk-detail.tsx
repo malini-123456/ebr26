@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs } from "@/components/ui/vercel-tabs"
 import {
   Table,
   TableBody,
@@ -13,10 +14,10 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { PackageIcon, PlusIcon, Pencil, Trash2 } from "lucide-react";
+import { PackageIcon, PlusIcon, Pencil, Trash2, Edit, Pen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { deleteBahan, deleteInstruksi } from "@/app/action/action";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 
 type Bahan = {
   id: number;
@@ -81,16 +82,26 @@ function DeleteInstruksiButton({ id, produkId }: { id: number; produkId: number 
 export function ProdukDetail({ produk }: ProdukDetailProps) {
   const mainImage = produk.foto_produk[0] ?? null;
   const baseUrl = `/produk/${produk.id}`;
+  const [activeTab, setActiveTab] = useState("1");
+
+  const tabs = [
+    { id: "1", label: "Overview" },
+    { id: "2", label: "Bahan" },
+    { id: "3", label: "Instruksi" },
+  ];
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Hero Section */}
+
+    <div>
+      <div className="w-full justify-center flex gap-6 py-4">
+        <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
+
       <Card>
-        <CardContent className="p-6">
-          <div className="flex flex-col gap-6 sm:flex-row">
-            {/* Product Image */}
-            <div className="flex-shrink-0">
-              <div className="relative h-48 w-48 overflow-hidden rounded-lg border bg-muted">
+        <CardContent >
+          <div className="flex flex-col gap-6 lg:flex-row">
+            <div className="flex flex-col items-center lg:items-start lg:shrink-0">
+              <div className="relative h-80 w-48 overflow-hidden rounded-lg border bg-muted">
                 {mainImage ? (
                   <Image
                     src={mainImage}
@@ -121,172 +132,172 @@ export function ProdukDetail({ produk }: ProdukDetailProps) {
                   ))}
                 </div>
               )}
-            </div>
 
-            {/* Product Info */}
-            <div className="flex flex-col justify-center gap-2">
               <h2 className="text-2xl font-bold">{produk.nama_produk}</h2>
               <p className="text-muted-foreground text-sm font-medium">
                 {produk.kode_produk} &nbsp;|&nbsp; {produk.hasil_produk}{" "}
                 {produk.satuan_produk}
               </p>
             </div>
+            {/* Tab 1: Spesifikasi */}
+            {activeTab === "1" && (
+              <Card className="flex flex-1 flex-col gap-2">
+                <div className="flex justify-end mx-3">
+                  <Link
+                    href={`${baseUrl}/edit`}
+                    className={cn(buttonVariants({ size: "sm" }), "gap-1")}
+                  >
+                    <Pen className="h-4 w-4" />
+                    Edit
+                  </Link>
+                </div>
+                <CardContent className="p-0">
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="w-40 font-medium">Bentuk</TableCell>
+                        <TableCell>{produk.bentuk_produk ?? "-"}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-medium">Warna</TableCell>
+                        <TableCell>{produk.warna_produk ?? "-"}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-medium">Aroma</TableCell>
+                        <TableCell>{produk.aroma_produk ?? "-"}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-medium">pH</TableCell>
+                        <TableCell>{produk.ph_produk ?? "-"}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-medium">Homogenitas</TableCell>
+                        <TableCell>{produk.homogenitas ?? "-"}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Tab 2: Bahan */}
+            {activeTab === "2" && (
+              <div className="flex flex-1 flex-col gap-2">
+                <div className="flex justify-end">
+                  <Link
+                    href={`${baseUrl}/bahan/create`}
+                    className={cn(buttonVariants({ size: "sm" }), "gap-1")}
+                  >
+                    <PlusIcon className="h-4 w-4" />
+                    Tambah Bahan
+                  </Link>
+                </div>
+                <Card>
+                  <CardContent className="p-0">
+                    {produk.bahan.length === 0 ? (
+                      <p className="text-muted-foreground p-6 text-center text-sm">
+                        Belum ada bahan.
+                      </p>
+                    ) : (
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="w-12">No</TableHead>
+                            <TableHead>Nama Bahan</TableHead>
+                            <TableHead className="text-right">Jumlah</TableHead>
+                            <TableHead className="w-20" />
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {produk.bahan.map((b, i) => (
+                            <TableRow key={b.id}>
+                              <TableCell>{i + 1}</TableCell>
+                              <TableCell>{b.nama_bahan}</TableCell>
+                              <TableCell className="text-right">
+                                {b.jumlah_bahan} {b.satuan_bahan}
+                              </TableCell>
+                              <TableCell>
+                                <div className="flex items-center justify-end gap-1">
+                                  <Link
+                                    href={`${baseUrl}/bahan/${b.id}/edit`}
+                                    className={cn(
+                                      buttonVariants({ variant: "ghost", size: "icon" }),
+                                      "h-7 w-7"
+                                    )}
+                                  >
+                                    <Pencil className="h-4 w-4" />
+                                  </Link>
+                                  <DeleteBahanButton id={b.id} produkId={produk.id} />
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {/* Tab 3: Instruksi */}
+            {activeTab === "3" && (
+              <div className="flex flex-1 flex-col gap-2">
+                <div className="flex justify-end">
+                  <Link
+                    href={`${baseUrl}/instruksi/create`}
+                    className={cn(buttonVariants({ size: "sm" }), "gap-1")}
+                  >
+                    <PlusIcon className="h-4 w-4" />
+                    Tambah Instruksi
+                  </Link>
+                </div>
+                <Card>
+                  <CardContent className="p-0">
+                    {produk.instruksi.length === 0 ? (
+                      <p className="text-muted-foreground p-6 text-center text-sm">
+                        Belum ada instruksi.
+                      </p>
+                    ) : (
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="w-12">No</TableHead>
+                            <TableHead>Instruksi</TableHead>
+                            <TableHead className="w-20" />
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {produk.instruksi.map((ins, i) => (
+                            <TableRow key={ins.id}>
+                              <TableCell>{i + 1}</TableCell>
+                              <TableCell>{ins.langkah}</TableCell>
+                              <TableCell>
+                                <div className="flex items-center justify-end gap-1">
+                                  <Link
+                                    href={`${baseUrl}/instruksi/${ins.id}/edit`}
+                                    className={cn(
+                                      buttonVariants({ variant: "ghost", size: "icon" }),
+                                      "h-7 w-7"
+                                    )}
+                                  >
+                                    <Pencil className="h-4 w-4" />
+                                  </Link>
+                                  <DeleteInstruksiButton id={ins.id} produkId={produk.id} />
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
-
-      {/* Tabs */}
-      <Tabs defaultValue="spesifikasi">
-        <TabsList className="w-full justify-start">
-          <TabsTrigger value="spesifikasi">Spesifikasi</TabsTrigger>
-          <TabsTrigger value="bahan">Bahan</TabsTrigger>
-          <TabsTrigger value="instruksi">Tahap Pengolahan</TabsTrigger>
-        </TabsList>
-
-        {/* Tab 1: Spesifikasi */}
-        <TabsContent value="spesifikasi">
-          <Card>
-            <CardContent className="p-0">
-              <Table>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="w-40 font-medium">Bentuk</TableCell>
-                    <TableCell>{produk.bentuk_produk ?? "-"}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Warna</TableCell>
-                    <TableCell>{produk.warna_produk ?? "-"}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Aroma</TableCell>
-                    <TableCell>{produk.aroma_produk ?? "-"}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">pH</TableCell>
-                    <TableCell>{produk.ph_produk ?? "-"}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Homogenitas</TableCell>
-                    <TableCell>{produk.homogenitas ?? "-"}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Tab 2: Bahan */}
-        <TabsContent value="bahan">
-          <div className="mb-3 flex justify-end">
-            <Link
-              href={`${baseUrl}/bahan/create`}
-              className={cn(buttonVariants({ size: "sm" }), "gap-1")}
-            >
-              <PlusIcon className="h-4 w-4" />
-              Tambah Bahan
-            </Link>
-          </div>
-          <Card>
-            <CardContent className="p-0">
-              {produk.bahan.length === 0 ? (
-                <p className="text-muted-foreground p-6 text-center text-sm">
-                  Belum ada bahan.
-                </p>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-12">No</TableHead>
-                      <TableHead>Nama Bahan</TableHead>
-                      <TableHead className="text-right">Jumlah</TableHead>
-                      <TableHead className="w-20" />
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {produk.bahan.map((b, i) => (
-                      <TableRow key={b.id}>
-                        <TableCell>{i + 1}</TableCell>
-                        <TableCell>{b.nama_bahan}</TableCell>
-                        <TableCell className="text-right">
-                          {b.jumlah_bahan} {b.satuan_bahan}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center justify-end gap-1">
-                            <Link
-                              href={`${baseUrl}/bahan/${b.id}/edit`}
-                              className={cn(
-                                buttonVariants({ variant: "ghost", size: "icon" }),
-                                "h-7 w-7"
-                              )}
-                            >
-                              <Pencil className="h-4 w-4" />
-                            </Link>
-                            <DeleteBahanButton id={b.id} produkId={produk.id} />
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Tab 3: Instruksi / Tahap Pengolahan */}
-        <TabsContent value="instruksi">
-          <div className="mb-3 flex justify-end">
-            <Link
-              href={`${baseUrl}/instruksi/create`}
-              className={cn(buttonVariants({ size: "sm" }), "gap-1")}
-            >
-              <PlusIcon className="h-4 w-4" />
-              Tambah Instruksi
-            </Link>
-          </div>
-          <Card>
-            <CardContent className="p-0">
-              {produk.instruksi.length === 0 ? (
-                <p className="text-muted-foreground p-6 text-center text-sm">
-                  Belum ada instruksi.
-                </p>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-12">No</TableHead>
-                      <TableHead>Instruksi</TableHead>
-                      <TableHead className="w-20" />
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {produk.instruksi.map((ins, i) => (
-                      <TableRow key={ins.id}>
-                        <TableCell>{i + 1}</TableCell>
-                        <TableCell>{ins.langkah}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center justify-end gap-1">
-                            <Link
-                              href={`${baseUrl}/instruksi/${ins.id}/edit`}
-                              className={cn(
-                                buttonVariants({ variant: "ghost", size: "icon" }),
-                                "h-7 w-7"
-                              )}
-                            >
-                              <Pencil className="h-4 w-4" />
-                            </Link>
-                            <DeleteInstruksiButton id={ins.id} produkId={produk.id} />
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
     </div>
   );
 }

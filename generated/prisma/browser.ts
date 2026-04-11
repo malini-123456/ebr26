@@ -67,3 +67,13 @@ export type ChecklistTemplate = Prisma.ChecklistTemplateModel
  * 
  */
 export type InspectionItem = Prisma.InspectionItemModel
+/**
+ * Model PenimbanganSession
+ * 
+ */
+export type PenimbanganSession = Prisma.PenimbanganSessionModel
+/**
+ * Model PenimbanganItem
+ * 
+ */
+export type PenimbanganItem = Prisma.PenimbanganItemModel

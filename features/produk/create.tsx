@@ -26,7 +26,7 @@ export default function FormProduk({
   initialData?: InitialData;
   action?: (formData: FormData) => Promise<void>;
 }) {
-  const [fotoUrls, setFotoUrls] = useState<string[]>(initialData?.foto_produk ?? []);
+  const [newFotoUrls, setNewFotoUrls] = useState<string[]>([]);
 
   const fields = [
     { id: 1, label: "Nama Produk", name: "nama_produk", type: "text", required: true, defaultValue: initialData?.nama_produk },
@@ -41,7 +41,8 @@ export default function FormProduk({
   ];
 
   async function handleSubmit(formData: FormData) {
-    fotoUrls.forEach((url) => formData.append("foto_produk", url));
+    const existingUrls = initialData?.foto_produk ?? [];
+    [...existingUrls, ...newFotoUrls].forEach((url) => formData.append("foto_produk", url));
     await (action ?? CreateProduk)(formData);
   }
 
@@ -66,7 +67,7 @@ export default function FormProduk({
             ))}
             <Field className="flex flex-row w-full items-center">
               <FieldLabel className="basis-1/3">Foto Produk</FieldLabel>
-              <MultiImagesDropzone onUrlsChange={setFotoUrls} />
+              <MultiImagesDropzone onUrlsChange={setNewFotoUrls} />
             </Field>
           </FieldGroup>
         </FieldSet>

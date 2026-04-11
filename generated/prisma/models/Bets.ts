@@ -250,6 +250,7 @@ export type BetsWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Bets"> | Date | string
   produk?: Prisma.XOR<Prisma.ProdukScalarRelationFilter, Prisma.ProdukWhereInput>
   inspectionSession?: Prisma.XOR<Prisma.InspectionSessionNullableScalarRelationFilter, Prisma.InspectionSessionWhereInput> | null
+  penimbanganSession?: Prisma.XOR<Prisma.PenimbanganSessionNullableScalarRelationFilter, Prisma.PenimbanganSessionWhereInput> | null
 }
 
 export type BetsOrderByWithRelationInput = {
@@ -263,6 +264,7 @@ export type BetsOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   produk?: Prisma.ProdukOrderByWithRelationInput
   inspectionSession?: Prisma.InspectionSessionOrderByWithRelationInput
+  penimbanganSession?: Prisma.PenimbanganSessionOrderByWithRelationInput
 }
 
 export type BetsWhereUniqueInput = Prisma.AtLeast<{
@@ -279,6 +281,7 @@ export type BetsWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Bets"> | Date | string
   produk?: Prisma.XOR<Prisma.ProdukScalarRelationFilter, Prisma.ProdukWhereInput>
   inspectionSession?: Prisma.XOR<Prisma.InspectionSessionNullableScalarRelationFilter, Prisma.InspectionSessionWhereInput> | null
+  penimbanganSession?: Prisma.XOR<Prisma.PenimbanganSessionNullableScalarRelationFilter, Prisma.PenimbanganSessionWhereInput> | null
 }, "id" | "nomor_bets">
 
 export type BetsOrderByWithAggregationInput = {
@@ -320,6 +323,7 @@ export type BetsCreateInput = {
   updatedAt?: Date | string
   produk: Prisma.ProdukCreateNestedOneWithoutBetsInput
   inspectionSession?: Prisma.InspectionSessionCreateNestedOneWithoutBetsInput
+  penimbanganSession?: Prisma.PenimbanganSessionCreateNestedOneWithoutBetsInput
 }
 
 export type BetsUncheckedCreateInput = {
@@ -332,6 +336,7 @@ export type BetsUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   inspectionSession?: Prisma.InspectionSessionUncheckedCreateNestedOneWithoutBetsInput
+  penimbanganSession?: Prisma.PenimbanganSessionUncheckedCreateNestedOneWithoutBetsInput
 }
 
 export type BetsUpdateInput = {
@@ -343,6 +348,7 @@ export type BetsUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   produk?: Prisma.ProdukUpdateOneRequiredWithoutBetsNestedInput
   inspectionSession?: Prisma.InspectionSessionUpdateOneWithoutBetsNestedInput
+  penimbanganSession?: Prisma.PenimbanganSessionUpdateOneWithoutBetsNestedInput
 }
 
 export type BetsUncheckedUpdateInput = {
@@ -355,6 +361,7 @@ export type BetsUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inspectionSession?: Prisma.InspectionSessionUncheckedUpdateOneWithoutBetsNestedInput
+  penimbanganSession?: Prisma.PenimbanganSessionUncheckedUpdateOneWithoutBetsNestedInput
 }
 
 export type BetsCreateManyInput = {
@@ -448,6 +455,11 @@ export type BetsNullableScalarRelationFilter = {
   isNot?: Prisma.BetsWhereInput | null
 }
 
+export type BetsScalarRelationFilter = {
+  is?: Prisma.BetsWhereInput
+  isNot?: Prisma.BetsWhereInput
+}
+
 export type BetsCreateNestedManyWithoutProdukInput = {
   create?: Prisma.XOR<Prisma.BetsCreateWithoutProdukInput, Prisma.BetsUncheckedCreateWithoutProdukInput> | Prisma.BetsCreateWithoutProdukInput[] | Prisma.BetsUncheckedCreateWithoutProdukInput[]
   connectOrCreate?: Prisma.BetsCreateOrConnectWithoutProdukInput | Prisma.BetsCreateOrConnectWithoutProdukInput[]
@@ -506,6 +518,20 @@ export type BetsUpdateOneWithoutInspectionSessionNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BetsUpdateToOneWithWhereWithoutInspectionSessionInput, Prisma.BetsUpdateWithoutInspectionSessionInput>, Prisma.BetsUncheckedUpdateWithoutInspectionSessionInput>
 }
 
+export type BetsCreateNestedOneWithoutPenimbanganSessionInput = {
+  create?: Prisma.XOR<Prisma.BetsCreateWithoutPenimbanganSessionInput, Prisma.BetsUncheckedCreateWithoutPenimbanganSessionInput>
+  connectOrCreate?: Prisma.BetsCreateOrConnectWithoutPenimbanganSessionInput
+  connect?: Prisma.BetsWhereUniqueInput
+}
+
+export type BetsUpdateOneRequiredWithoutPenimbanganSessionNestedInput = {
+  create?: Prisma.XOR<Prisma.BetsCreateWithoutPenimbanganSessionInput, Prisma.BetsUncheckedCreateWithoutPenimbanganSessionInput>
+  connectOrCreate?: Prisma.BetsCreateOrConnectWithoutPenimbanganSessionInput
+  upsert?: Prisma.BetsUpsertWithoutPenimbanganSessionInput
+  connect?: Prisma.BetsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BetsUpdateToOneWithWhereWithoutPenimbanganSessionInput, Prisma.BetsUpdateWithoutPenimbanganSessionInput>, Prisma.BetsUncheckedUpdateWithoutPenimbanganSessionInput>
+}
+
 export type BetsCreateWithoutProdukInput = {
   nomor_bets: string
   ukuran: number
@@ -514,6 +540,7 @@ export type BetsCreateWithoutProdukInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   inspectionSession?: Prisma.InspectionSessionCreateNestedOneWithoutBetsInput
+  penimbanganSession?: Prisma.PenimbanganSessionCreateNestedOneWithoutBetsInput
 }
 
 export type BetsUncheckedCreateWithoutProdukInput = {
@@ -525,6 +552,7 @@ export type BetsUncheckedCreateWithoutProdukInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   inspectionSession?: Prisma.InspectionSessionUncheckedCreateNestedOneWithoutBetsInput
+  penimbanganSession?: Prisma.PenimbanganSessionUncheckedCreateNestedOneWithoutBetsInput
 }
 
 export type BetsCreateOrConnectWithoutProdukInput = {
@@ -575,6 +603,7 @@ export type BetsCreateWithoutInspectionSessionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   produk: Prisma.ProdukCreateNestedOneWithoutBetsInput
+  penimbanganSession?: Prisma.PenimbanganSessionCreateNestedOneWithoutBetsInput
 }
 
 export type BetsUncheckedCreateWithoutInspectionSessionInput = {
@@ -586,6 +615,7 @@ export type BetsUncheckedCreateWithoutInspectionSessionInput = {
   expiredDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  penimbanganSession?: Prisma.PenimbanganSessionUncheckedCreateNestedOneWithoutBetsInput
 }
 
 export type BetsCreateOrConnectWithoutInspectionSessionInput = {
@@ -612,6 +642,7 @@ export type BetsUpdateWithoutInspectionSessionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   produk?: Prisma.ProdukUpdateOneRequiredWithoutBetsNestedInput
+  penimbanganSession?: Prisma.PenimbanganSessionUpdateOneWithoutBetsNestedInput
 }
 
 export type BetsUncheckedUpdateWithoutInspectionSessionInput = {
@@ -623,6 +654,69 @@ export type BetsUncheckedUpdateWithoutInspectionSessionInput = {
   expiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  penimbanganSession?: Prisma.PenimbanganSessionUncheckedUpdateOneWithoutBetsNestedInput
+}
+
+export type BetsCreateWithoutPenimbanganSessionInput = {
+  nomor_bets: string
+  ukuran: number
+  satuan: string
+  expiredDate: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  produk: Prisma.ProdukCreateNestedOneWithoutBetsInput
+  inspectionSession?: Prisma.InspectionSessionCreateNestedOneWithoutBetsInput
+}
+
+export type BetsUncheckedCreateWithoutPenimbanganSessionInput = {
+  id?: number
+  nomor_bets: string
+  produkId: number
+  ukuran: number
+  satuan: string
+  expiredDate: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  inspectionSession?: Prisma.InspectionSessionUncheckedCreateNestedOneWithoutBetsInput
+}
+
+export type BetsCreateOrConnectWithoutPenimbanganSessionInput = {
+  where: Prisma.BetsWhereUniqueInput
+  create: Prisma.XOR<Prisma.BetsCreateWithoutPenimbanganSessionInput, Prisma.BetsUncheckedCreateWithoutPenimbanganSessionInput>
+}
+
+export type BetsUpsertWithoutPenimbanganSessionInput = {
+  update: Prisma.XOR<Prisma.BetsUpdateWithoutPenimbanganSessionInput, Prisma.BetsUncheckedUpdateWithoutPenimbanganSessionInput>
+  create: Prisma.XOR<Prisma.BetsCreateWithoutPenimbanganSessionInput, Prisma.BetsUncheckedCreateWithoutPenimbanganSessionInput>
+  where?: Prisma.BetsWhereInput
+}
+
+export type BetsUpdateToOneWithWhereWithoutPenimbanganSessionInput = {
+  where?: Prisma.BetsWhereInput
+  data: Prisma.XOR<Prisma.BetsUpdateWithoutPenimbanganSessionInput, Prisma.BetsUncheckedUpdateWithoutPenimbanganSessionInput>
+}
+
+export type BetsUpdateWithoutPenimbanganSessionInput = {
+  nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
+  ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
+  satuan?: Prisma.StringFieldUpdateOperationsInput | string
+  expiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  produk?: Prisma.ProdukUpdateOneRequiredWithoutBetsNestedInput
+  inspectionSession?: Prisma.InspectionSessionUpdateOneWithoutBetsNestedInput
+}
+
+export type BetsUncheckedUpdateWithoutPenimbanganSessionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
+  produkId?: Prisma.IntFieldUpdateOperationsInput | number
+  ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
+  satuan?: Prisma.StringFieldUpdateOperationsInput | string
+  expiredDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  inspectionSession?: Prisma.InspectionSessionUncheckedUpdateOneWithoutBetsNestedInput
 }
 
 export type BetsCreateManyProdukInput = {
@@ -643,6 +737,7 @@ export type BetsUpdateWithoutProdukInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inspectionSession?: Prisma.InspectionSessionUpdateOneWithoutBetsNestedInput
+  penimbanganSession?: Prisma.PenimbanganSessionUpdateOneWithoutBetsNestedInput
 }
 
 export type BetsUncheckedUpdateWithoutProdukInput = {
@@ -654,6 +749,7 @@ export type BetsUncheckedUpdateWithoutProdukInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inspectionSession?: Prisma.InspectionSessionUncheckedUpdateOneWithoutBetsNestedInput
+  penimbanganSession?: Prisma.PenimbanganSessionUncheckedUpdateOneWithoutBetsNestedInput
 }
 
 export type BetsUncheckedUpdateManyWithoutProdukInput = {
@@ -679,6 +775,7 @@ export type BetsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   produk?: boolean | Prisma.ProdukDefaultArgs<ExtArgs>
   inspectionSession?: boolean | Prisma.Bets$inspectionSessionArgs<ExtArgs>
+  penimbanganSession?: boolean | Prisma.Bets$penimbanganSessionArgs<ExtArgs>
 }, ExtArgs["result"]["bets"]>
 
 export type BetsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -720,6 +817,7 @@ export type BetsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type BetsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   produk?: boolean | Prisma.ProdukDefaultArgs<ExtArgs>
   inspectionSession?: boolean | Prisma.Bets$inspectionSessionArgs<ExtArgs>
+  penimbanganSession?: boolean | Prisma.Bets$penimbanganSessionArgs<ExtArgs>
 }
 export type BetsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   produk?: boolean | Prisma.ProdukDefaultArgs<ExtArgs>
@@ -733,6 +831,7 @@ export type $BetsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     produk: Prisma.$ProdukPayload<ExtArgs>
     inspectionSession: Prisma.$InspectionSessionPayload<ExtArgs> | null
+    penimbanganSession: Prisma.$PenimbanganSessionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1139,6 +1238,7 @@ export interface Prisma__BetsClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   produk<T extends Prisma.ProdukDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProdukDefaultArgs<ExtArgs>>): Prisma.Prisma__ProdukClient<runtime.Types.Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   inspectionSession<T extends Prisma.Bets$inspectionSessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bets$inspectionSessionArgs<ExtArgs>>): Prisma.Prisma__InspectionSessionClient<runtime.Types.Result.GetResult<Prisma.$InspectionSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  penimbanganSession<T extends Prisma.Bets$penimbanganSessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bets$penimbanganSessionArgs<ExtArgs>>): Prisma.Prisma__PenimbanganSessionClient<runtime.Types.Result.GetResult<Prisma.$PenimbanganSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1588,6 +1688,25 @@ export type Bets$inspectionSessionArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.InspectionSessionInclude<ExtArgs> | null
   where?: Prisma.InspectionSessionWhereInput
+}
+
+/**
+ * Bets.penimbanganSession
+ */
+export type Bets$penimbanganSessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PenimbanganSession
+   */
+  select?: Prisma.PenimbanganSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PenimbanganSession
+   */
+  omit?: Prisma.PenimbanganSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PenimbanganSessionInclude<ExtArgs> | null
+  where?: Prisma.PenimbanganSessionWhereInput
 }
 
 /**

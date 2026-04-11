@@ -11,7 +11,15 @@ import { DataTableFacetedFilter } from "@/components/ui/table/data-table-faceted
 
 
 interface BetsDataTableProps {
-  data: Prisma.BetsGetPayload<{ include: { produk: true } }>[]
+  data: Prisma.BetsGetPayload<
+    {
+      include:
+      {
+        produk: true;
+        inspectionSession: true;
+        penimbanganSession: true
+      }
+    }>[]
   totalItems: number
 }
 export function BetsDataTable({

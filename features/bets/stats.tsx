@@ -1,12 +1,13 @@
 import { Card, CardHeader } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
-import { ClipboardList, FlaskConical, Package } from "lucide-react";
+import { ClipboardList, FlaskConical, Layers, Package } from "lucide-react";
 
 export async function SectionCards() {
-  const [hitungProduk, hitungBahan, hitungInstruksi] = await Promise.all([
+  const [hitungProduk, hitungBahan, hitungInstruksi, hitungBets] = await Promise.all([
     prisma.produk.count(),
     prisma.bahan.count(),
     prisma.instruksi.count(),
+    prisma.bets.count(),
   ]);
 
   const stats = [
@@ -34,10 +35,18 @@ export async function SectionCards() {
       iconColor: "text-violet-500",
       iconBg: "bg-violet-500/10",
     },
+    {
+      title: "Total Bets",
+      value: hitungBets,
+      description: "Batch record terdaftar",
+      icon: Layers,
+      iconColor: "text-orange-500",
+      iconBg: "bg-orange-500/10",
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (

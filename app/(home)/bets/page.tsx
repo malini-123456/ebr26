@@ -7,6 +7,8 @@ export default async function ProdukPage() {
   const data = await prisma.bets.findMany({
     include: {
       produk: true,
+      inspectionSession: true,
+      penimbanganSession: true,
     },
   });
 

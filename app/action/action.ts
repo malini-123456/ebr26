@@ -49,6 +49,47 @@ export async function saveProses1(betsId: number, formData: FormData) {
   }
 
   revalidatePath(`/bets`)
+  redirect(`/bets/penimbangan/${betsId}`)
+}
+
+///// PENIMBANGAN /////
+
+export async function savePenimbangan(betsId: number, formData: FormData) {
+  const bets = await prisma.bets.findUnique({
+    where: { id: betsId },
+    include: { produk: { include: { bahan: true } } },
+  })
+  if (!bets) throw new Error("Bets not found")
+
+  const session = await prisma.penimbanganSession.upsert({
+    where: { betsId },
+    update: { catatan: formData.get("catatan_penimbangan") as string },
+    create: { betsId, catatan: formData.get("catatan_penimbangan") as string },
+  })
+
+  await prisma.penimbanganItem.deleteMany({ where: { sessionId: session.id } })
+
+  for (const b of bets.produk.bahan) {
+    const jmlDitimbang = Number(formData.get(`jml_ditimbang_${b.id}`))
+    const satuan = formData.get(`satuan_${b.id}`) as string
+    const noBatchBahan = formData.get(`no_batch_bahan_${b.id}`) as string
+    const ditimbangOleh = formData.get(`ditimbang_oleh_${b.id}`) as string
+    const diawasiOleh = formData.get(`diawasi_oleh_${b.id}`) as string
+
+    await prisma.penimbanganItem.create({
+      data: {
+        sessionId: session.id,
+        bahanId: b.id,
+        jmlDitimbang,
+        satuan,
+        noBatchBahan: noBatchBahan || null,
+        ditimbangOleh: ditimbangOleh || null,
+        diawasiOleh: diawasiOleh || null,
+      },
+    })
+  }
+
+  revalidatePath(`/bets`)
   redirect(`/bets`)
 }
 
@@ -76,11 +117,16 @@ export async function CreateBets(formData: FormData) {
 };
 
 export async function deleteBets(id: number) {
-  await prisma.bets.delete({
-    where: { id },
-  })
+  const inspSession = await prisma.inspectionSession.findUnique({ where: { betsId: id } })
+  if (inspSession) {
+    await prisma.inspectionItem.deleteMany({ where: { sessionId: inspSession.id } })
+    await prisma.inspectionSession.delete({ where: { id: inspSession.id } })
+  }
 
-  revalidatePath("/dashboard/inventaris")
+  await prisma.penimbanganSession.deleteMany({ where: { betsId: id } })
+
+  await prisma.bets.delete({ where: { id } })
+  revalidatePath("/bets")
 }
 
 //////// PRODUK /////////
@@ -165,8 +211,26 @@ export async function editProduk(id: number, formData: FormData) {
 }
 
 export async function deleteProduk(id: number) {
-  await prisma.produk.delete({
-    where: { id },
+  await prisma.$transaction(async (tx) => {
+    const betsList = await tx.bets.findMany({ where: { produkId: id }, select: { id: true } })
+    const betsIds = betsList.map((b) => b.id)
+
+    const inspSessions = await tx.inspectionSession.findMany({
+      where: { betsId: { in: betsIds } },
+      select: { id: true },
+    })
+    await tx.inspectionItem.deleteMany({ where: { sessionId: { in: inspSessions.map((s) => s.id) } } })
+    await tx.inspectionSession.deleteMany({ where: { betsId: { in: betsIds } } })
+
+    // PenimbanganItem cascades from PenimbanganSession
+    await tx.penimbanganSession.deleteMany({ where: { betsId: { in: betsIds } } })
+
+    await tx.bets.deleteMany({ where: { produkId: id } })
+
+    await tx.bahan.deleteMany({ where: { produkId: id } })
+
+    // Instruksi cascades automatically
+    await tx.produk.delete({ where: { id } })
   })
 
   revalidatePath("/produk")

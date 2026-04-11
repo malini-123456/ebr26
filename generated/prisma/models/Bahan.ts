@@ -241,6 +241,7 @@ export type BahanWhereInput = {
   createdAtBahan?: Prisma.DateTimeFilter<"Bahan"> | Date | string
   updateAtBahan?: Prisma.DateTimeFilter<"Bahan"> | Date | string
   produk?: Prisma.XOR<Prisma.ProdukScalarRelationFilter, Prisma.ProdukWhereInput>
+  penimbanganItems?: Prisma.PenimbanganItemListRelationFilter
 }
 
 export type BahanOrderByWithRelationInput = {
@@ -252,6 +253,7 @@ export type BahanOrderByWithRelationInput = {
   createdAtBahan?: Prisma.SortOrder
   updateAtBahan?: Prisma.SortOrder
   produk?: Prisma.ProdukOrderByWithRelationInput
+  penimbanganItems?: Prisma.PenimbanganItemOrderByRelationAggregateInput
 }
 
 export type BahanWhereUniqueInput = Prisma.AtLeast<{
@@ -266,6 +268,7 @@ export type BahanWhereUniqueInput = Prisma.AtLeast<{
   createdAtBahan?: Prisma.DateTimeFilter<"Bahan"> | Date | string
   updateAtBahan?: Prisma.DateTimeFilter<"Bahan"> | Date | string
   produk?: Prisma.XOR<Prisma.ProdukScalarRelationFilter, Prisma.ProdukWhereInput>
+  penimbanganItems?: Prisma.PenimbanganItemListRelationFilter
 }, "id">
 
 export type BahanOrderByWithAggregationInput = {
@@ -303,6 +306,7 @@ export type BahanCreateInput = {
   createdAtBahan?: Date | string
   updateAtBahan?: Date | string
   produk: Prisma.ProdukCreateNestedOneWithoutBahanInput
+  penimbanganItems?: Prisma.PenimbanganItemCreateNestedManyWithoutBahanInput
 }
 
 export type BahanUncheckedCreateInput = {
@@ -313,6 +317,7 @@ export type BahanUncheckedCreateInput = {
   satuan_bahan: string
   createdAtBahan?: Date | string
   updateAtBahan?: Date | string
+  penimbanganItems?: Prisma.PenimbanganItemUncheckedCreateNestedManyWithoutBahanInput
 }
 
 export type BahanUpdateInput = {
@@ -322,6 +327,7 @@ export type BahanUpdateInput = {
   createdAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updateAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   produk?: Prisma.ProdukUpdateOneRequiredWithoutBahanNestedInput
+  penimbanganItems?: Prisma.PenimbanganItemUpdateManyWithoutBahanNestedInput
 }
 
 export type BahanUncheckedUpdateInput = {
@@ -332,6 +338,7 @@ export type BahanUncheckedUpdateInput = {
   satuan_bahan?: Prisma.StringFieldUpdateOperationsInput | string
   createdAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updateAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  penimbanganItems?: Prisma.PenimbanganItemUncheckedUpdateManyWithoutBahanNestedInput
 }
 
 export type BahanCreateManyInput = {
@@ -414,6 +421,11 @@ export type BahanSumOrderByAggregateInput = {
   jumlah_bahan?: Prisma.SortOrder
 }
 
+export type BahanScalarRelationFilter = {
+  is?: Prisma.BahanWhereInput
+  isNot?: Prisma.BahanWhereInput
+}
+
 export type BahanCreateNestedManyWithoutProdukInput = {
   create?: Prisma.XOR<Prisma.BahanCreateWithoutProdukInput, Prisma.BahanUncheckedCreateWithoutProdukInput> | Prisma.BahanCreateWithoutProdukInput[] | Prisma.BahanUncheckedCreateWithoutProdukInput[]
   connectOrCreate?: Prisma.BahanCreateOrConnectWithoutProdukInput | Prisma.BahanCreateOrConnectWithoutProdukInput[]
@@ -464,12 +476,27 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type BahanCreateNestedOneWithoutPenimbanganItemsInput = {
+  create?: Prisma.XOR<Prisma.BahanCreateWithoutPenimbanganItemsInput, Prisma.BahanUncheckedCreateWithoutPenimbanganItemsInput>
+  connectOrCreate?: Prisma.BahanCreateOrConnectWithoutPenimbanganItemsInput
+  connect?: Prisma.BahanWhereUniqueInput
+}
+
+export type BahanUpdateOneRequiredWithoutPenimbanganItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.BahanCreateWithoutPenimbanganItemsInput, Prisma.BahanUncheckedCreateWithoutPenimbanganItemsInput>
+  connectOrCreate?: Prisma.BahanCreateOrConnectWithoutPenimbanganItemsInput
+  upsert?: Prisma.BahanUpsertWithoutPenimbanganItemsInput
+  connect?: Prisma.BahanWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BahanUpdateToOneWithWhereWithoutPenimbanganItemsInput, Prisma.BahanUpdateWithoutPenimbanganItemsInput>, Prisma.BahanUncheckedUpdateWithoutPenimbanganItemsInput>
+}
+
 export type BahanCreateWithoutProdukInput = {
   nama_bahan: string
   jumlah_bahan: number
   satuan_bahan: string
   createdAtBahan?: Date | string
   updateAtBahan?: Date | string
+  penimbanganItems?: Prisma.PenimbanganItemCreateNestedManyWithoutBahanInput
 }
 
 export type BahanUncheckedCreateWithoutProdukInput = {
@@ -479,6 +506,7 @@ export type BahanUncheckedCreateWithoutProdukInput = {
   satuan_bahan: string
   createdAtBahan?: Date | string
   updateAtBahan?: Date | string
+  penimbanganItems?: Prisma.PenimbanganItemUncheckedCreateNestedManyWithoutBahanInput
 }
 
 export type BahanCreateOrConnectWithoutProdukInput = {
@@ -520,6 +548,60 @@ export type BahanScalarWhereInput = {
   updateAtBahan?: Prisma.DateTimeFilter<"Bahan"> | Date | string
 }
 
+export type BahanCreateWithoutPenimbanganItemsInput = {
+  nama_bahan: string
+  jumlah_bahan: number
+  satuan_bahan: string
+  createdAtBahan?: Date | string
+  updateAtBahan?: Date | string
+  produk: Prisma.ProdukCreateNestedOneWithoutBahanInput
+}
+
+export type BahanUncheckedCreateWithoutPenimbanganItemsInput = {
+  id?: number
+  produkId: number
+  nama_bahan: string
+  jumlah_bahan: number
+  satuan_bahan: string
+  createdAtBahan?: Date | string
+  updateAtBahan?: Date | string
+}
+
+export type BahanCreateOrConnectWithoutPenimbanganItemsInput = {
+  where: Prisma.BahanWhereUniqueInput
+  create: Prisma.XOR<Prisma.BahanCreateWithoutPenimbanganItemsInput, Prisma.BahanUncheckedCreateWithoutPenimbanganItemsInput>
+}
+
+export type BahanUpsertWithoutPenimbanganItemsInput = {
+  update: Prisma.XOR<Prisma.BahanUpdateWithoutPenimbanganItemsInput, Prisma.BahanUncheckedUpdateWithoutPenimbanganItemsInput>
+  create: Prisma.XOR<Prisma.BahanCreateWithoutPenimbanganItemsInput, Prisma.BahanUncheckedCreateWithoutPenimbanganItemsInput>
+  where?: Prisma.BahanWhereInput
+}
+
+export type BahanUpdateToOneWithWhereWithoutPenimbanganItemsInput = {
+  where?: Prisma.BahanWhereInput
+  data: Prisma.XOR<Prisma.BahanUpdateWithoutPenimbanganItemsInput, Prisma.BahanUncheckedUpdateWithoutPenimbanganItemsInput>
+}
+
+export type BahanUpdateWithoutPenimbanganItemsInput = {
+  nama_bahan?: Prisma.StringFieldUpdateOperationsInput | string
+  jumlah_bahan?: Prisma.FloatFieldUpdateOperationsInput | number
+  satuan_bahan?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  produk?: Prisma.ProdukUpdateOneRequiredWithoutBahanNestedInput
+}
+
+export type BahanUncheckedUpdateWithoutPenimbanganItemsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  produkId?: Prisma.IntFieldUpdateOperationsInput | number
+  nama_bahan?: Prisma.StringFieldUpdateOperationsInput | string
+  jumlah_bahan?: Prisma.FloatFieldUpdateOperationsInput | number
+  satuan_bahan?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type BahanCreateManyProdukInput = {
   id?: number
   nama_bahan: string
@@ -535,6 +617,7 @@ export type BahanUpdateWithoutProdukInput = {
   satuan_bahan?: Prisma.StringFieldUpdateOperationsInput | string
   createdAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updateAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  penimbanganItems?: Prisma.PenimbanganItemUpdateManyWithoutBahanNestedInput
 }
 
 export type BahanUncheckedUpdateWithoutProdukInput = {
@@ -544,6 +627,7 @@ export type BahanUncheckedUpdateWithoutProdukInput = {
   satuan_bahan?: Prisma.StringFieldUpdateOperationsInput | string
   createdAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updateAtBahan?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  penimbanganItems?: Prisma.PenimbanganItemUncheckedUpdateManyWithoutBahanNestedInput
 }
 
 export type BahanUncheckedUpdateManyWithoutProdukInput = {
@@ -556,6 +640,35 @@ export type BahanUncheckedUpdateManyWithoutProdukInput = {
 }
 
 
+/**
+ * Count Type BahanCountOutputType
+ */
+
+export type BahanCountOutputType = {
+  penimbanganItems: number
+}
+
+export type BahanCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  penimbanganItems?: boolean | BahanCountOutputTypeCountPenimbanganItemsArgs
+}
+
+/**
+ * BahanCountOutputType without action
+ */
+export type BahanCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BahanCountOutputType
+   */
+  select?: Prisma.BahanCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BahanCountOutputType without action
+ */
+export type BahanCountOutputTypeCountPenimbanganItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PenimbanganItemWhereInput
+}
+
 
 export type BahanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -566,6 +679,8 @@ export type BahanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdAtBahan?: boolean
   updateAtBahan?: boolean
   produk?: boolean | Prisma.ProdukDefaultArgs<ExtArgs>
+  penimbanganItems?: boolean | Prisma.Bahan$penimbanganItemsArgs<ExtArgs>
+  _count?: boolean | Prisma.BahanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bahan"]>
 
 export type BahanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -603,6 +718,8 @@ export type BahanSelectScalar = {
 export type BahanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "produkId" | "nama_bahan" | "jumlah_bahan" | "satuan_bahan" | "createdAtBahan" | "updateAtBahan", ExtArgs["result"]["bahan"]>
 export type BahanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   produk?: boolean | Prisma.ProdukDefaultArgs<ExtArgs>
+  penimbanganItems?: boolean | Prisma.Bahan$penimbanganItemsArgs<ExtArgs>
+  _count?: boolean | Prisma.BahanCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BahanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   produk?: boolean | Prisma.ProdukDefaultArgs<ExtArgs>
@@ -615,6 +732,7 @@ export type $BahanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Bahan"
   objects: {
     produk: Prisma.$ProdukPayload<ExtArgs>
+    penimbanganItems: Prisma.$PenimbanganItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1019,6 +1137,7 @@ readonly fields: BahanFieldRefs;
 export interface Prisma__BahanClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   produk<T extends Prisma.ProdukDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProdukDefaultArgs<ExtArgs>>): Prisma.Prisma__ProdukClient<runtime.Types.Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  penimbanganItems<T extends Prisma.Bahan$penimbanganItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bahan$penimbanganItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PenimbanganItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1448,6 +1567,30 @@ export type BahanDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Bahans to delete.
    */
   limit?: number
+}
+
+/**
+ * Bahan.penimbanganItems
+ */
+export type Bahan$penimbanganItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PenimbanganItem
+   */
+  select?: Prisma.PenimbanganItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PenimbanganItem
+   */
+  omit?: Prisma.PenimbanganItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PenimbanganItemInclude<ExtArgs> | null
+  where?: Prisma.PenimbanganItemWhereInput
+  orderBy?: Prisma.PenimbanganItemOrderByWithRelationInput | Prisma.PenimbanganItemOrderByWithRelationInput[]
+  cursor?: Prisma.PenimbanganItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PenimbanganItemScalarFieldEnum | Prisma.PenimbanganItemScalarFieldEnum[]
 }
 
 /**

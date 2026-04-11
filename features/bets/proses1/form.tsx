@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import SubmitButton from "@/components/loading-submitbutton"
 import { IconPdf } from "@tabler/icons-react"
+import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/table"
 
 type BetsInfo = {
   nomor_bets: string
@@ -217,8 +218,8 @@ export default function FormProses1({
         </CardHeader>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
+            <Table className="w-full text-sm">
+              <TableHeader>
                 <tr className="border-b bg-muted/50">
                   <th className="text-left px-4 py-3 font-medium w-10">No</th>
                   <th className="text-left px-4 py-3 font-medium">Item Pemeriksaan</th>
@@ -226,12 +227,12 @@ export default function FormProses1({
                   <th className="text-left px-4 py-3 font-medium w-40">Petugas</th>
                   <th className="text-left px-4 py-3 font-medium w-40">Pengawas</th>
                 </tr>
-              </thead>
-              <tbody>
+              </TableHeader>
+              <TableBody>
                 {checklistItems.map((item, index) => {
                   const saved = existingMap[item.key]
                   return (
-                    <tr key={item.key} className="border-b last:border-0 hover:bg-muted/30">
+                    <TableRow key={item.key} className="border-b last:border-0 hover:bg-muted/30">
                       <td className="px-4 py-3 text-muted-foreground">{index + 1}</td>
                       <td className="px-4 py-3">{item.label}</td>
                       <td className="px-4 py-3 text-center">
@@ -259,11 +260,11 @@ export default function FormProses1({
                           required
                         />
                       </td>
-                    </tr>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </CardContent>
       </Card>
