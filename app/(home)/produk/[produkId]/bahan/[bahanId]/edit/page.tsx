@@ -1,6 +1,7 @@
 import PageContainer from "@/components/layout/page-container";
 import { editBahan } from "@/app/action/action";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import FormBahan from "@/features/produk/form-bahan";
 
@@ -13,8 +14,12 @@ export default async function EditBahanPage({
   const produkIdNum = Number(produkId);
   const bahanIdNum = Number(bahanId);
 
-  const bahan = await prisma.bahan.findUnique({ where: { id: bahanIdNum } });
-  if (!bahan || bahan.produkId !== produkIdNum) return notFound();
+  const { orgId } = await auth();
+
+  const bahan = await prisma.bahan.findFirst({
+    where: { id: bahanIdNum, produkId: produkIdNum, produk: { organizationId: orgId ?? "" } },
+  });
+  if (!bahan) return notFound();
 
   return (
     <PageContainer pageTitle="Edit Bahan">

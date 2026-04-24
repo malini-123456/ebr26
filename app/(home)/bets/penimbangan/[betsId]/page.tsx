@@ -2,6 +2,7 @@ import PageContainer from "@/components/layout/page-container"
 import PenimbanganForm from "@/features/bets/penimbangan/form"
 import { savePenimbangan } from "@/app/action/action"
 import { prisma } from "@/lib/prisma"
+import { auth } from "@clerk/nextjs/server"
 import { notFound } from "next/navigation"
 import { CardInfoProduk } from "@/features/bets/info-produk"
 
@@ -13,8 +14,10 @@ export default async function PenimbanganPage({
   const { betsId } = await params
   const id = Number(betsId)
 
-  const betsData = await prisma.bets.findUnique({
-    where: { id },
+  const { orgId } = await auth()
+
+  const betsData = await prisma.bets.findFirst({
+    where: { id, organizationId: orgId ?? "" },
     include: { produk: { include: { bahan: true } } },
   })
 

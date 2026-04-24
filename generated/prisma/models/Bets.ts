@@ -40,6 +40,7 @@ export type BetsSumAggregateOutputType = {
 
 export type BetsMinAggregateOutputType = {
   id: number | null
+  organizationId: string | null
   nomor_bets: string | null
   produkId: number | null
   ukuran: number | null
@@ -51,6 +52,7 @@ export type BetsMinAggregateOutputType = {
 
 export type BetsMaxAggregateOutputType = {
   id: number | null
+  organizationId: string | null
   nomor_bets: string | null
   produkId: number | null
   ukuran: number | null
@@ -62,6 +64,7 @@ export type BetsMaxAggregateOutputType = {
 
 export type BetsCountAggregateOutputType = {
   id: number
+  organizationId: number
   nomor_bets: number
   produkId: number
   ukuran: number
@@ -87,6 +90,7 @@ export type BetsSumAggregateInputType = {
 
 export type BetsMinAggregateInputType = {
   id?: true
+  organizationId?: true
   nomor_bets?: true
   produkId?: true
   ukuran?: true
@@ -98,6 +102,7 @@ export type BetsMinAggregateInputType = {
 
 export type BetsMaxAggregateInputType = {
   id?: true
+  organizationId?: true
   nomor_bets?: true
   produkId?: true
   ukuran?: true
@@ -109,6 +114,7 @@ export type BetsMaxAggregateInputType = {
 
 export type BetsCountAggregateInputType = {
   id?: true
+  organizationId?: true
   nomor_bets?: true
   produkId?: true
   ukuran?: true
@@ -207,6 +213,7 @@ export type BetsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type BetsGroupByOutputType = {
   id: number
+  organizationId: string
   nomor_bets: string
   produkId: number
   ukuran: number
@@ -241,6 +248,7 @@ export type BetsWhereInput = {
   OR?: Prisma.BetsWhereInput[]
   NOT?: Prisma.BetsWhereInput | Prisma.BetsWhereInput[]
   id?: Prisma.IntFilter<"Bets"> | number
+  organizationId?: Prisma.StringFilter<"Bets"> | string
   nomor_bets?: Prisma.StringFilter<"Bets"> | string
   produkId?: Prisma.IntFilter<"Bets"> | number
   ukuran?: Prisma.FloatFilter<"Bets"> | number
@@ -255,6 +263,7 @@ export type BetsWhereInput = {
 
 export type BetsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nomor_bets?: Prisma.SortOrder
   produkId?: Prisma.SortOrder
   ukuran?: Prisma.SortOrder
@@ -273,6 +282,7 @@ export type BetsWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.BetsWhereInput | Prisma.BetsWhereInput[]
   OR?: Prisma.BetsWhereInput[]
   NOT?: Prisma.BetsWhereInput | Prisma.BetsWhereInput[]
+  organizationId?: Prisma.StringFilter<"Bets"> | string
   produkId?: Prisma.IntFilter<"Bets"> | number
   ukuran?: Prisma.FloatFilter<"Bets"> | number
   satuan?: Prisma.StringFilter<"Bets"> | string
@@ -286,6 +296,7 @@ export type BetsWhereUniqueInput = Prisma.AtLeast<{
 
 export type BetsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nomor_bets?: Prisma.SortOrder
   produkId?: Prisma.SortOrder
   ukuran?: Prisma.SortOrder
@@ -305,6 +316,7 @@ export type BetsScalarWhereWithAggregatesInput = {
   OR?: Prisma.BetsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.BetsScalarWhereWithAggregatesInput | Prisma.BetsScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Bets"> | number
+  organizationId?: Prisma.StringWithAggregatesFilter<"Bets"> | string
   nomor_bets?: Prisma.StringWithAggregatesFilter<"Bets"> | string
   produkId?: Prisma.IntWithAggregatesFilter<"Bets"> | number
   ukuran?: Prisma.FloatWithAggregatesFilter<"Bets"> | number
@@ -315,6 +327,7 @@ export type BetsScalarWhereWithAggregatesInput = {
 }
 
 export type BetsCreateInput = {
+  organizationId?: string
   nomor_bets: string
   ukuran: number
   satuan: string
@@ -328,6 +341,7 @@ export type BetsCreateInput = {
 
 export type BetsUncheckedCreateInput = {
   id?: number
+  organizationId?: string
   nomor_bets: string
   produkId: number
   ukuran: number
@@ -340,6 +354,7 @@ export type BetsUncheckedCreateInput = {
 }
 
 export type BetsUpdateInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
   satuan?: Prisma.StringFieldUpdateOperationsInput | string
@@ -353,6 +368,7 @@ export type BetsUpdateInput = {
 
 export type BetsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   produkId?: Prisma.IntFieldUpdateOperationsInput | number
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -366,6 +382,7 @@ export type BetsUncheckedUpdateInput = {
 
 export type BetsCreateManyInput = {
   id?: number
+  organizationId?: string
   nomor_bets: string
   produkId: number
   ukuran: number
@@ -376,6 +393,7 @@ export type BetsCreateManyInput = {
 }
 
 export type BetsUpdateManyMutationInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
   satuan?: Prisma.StringFieldUpdateOperationsInput | string
@@ -386,6 +404,7 @@ export type BetsUpdateManyMutationInput = {
 
 export type BetsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   produkId?: Prisma.IntFieldUpdateOperationsInput | number
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -407,6 +426,7 @@ export type BetsOrderByRelationAggregateInput = {
 
 export type BetsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nomor_bets?: Prisma.SortOrder
   produkId?: Prisma.SortOrder
   ukuran?: Prisma.SortOrder
@@ -424,6 +444,7 @@ export type BetsAvgOrderByAggregateInput = {
 
 export type BetsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nomor_bets?: Prisma.SortOrder
   produkId?: Prisma.SortOrder
   ukuran?: Prisma.SortOrder
@@ -435,6 +456,7 @@ export type BetsMaxOrderByAggregateInput = {
 
 export type BetsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nomor_bets?: Prisma.SortOrder
   produkId?: Prisma.SortOrder
   ukuran?: Prisma.SortOrder
@@ -533,6 +555,7 @@ export type BetsUpdateOneRequiredWithoutPenimbanganSessionNestedInput = {
 }
 
 export type BetsCreateWithoutProdukInput = {
+  organizationId?: string
   nomor_bets: string
   ukuran: number
   satuan: string
@@ -545,6 +568,7 @@ export type BetsCreateWithoutProdukInput = {
 
 export type BetsUncheckedCreateWithoutProdukInput = {
   id?: number
+  organizationId?: string
   nomor_bets: string
   ukuran: number
   satuan: string
@@ -586,6 +610,7 @@ export type BetsScalarWhereInput = {
   OR?: Prisma.BetsScalarWhereInput[]
   NOT?: Prisma.BetsScalarWhereInput | Prisma.BetsScalarWhereInput[]
   id?: Prisma.IntFilter<"Bets"> | number
+  organizationId?: Prisma.StringFilter<"Bets"> | string
   nomor_bets?: Prisma.StringFilter<"Bets"> | string
   produkId?: Prisma.IntFilter<"Bets"> | number
   ukuran?: Prisma.FloatFilter<"Bets"> | number
@@ -596,6 +621,7 @@ export type BetsScalarWhereInput = {
 }
 
 export type BetsCreateWithoutInspectionSessionInput = {
+  organizationId?: string
   nomor_bets: string
   ukuran: number
   satuan: string
@@ -608,6 +634,7 @@ export type BetsCreateWithoutInspectionSessionInput = {
 
 export type BetsUncheckedCreateWithoutInspectionSessionInput = {
   id?: number
+  organizationId?: string
   nomor_bets: string
   produkId: number
   ukuran: number
@@ -635,6 +662,7 @@ export type BetsUpdateToOneWithWhereWithoutInspectionSessionInput = {
 }
 
 export type BetsUpdateWithoutInspectionSessionInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
   satuan?: Prisma.StringFieldUpdateOperationsInput | string
@@ -647,6 +675,7 @@ export type BetsUpdateWithoutInspectionSessionInput = {
 
 export type BetsUncheckedUpdateWithoutInspectionSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   produkId?: Prisma.IntFieldUpdateOperationsInput | number
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -658,6 +687,7 @@ export type BetsUncheckedUpdateWithoutInspectionSessionInput = {
 }
 
 export type BetsCreateWithoutPenimbanganSessionInput = {
+  organizationId?: string
   nomor_bets: string
   ukuran: number
   satuan: string
@@ -670,6 +700,7 @@ export type BetsCreateWithoutPenimbanganSessionInput = {
 
 export type BetsUncheckedCreateWithoutPenimbanganSessionInput = {
   id?: number
+  organizationId?: string
   nomor_bets: string
   produkId: number
   ukuran: number
@@ -697,6 +728,7 @@ export type BetsUpdateToOneWithWhereWithoutPenimbanganSessionInput = {
 }
 
 export type BetsUpdateWithoutPenimbanganSessionInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
   satuan?: Prisma.StringFieldUpdateOperationsInput | string
@@ -709,6 +741,7 @@ export type BetsUpdateWithoutPenimbanganSessionInput = {
 
 export type BetsUncheckedUpdateWithoutPenimbanganSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   produkId?: Prisma.IntFieldUpdateOperationsInput | number
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -721,6 +754,7 @@ export type BetsUncheckedUpdateWithoutPenimbanganSessionInput = {
 
 export type BetsCreateManyProdukInput = {
   id?: number
+  organizationId?: string
   nomor_bets: string
   ukuran: number
   satuan: string
@@ -730,6 +764,7 @@ export type BetsCreateManyProdukInput = {
 }
 
 export type BetsUpdateWithoutProdukInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
   satuan?: Prisma.StringFieldUpdateOperationsInput | string
@@ -742,6 +777,7 @@ export type BetsUpdateWithoutProdukInput = {
 
 export type BetsUncheckedUpdateWithoutProdukInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
   satuan?: Prisma.StringFieldUpdateOperationsInput | string
@@ -754,6 +790,7 @@ export type BetsUncheckedUpdateWithoutProdukInput = {
 
 export type BetsUncheckedUpdateManyWithoutProdukInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nomor_bets?: Prisma.StringFieldUpdateOperationsInput | string
   ukuran?: Prisma.FloatFieldUpdateOperationsInput | number
   satuan?: Prisma.StringFieldUpdateOperationsInput | string
@@ -766,6 +803,7 @@ export type BetsUncheckedUpdateManyWithoutProdukInput = {
 
 export type BetsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  organizationId?: boolean
   nomor_bets?: boolean
   produkId?: boolean
   ukuran?: boolean
@@ -780,6 +818,7 @@ export type BetsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type BetsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  organizationId?: boolean
   nomor_bets?: boolean
   produkId?: boolean
   ukuran?: boolean
@@ -792,6 +831,7 @@ export type BetsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type BetsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  organizationId?: boolean
   nomor_bets?: boolean
   produkId?: boolean
   ukuran?: boolean
@@ -804,6 +844,7 @@ export type BetsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type BetsSelectScalar = {
   id?: boolean
+  organizationId?: boolean
   nomor_bets?: boolean
   produkId?: boolean
   ukuran?: boolean
@@ -813,7 +854,7 @@ export type BetsSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BetsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomor_bets" | "produkId" | "ukuran" | "satuan" | "expiredDate" | "createdAt" | "updatedAt", ExtArgs["result"]["bets"]>
+export type BetsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "nomor_bets" | "produkId" | "ukuran" | "satuan" | "expiredDate" | "createdAt" | "updatedAt", ExtArgs["result"]["bets"]>
 export type BetsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   produk?: boolean | Prisma.ProdukDefaultArgs<ExtArgs>
   inspectionSession?: boolean | Prisma.Bets$inspectionSessionArgs<ExtArgs>
@@ -835,6 +876,7 @@ export type $BetsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    organizationId: string
     nomor_bets: string
     produkId: number
     ukuran: number
@@ -1269,6 +1311,7 @@ export interface Prisma__BetsClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface BetsFieldRefs {
   readonly id: Prisma.FieldRef<"Bets", 'Int'>
+  readonly organizationId: Prisma.FieldRef<"Bets", 'String'>
   readonly nomor_bets: Prisma.FieldRef<"Bets", 'String'>
   readonly produkId: Prisma.FieldRef<"Bets", 'Int'>
   readonly ukuran: Prisma.FieldRef<"Bets", 'Float'>

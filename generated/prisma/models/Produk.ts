@@ -36,6 +36,7 @@ export type ProdukSumAggregateOutputType = {
 
 export type ProdukMinAggregateOutputType = {
   id: number | null
+  organizationId: string | null
   nama_produk: string | null
   kode_produk: string | null
   hasil_produk: string | null
@@ -51,6 +52,7 @@ export type ProdukMinAggregateOutputType = {
 
 export type ProdukMaxAggregateOutputType = {
   id: number | null
+  organizationId: string | null
   nama_produk: string | null
   kode_produk: string | null
   hasil_produk: string | null
@@ -66,6 +68,7 @@ export type ProdukMaxAggregateOutputType = {
 
 export type ProdukCountAggregateOutputType = {
   id: number
+  organizationId: number
   nama_produk: number
   kode_produk: number
   hasil_produk: number
@@ -92,6 +95,7 @@ export type ProdukSumAggregateInputType = {
 
 export type ProdukMinAggregateInputType = {
   id?: true
+  organizationId?: true
   nama_produk?: true
   kode_produk?: true
   hasil_produk?: true
@@ -107,6 +111,7 @@ export type ProdukMinAggregateInputType = {
 
 export type ProdukMaxAggregateInputType = {
   id?: true
+  organizationId?: true
   nama_produk?: true
   kode_produk?: true
   hasil_produk?: true
@@ -122,6 +127,7 @@ export type ProdukMaxAggregateInputType = {
 
 export type ProdukCountAggregateInputType = {
   id?: true
+  organizationId?: true
   nama_produk?: true
   kode_produk?: true
   hasil_produk?: true
@@ -225,6 +231,7 @@ export type ProdukGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type ProdukGroupByOutputType = {
   id: number
+  organizationId: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -264,6 +271,7 @@ export type ProdukWhereInput = {
   OR?: Prisma.ProdukWhereInput[]
   NOT?: Prisma.ProdukWhereInput | Prisma.ProdukWhereInput[]
   id?: Prisma.IntFilter<"Produk"> | number
+  organizationId?: Prisma.StringFilter<"Produk"> | string
   nama_produk?: Prisma.StringFilter<"Produk"> | string
   kode_produk?: Prisma.StringFilter<"Produk"> | string
   hasil_produk?: Prisma.StringFilter<"Produk"> | string
@@ -283,6 +291,7 @@ export type ProdukWhereInput = {
 
 export type ProdukOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nama_produk?: Prisma.SortOrder
   kode_produk?: Prisma.SortOrder
   hasil_produk?: Prisma.SortOrder
@@ -306,6 +315,7 @@ export type ProdukWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ProdukWhereInput | Prisma.ProdukWhereInput[]
   OR?: Prisma.ProdukWhereInput[]
   NOT?: Prisma.ProdukWhereInput | Prisma.ProdukWhereInput[]
+  organizationId?: Prisma.StringFilter<"Produk"> | string
   nama_produk?: Prisma.StringFilter<"Produk"> | string
   hasil_produk?: Prisma.StringFilter<"Produk"> | string
   satuan_produk?: Prisma.StringFilter<"Produk"> | string
@@ -324,6 +334,7 @@ export type ProdukWhereUniqueInput = Prisma.AtLeast<{
 
 export type ProdukOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nama_produk?: Prisma.SortOrder
   kode_produk?: Prisma.SortOrder
   hasil_produk?: Prisma.SortOrder
@@ -348,6 +359,7 @@ export type ProdukScalarWhereWithAggregatesInput = {
   OR?: Prisma.ProdukScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProdukScalarWhereWithAggregatesInput | Prisma.ProdukScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Produk"> | number
+  organizationId?: Prisma.StringWithAggregatesFilter<"Produk"> | string
   nama_produk?: Prisma.StringWithAggregatesFilter<"Produk"> | string
   kode_produk?: Prisma.StringWithAggregatesFilter<"Produk"> | string
   hasil_produk?: Prisma.StringWithAggregatesFilter<"Produk"> | string
@@ -363,6 +375,7 @@ export type ProdukScalarWhereWithAggregatesInput = {
 }
 
 export type ProdukCreateInput = {
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -382,6 +395,7 @@ export type ProdukCreateInput = {
 
 export type ProdukUncheckedCreateInput = {
   id?: number
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -400,6 +414,7 @@ export type ProdukUncheckedCreateInput = {
 }
 
 export type ProdukUpdateInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -419,6 +434,7 @@ export type ProdukUpdateInput = {
 
 export type ProdukUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -438,6 +454,7 @@ export type ProdukUncheckedUpdateInput = {
 
 export type ProdukCreateManyInput = {
   id?: number
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -453,6 +470,7 @@ export type ProdukCreateManyInput = {
 }
 
 export type ProdukUpdateManyMutationInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -469,6 +487,7 @@ export type ProdukUpdateManyMutationInput = {
 
 export type ProdukUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -483,8 +502,17 @@ export type ProdukUncheckedUpdateManyInput = {
   updateAtProduk?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type ProdukCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nama_produk?: Prisma.SortOrder
   kode_produk?: Prisma.SortOrder
   hasil_produk?: Prisma.SortOrder
@@ -505,6 +533,7 @@ export type ProdukAvgOrderByAggregateInput = {
 
 export type ProdukMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nama_produk?: Prisma.SortOrder
   kode_produk?: Prisma.SortOrder
   hasil_produk?: Prisma.SortOrder
@@ -520,6 +549,7 @@ export type ProdukMaxOrderByAggregateInput = {
 
 export type ProdukMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   nama_produk?: Prisma.SortOrder
   kode_produk?: Prisma.SortOrder
   hasil_produk?: Prisma.SortOrder
@@ -546,9 +576,29 @@ export type ProdukCreatefoto_produkInput = {
   set: string[]
 }
 
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type ProdukUpdatefoto_produkInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type ProdukCreateNestedOneWithoutInstruksiInput = {
@@ -594,6 +644,7 @@ export type ProdukUpdateOneRequiredWithoutBetsNestedInput = {
 }
 
 export type ProdukCreateWithoutInstruksiInput = {
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -612,6 +663,7 @@ export type ProdukCreateWithoutInstruksiInput = {
 
 export type ProdukUncheckedCreateWithoutInstruksiInput = {
   id?: number
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -645,6 +697,7 @@ export type ProdukUpdateToOneWithWhereWithoutInstruksiInput = {
 }
 
 export type ProdukUpdateWithoutInstruksiInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -663,6 +716,7 @@ export type ProdukUpdateWithoutInstruksiInput = {
 
 export type ProdukUncheckedUpdateWithoutInstruksiInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -680,6 +734,7 @@ export type ProdukUncheckedUpdateWithoutInstruksiInput = {
 }
 
 export type ProdukCreateWithoutBahanInput = {
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -698,6 +753,7 @@ export type ProdukCreateWithoutBahanInput = {
 
 export type ProdukUncheckedCreateWithoutBahanInput = {
   id?: number
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -731,6 +787,7 @@ export type ProdukUpdateToOneWithWhereWithoutBahanInput = {
 }
 
 export type ProdukUpdateWithoutBahanInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -749,6 +806,7 @@ export type ProdukUpdateWithoutBahanInput = {
 
 export type ProdukUncheckedUpdateWithoutBahanInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -766,6 +824,7 @@ export type ProdukUncheckedUpdateWithoutBahanInput = {
 }
 
 export type ProdukCreateWithoutBetsInput = {
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -784,6 +843,7 @@ export type ProdukCreateWithoutBetsInput = {
 
 export type ProdukUncheckedCreateWithoutBetsInput = {
   id?: number
+  organizationId?: string
   nama_produk: string
   kode_produk: string
   hasil_produk: string
@@ -817,6 +877,7 @@ export type ProdukUpdateToOneWithWhereWithoutBetsInput = {
 }
 
 export type ProdukUpdateWithoutBetsInput = {
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -835,6 +896,7 @@ export type ProdukUpdateWithoutBetsInput = {
 
 export type ProdukUncheckedUpdateWithoutBetsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   nama_produk?: Prisma.StringFieldUpdateOperationsInput | string
   kode_produk?: Prisma.StringFieldUpdateOperationsInput | string
   hasil_produk?: Prisma.StringFieldUpdateOperationsInput | string
@@ -902,6 +964,7 @@ export type ProdukCountOutputTypeCountBetsArgs<ExtArgs extends runtime.Types.Ext
 
 export type ProdukSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  organizationId?: boolean
   nama_produk?: boolean
   kode_produk?: boolean
   hasil_produk?: boolean
@@ -922,6 +985,7 @@ export type ProdukSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 
 export type ProdukSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  organizationId?: boolean
   nama_produk?: boolean
   kode_produk?: boolean
   hasil_produk?: boolean
@@ -938,6 +1002,7 @@ export type ProdukSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type ProdukSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  organizationId?: boolean
   nama_produk?: boolean
   kode_produk?: boolean
   hasil_produk?: boolean
@@ -954,6 +1019,7 @@ export type ProdukSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type ProdukSelectScalar = {
   id?: boolean
+  organizationId?: boolean
   nama_produk?: boolean
   kode_produk?: boolean
   hasil_produk?: boolean
@@ -968,7 +1034,7 @@ export type ProdukSelectScalar = {
   updateAtProduk?: boolean
 }
 
-export type ProdukOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama_produk" | "kode_produk" | "hasil_produk" | "satuan_produk" | "bentuk_produk" | "warna_produk" | "aroma_produk" | "ph_produk" | "homogenitas" | "foto_produk" | "createdAtProduk" | "updateAtProduk", ExtArgs["result"]["produk"]>
+export type ProdukOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "nama_produk" | "kode_produk" | "hasil_produk" | "satuan_produk" | "bentuk_produk" | "warna_produk" | "aroma_produk" | "ph_produk" | "homogenitas" | "foto_produk" | "createdAtProduk" | "updateAtProduk", ExtArgs["result"]["produk"]>
 export type ProdukInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bahan?: boolean | Prisma.Produk$bahanArgs<ExtArgs>
   instruksi?: boolean | Prisma.Produk$instruksiArgs<ExtArgs>
@@ -987,6 +1053,7 @@ export type $ProdukPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    organizationId: string
     nama_produk: string
     kode_produk: string
     hasil_produk: string
@@ -1426,6 +1493,7 @@ export interface Prisma__ProdukClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface ProdukFieldRefs {
   readonly id: Prisma.FieldRef<"Produk", 'Int'>
+  readonly organizationId: Prisma.FieldRef<"Produk", 'String'>
   readonly nama_produk: Prisma.FieldRef<"Produk", 'String'>
   readonly kode_produk: Prisma.FieldRef<"Produk", 'String'>
   readonly hasil_produk: Prisma.FieldRef<"Produk", 'String'>

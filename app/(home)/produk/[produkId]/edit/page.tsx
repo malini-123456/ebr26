@@ -2,6 +2,7 @@ import { editProduk } from "@/app/action/action";
 import PageContainer from "@/components/layout/page-container";
 import FormProduk from "@/features/produk/create";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/dist/client/components/navigation";
 
 export default async function EditProduk({
@@ -12,8 +13,10 @@ export default async function EditProduk({
   const { produkId } = await params
   const id = Number(produkId)
 
-  const produk = await prisma.produk.findUnique({
-    where: { id },
+  const { orgId } = await auth()
+
+  const produk = await prisma.produk.findFirst({
+    where: { id, organizationId: orgId ?? "" },
   });
 
   if (!produk) return notFound();

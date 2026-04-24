@@ -1,8 +1,2 @@
-import { Prisma } from "@/generated/prisma/client";
-
-export type AlatWithIpm = Prisma.AlatGetPayload<{
-  include: {
-    ipm: true;
-    ruangan: true;
-  };
-}>;
+// Alat model removed from schema
+export type AlatWithIpm = Record<string, never>;

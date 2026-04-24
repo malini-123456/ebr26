@@ -9,6 +9,7 @@ datasource db {
 
 model Produk {
   id              Int      @id @default(autoincrement())
+  organizationId  String   @default("")
   nama_produk     String
   kode_produk     String   @unique
   hasil_produk    String
@@ -25,6 +26,8 @@ model Produk {
   bahan     Bahan[]
   instruksi Instruksi[]
   bets      Bets[]
+
+  @@index([organizationId])
 }
 
 model Instruksi {
@@ -49,18 +52,21 @@ model Bahan {
 }
 
 model Bets {
-  id          Int      @id @default(autoincrement())
-  nomor_bets  String   @unique
-  produkId    Int
-  produk      Produk   @relation(fields: [produkId], references: [id])
-  ukuran      Float
-  satuan      String
-  expiredDate DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  organizationId String   @default("")
+  nomor_bets     String   @unique
+  produkId       Int
+  produk         Produk   @relation(fields: [produkId], references: [id])
+  ukuran         Float
+  satuan         String
+  expiredDate    DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   inspectionSession  InspectionSession?
   penimbanganSession PenimbanganSession?
+
+  @@index([organizationId])
 }
 
 model InspectionSession {

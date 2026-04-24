@@ -4,6 +4,44 @@ import path from "path";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { auth, clerkClient } from "@clerk/nextjs/server";
+
+async function requireOrg() {
+  const { orgId } = await auth();
+  if (!orgId) throw new Error("No active organization");
+  return orgId;
+}
+
+///// INVITE MEMBER /////
+
+export async function inviteOrgMember(
+  _prevState: { error?: string; success?: string } | null,
+  formData: FormData
+): Promise<{ error?: string; success?: string }> {
+  const { orgId, userId } = await auth();
+  if (!orgId || !userId) return { error: "Not authenticated" };
+
+  const email = (formData.get("email") as string)?.trim().toLowerCase();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { error: "Enter a valid email address" };
+  }
+
+  try {
+    const client = await clerkClient();
+    await client.organizations.createOrganizationInvitation({
+      organizationId: orgId,
+      emailAddress: email,
+      inviterUserId: userId,
+      role: "org:member",
+      redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/select-org`,
+    });
+    return { success: `Invitation sent to ${email}` };
+  } catch (err: unknown) {
+    const msg =
+      err instanceof Error ? err.message : "Failed to send invitation";
+    return { error: msg };
+  }
+}
 
 ///// PROSES 1 /////
 
@@ -20,6 +58,11 @@ const checklistKeys = [
 ] as const
 
 export async function saveProses1(betsId: number, formData: FormData) {
+  const orgId = await requireOrg();
+
+  const bets = await prisma.bets.findFirst({ where: { id: betsId, organizationId: orgId } });
+  if (!bets) throw new Error("Unauthorized");
+
   const session = await prisma.inspectionSession.upsert({
     where: { betsId },
     update: {},
@@ -55,8 +98,10 @@ export async function saveProses1(betsId: number, formData: FormData) {
 ///// PENIMBANGAN /////
 
 export async function savePenimbangan(betsId: number, formData: FormData) {
-  const bets = await prisma.bets.findUnique({
-    where: { id: betsId },
+  const orgId = await requireOrg();
+
+  const bets = await prisma.bets.findFirst({
+    where: { id: betsId, organizationId: orgId },
     include: { produk: { include: { bahan: true } } },
   })
   if (!bets) throw new Error("Bets not found")
@@ -96,6 +141,8 @@ export async function savePenimbangan(betsId: number, formData: FormData) {
 ///// BETS /////
 
 export async function CreateBets(formData: FormData) {
+  const orgId = await requireOrg();
+
   const nomor_bets = formData.get("nomor_bets") as string;
   const produkId = Number(formData.get("produkId"));
   const ukuran = Number(formData.get("ukuran"));
@@ -104,6 +151,7 @@ export async function CreateBets(formData: FormData) {
 
   await prisma.bets.create({
     data: {
+      organizationId: orgId,
       nomor_bets,
       produkId,
       ukuran,
@@ -117,6 +165,10 @@ export async function CreateBets(formData: FormData) {
 };
 
 export async function deleteBets(id: number) {
+  const orgId = await requireOrg();
+  const bets = await prisma.bets.findFirst({ where: { id, organizationId: orgId } });
+  if (!bets) throw new Error("Unauthorized");
+
   const inspSession = await prisma.inspectionSession.findUnique({ where: { betsId: id } })
   if (inspSession) {
     await prisma.inspectionItem.deleteMany({ where: { sessionId: inspSession.id } })
@@ -132,6 +184,8 @@ export async function deleteBets(id: number) {
 //////// PRODUK /////////
 
 export async function CreateProduk(formData: FormData) {
+  const orgId = await requireOrg();
+
   const nama_produk = formData.get("nama_produk") as string;
   const kode_produk = formData.get("kode_produk") as string;
   const hasil_produk = formData.get("hasil_produk") as string;
@@ -145,6 +199,7 @@ export async function CreateProduk(formData: FormData) {
 
   await prisma.produk.create({
     data: {
+      organizationId: orgId,
       nama_produk,
       kode_produk,
       hasil_produk,
@@ -179,6 +234,10 @@ export async function uploadFoto(formData: FormData): Promise<string[]> {
 }
 
 export async function editProduk(id: number, formData: FormData) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   const nama_produk = formData.get("nama_produk") as string;
   const kode_produk = formData.get("kode_produk") as string;
   const hasil_produk = formData.get("hasil_produk") as string;
@@ -211,6 +270,10 @@ export async function editProduk(id: number, formData: FormData) {
 }
 
 export async function deleteProduk(id: number) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   await prisma.$transaction(async (tx) => {
     const betsList = await tx.bets.findMany({ where: { produkId: id }, select: { id: true } })
     const betsIds = betsList.map((b) => b.id)
@@ -239,6 +302,10 @@ export async function deleteProduk(id: number) {
 ///// BAHAN /////
 
 export async function createBahan(produkId: number, formData: FormData) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id: produkId, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   const nama_bahan = formData.get("nama_bahan") as string;
   const jumlah_bahan = Number(formData.get("jumlah_bahan"));
   const satuan_bahan = formData.get("satuan_bahan") as string;
@@ -252,6 +319,10 @@ export async function createBahan(produkId: number, formData: FormData) {
 }
 
 export async function editBahan(id: number, produkId: number, formData: FormData) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id: produkId, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   const nama_bahan = formData.get("nama_bahan") as string;
   const jumlah_bahan = Number(formData.get("jumlah_bahan"));
   const satuan_bahan = formData.get("satuan_bahan") as string;
@@ -266,6 +337,10 @@ export async function editBahan(id: number, produkId: number, formData: FormData
 }
 
 export async function deleteBahan(id: number, produkId: number) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id: produkId, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   await prisma.bahan.delete({ where: { id } });
   revalidatePath(`/produk/${produkId}`);
 }
@@ -273,6 +348,10 @@ export async function deleteBahan(id: number, produkId: number) {
 ///// INSTRUKSI /////
 
 export async function createInstruksi(produkId: number, formData: FormData) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id: produkId, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   const langkah = formData.get("langkah") as string;
 
   await prisma.instruksi.create({
@@ -284,6 +363,10 @@ export async function createInstruksi(produkId: number, formData: FormData) {
 }
 
 export async function editInstruksi(id: number, produkId: number, formData: FormData) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id: produkId, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   const langkah = formData.get("langkah") as string;
 
   await prisma.instruksi.update({
@@ -296,6 +379,10 @@ export async function editInstruksi(id: number, produkId: number, formData: Form
 }
 
 export async function deleteInstruksi(id: number, produkId: number) {
+  const orgId = await requireOrg();
+  const produk = await prisma.produk.findFirst({ where: { id: produkId, organizationId: orgId } });
+  if (!produk) throw new Error("Unauthorized");
+
   await prisma.instruksi.delete({ where: { id } });
   revalidatePath(`/produk/${produkId}`);
 }
@@ -422,16 +509,7 @@ export async function deleteInstruksi(id: number, produkId: number) {
 
 //   revalidatePath("/dashboard/ipm");
 //   redirect("/dashboard/ipm");
-// };
-
-export async function deleteIpm(id: number) {
-  await prisma.ipm.delete({
-    where: { id },
-  })
-
-  revalidatePath("/dashboard/inventaris")
-}
-
+// }
 // export async function editIpm(ipmId: number, formData: FormData) {
 //   const { userId } = await auth();
 

@@ -3,14 +3,17 @@ import { buttonVariants } from "@/components/ui/button";
 import { ProdukDataTable } from "@/features/produk/tableproduk";
 import { prisma } from "@/lib/prisma";
 import { cn } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function ProdukPage() {
-  const data = await prisma.produk.findMany();
+  const { orgId } = await auth();
 
-  const totalItems = await prisma.produk.count();
+  const data = await prisma.produk.findMany({ where: { organizationId: orgId ?? "" } });
+
+  const totalItems = await prisma.produk.count({ where: { organizationId: orgId ?? "" } });
   return (
     <PageContainer
       scrollable={false}

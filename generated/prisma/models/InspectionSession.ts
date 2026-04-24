@@ -378,6 +378,14 @@ export type InspectionSessionUncheckedUpdateOneWithoutBetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InspectionSessionUpdateToOneWithWhereWithoutBetsInput, Prisma.InspectionSessionUpdateWithoutBetsInput>, Prisma.InspectionSessionUncheckedUpdateWithoutBetsInput>
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type InspectionSessionCreateNestedOneWithoutItemsInput = {
   create?: Prisma.XOR<Prisma.InspectionSessionCreateWithoutItemsInput, Prisma.InspectionSessionUncheckedCreateWithoutItemsInput>
   connectOrCreate?: Prisma.InspectionSessionCreateOrConnectWithoutItemsInput

@@ -28,10 +28,11 @@ import {
   SidebarMenuSubItem,
   SidebarRail
 } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
 import { UserAvatarProfile } from "@/components/user-avatar-profile";
 import { navItems } from "@/config/nav-config";
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { useOrganization, useUser } from '@clerk/nextjs';
+import { useClerk, useOrganization, useUser } from '@clerk/nextjs';
 import { useFilteredNavItems } from "@/hooks/use-nav";
 import {
   IconBell,
@@ -39,12 +40,15 @@ import {
   IconChevronsDown,
   IconCreditCard,
   IconLogout,
-  IconUserCircle
+  IconUserCircle,
+  IconUserPlus
 } from '@tabler/icons-react';
 import { SignOutButton } from '@clerk/nextjs';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
+import { InviteMemberModal } from '@/components/invite-member-modal';
 import { Icons } from "@/components/icons";
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -53,8 +57,10 @@ export default function AppSidebar() {
   const { isOpen } = useMediaQuery();
   const { user } = useUser();
   const { organization } = useOrganization();
+  const { openOrganizationProfile } = useClerk();
   const router = useRouter();
   const filteredItems = useFilteredNavItems(navItems);
+  const [inviteOpen, setInviteOpen] = React.useState(false);
 
   React.useEffect(() => {
     // Side effects based on sidebar state changes
@@ -65,6 +71,36 @@ export default function AppSidebar() {
   return (
     <Sidebar collapsible='icon'>
       <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size='lg' onClick={() => openOrganizationProfile()}>
+              {organization?.imageUrl ? (
+                <Image
+                  src={organization.imageUrl}
+                  alt={organization.name}
+                  width={32}
+                  height={32}
+                  className='rounded-md object-cover shrink-0'
+                />
+              ) : (
+                <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-sm font-bold text-primary-foreground'>
+                  {organization?.name?.[0]?.toUpperCase() ?? '?'}
+                </div>
+              )}
+              <div className='flex flex-col leading-tight'>
+                <span className='truncate font-semibold text-sm'>
+                  {organization?.name ?? 'Organisation'}
+                </span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={() => setInviteOpen(true)} tooltip='Invite member'>
+              <IconUserPlus />
+              <span>Invite member</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>
@@ -202,6 +238,7 @@ export default function AppSidebar() {
         </SidebarMenu>
       </SidebarFooter> */}
       <SidebarRail />
+      <InviteMemberModal open={inviteOpen} onOpenChange={setInviteOpen} />
     </Sidebar>
   );
 }

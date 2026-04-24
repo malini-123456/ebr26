@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Edit2Icon } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 import { ProdukDetail } from "@/features/produk/produk-detail";
 
 export default async function InvPage({
@@ -18,8 +19,10 @@ export default async function InvPage({
     return <div>ID tidak valid</div>;
   }
 
-  const produk = await prisma.produk.findUnique({
-    where: { id },
+  const { orgId } = await auth();
+
+  const produk = await prisma.produk.findFirst({
+    where: { id, organizationId: orgId ?? "" },
     include: {
       bahan: true,
       instruksi: true,
